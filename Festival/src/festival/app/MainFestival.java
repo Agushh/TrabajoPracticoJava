@@ -17,7 +17,6 @@ public class MainFestival {
         ZonaComun centro = new ZonaComun("dx20","centro especial");
     Escenario es=new Escenario("ESC1", "Escenario Norte", 2);
     es.agregarEvento(even);
-    Stand estand = new Stand("Salah",10, EquipoFutbol.LIVERPOOL);
     System.out.println(estand);
     es.agregarEvento(tu);
     System.out.println(patio.equals(centro));
@@ -27,4 +26,3 @@ public class MainFestival {
     }
 
 }
-//LocalDateTime.now()
