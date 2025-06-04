@@ -1,12 +1,5 @@
 package modelo.zonas;
 
-import modelo.enums.EquipoFutbol;
-import modelo.personas.Comerciante;
-import modelo.enums.TipoZona;
-
-import java.util.*;
-import java.util.Objects;
-
 public class Stand {
     private String nombre;
     private int numero;

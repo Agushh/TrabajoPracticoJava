@@ -1,6 +1,7 @@
 package modelo.zonas;
 
 import modelo.enums.TipoZona;
+
 import java.util.Objects;
 
 public abstract class Zona {
