@@ -1,7 +1,6 @@
 package modelo.evento;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 public class Evento {
     private LocalDateTime fechahora;

@@ -1,6 +1,8 @@
 package modelo.zonas;
-import modelo.evento.Evento;
+
 import modelo.enums.TipoZona;
+import modelo.evento.Evento;
+
 import java.util.*;
 
 
