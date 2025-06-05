@@ -41,3 +41,22 @@ public class GestorMovimientos {
         return ocupacionActual;
     }
 }
+
+// en main seria algo como: 
+        ZonaComun patio = new ZonaComun("ZC01", "Patio Central");
+        ZonaRestringida camarines = new ZonaRestringida("ZR01", "Camarines A", 1);
+
+        // Crear personas
+        Asistente ana = new Asistente("P1", "Ana");
+        Artista leo = new Artista("P2", "Leo");
+
+        // Asignar zonas permitidas
+        leo.agregarZonaPermitida(camarines);
+
+        // Crear gestor de movimientos
+        GestorMovimientos gestor = new GestorMovimientos();
+
+        // Simular movimientos
+        System.out.println("Movimientos de Ana:");
+        moverPersona(gestor, ana, patio, 30);      //debería entrar
+        moverPersona(gestor, ana, camarines, 15); // no deberia dejarle
