@@ -4,8 +4,8 @@ import modelo.zonas.Zona;
 
 
 public class Staff extends Persona {
-        public Staff(String id, String nombre) {
-            super(id, nombre);
+        public Staff(String nombre) {
+            super(nombre, 'S');
         }
 
         @Override

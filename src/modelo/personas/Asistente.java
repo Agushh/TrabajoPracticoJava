@@ -5,8 +5,8 @@ import modelo.zonas.Zona;
 
 
 public class Asistente extends Persona{
-    public Asistente(String id, String nombre){
-        super(id,nombre);
+    public Asistente(String nombre){
+        super(nombre,'E');
     }
 
     @Override

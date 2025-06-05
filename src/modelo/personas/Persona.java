@@ -6,14 +6,18 @@ import modelo.zonas.Zona;
 import java.util.*;
 
 public class Persona {
-    protected  String id;
-    protected  String nombre;
-    protected List<Acceso> accesos = new ArrayList<>();
-    protected List<Zona> zonasPermitidas= new ArrayList<>();
+    private static int contP = 0; //Cuento todas las personas que fueron creadas
+    private  String id;
+    private  String nombre;
+    private List<Acceso> accesos; //todo List?
+    protected List<Zona> zonasPermitidas; //todo List? Protected?
 
-    public Persona(String id, String nombre){
-        this.id=id;
+    public Persona(String nombre, char tipo){
+        this.id= tipo + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
         this.nombre=nombre;
+        accesos = new ArrayList<>(); //todo ArrayList?
+        zonasPermitidas= new ArrayList<>(); //todo ArrayList?
+        contP++;
     }
 
     public String getId(){return id;}

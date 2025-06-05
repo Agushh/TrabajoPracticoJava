@@ -3,8 +3,8 @@ package modelo.personas;
 import modelo.zonas.Zona;
 
 public class Artista extends Persona {
-    public Artista(String id, String nombre) {
-        super(id, nombre);
+    public Artista(String nombre) {
+        super(nombre,'A');
     }
 
     @Override

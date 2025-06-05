@@ -1,6 +1,7 @@
 package app;
 
 import Exceptions.GUIException;
+import modelo.Controlador;
 import modelo.zonas.*;
 import modelo.evento.Evento;
 import GUI.CustomJFrame;
@@ -9,6 +10,16 @@ import java.time.LocalDateTime;
 
 public class MainFestival {
     public static void main(String[] args){
+
+        //Genero instancia de controlador
+        Controlador controlador = Controlador.getControllador();
+
+        //Intento agregar personas, si el tipo no coincide muestro el error
+        try {
+            controlador.addPersona("Alejo", "staff");
+        }catch (Exception e){ // todo ESPECIFICAR MEJOR LAS EXCEPCIONES
+            System.out.println(e);
+        }
 
         //creacion de ventana en Swing.
         //CustomJFrame es una clase heredada de JFrame para que los parametros del constructor construyan la ventana a la hora de invocarlo.
