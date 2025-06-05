@@ -14,3 +14,22 @@ public enum TipoPers {
     }
 }
 
+/*
+//comentario facu: Creo que no rompe la programacion estructurada, pero para ahorrarse el switch, tambien puede ser: 
+
+public enum TipoPers {
+    ARTISTA("ART"), ASISTENTE("ASI"), STAFF("STA"), COMERCIANTE("COM");
+
+    private final String codigo;
+
+    TipoPers(String codigo) {
+        this.codigo = codigo;
+    }
+
+    @Override
+    public String toString() {
+        return codigo;
+    }
+}
+
+*/
