@@ -12,10 +12,9 @@ public class Escenario extends ZonaRestringida{ // todo ZONA RESTRINGIDA?
     private List<Evento> eventos;
     private TipoZona tipo;
 
-    public Escenario(String codigo, String descripcion,int capacidadMaxima, TipoZona tipo){
-        super(codigo,descripcion,capacidadMaxima);
+    public Escenario(String descripcion,int capacidadMaxima){
+        super(descripcion,capacidadMaxima);
         this.eventos=new ArrayList<>();
-        this.tipo= tipo;
     }
 
     public void addEvento(Evento e){

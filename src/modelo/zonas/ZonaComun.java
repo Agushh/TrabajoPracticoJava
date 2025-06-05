@@ -3,8 +3,8 @@ package modelo.zonas;
 import modelo.enums.TipoZona;
 
 public class ZonaComun extends Zona{
-    public ZonaComun(String codigo, String descripcion){
-        super(codigo,descripcion, TipoZona.ZONA_COMUN);
+    public ZonaComun(String descripcion){
+        super(descripcion, TipoZona.ZONA_COMUN);
     }
 
     @Override
@@ -18,6 +18,6 @@ public class ZonaComun extends Zona{
             return false;
         }
         ZonaComun a=(ZonaComun) obj;
-        return this.codigo.equals(a.getCodigo()) && a.codigo!=null ;
+        return this.codigo.equals(a.getCod()) && a.codigo!=null ;
     }
 }

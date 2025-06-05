@@ -1,6 +1,7 @@
 package modelo.personas;
 
 import modelo.acceso.Acceso;
+import modelo.enums.TipoPers;
 import modelo.zonas.Zona;
 
 import java.util.*;
@@ -10,14 +11,18 @@ public class Persona {
     private  String id;
     private  String nombre;
     private List<Acceso> accesos; //todo List?
-    protected List<Zona> zonasPermitidas; //todo List? Protected?
+    protected TreeSet<Zona> zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN. Protected?
 
-    public Persona(String nombre, char tipo){
-        this.id= tipo + "-" + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
+    public Persona(String nombre, TipoPers tipo){
+        this.id = this.generateCod(tipo);
         this.nombre=nombre;
         accesos = new ArrayList<>(); //todo ArrayList?
-        zonasPermitidas= new ArrayList<>(); //todo ArrayList?
+        zonasPermitidas= new TreeSet<>(); //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
         contP++;
+    }
+
+    private String generateCod(TipoPers t){
+        return t.toString() + "-" + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
     }
 
     public String getId(){return id;}

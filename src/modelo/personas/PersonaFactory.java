@@ -1,21 +1,22 @@
 package modelo.personas;
 
+import modelo.enums.TipoPers;
 public class PersonaFactory {
 
-    public static Persona crear(String tipo, String nombre) throws IllegalArgumentException {
+    public static Persona crear(TipoPers tipo, String nombre) throws IllegalArgumentException {
         Persona p;
 
         switch(tipo){
-            case "staff":
+            case STAFF:
                 p = new Staff(nombre);
                 break;
-            case "comerciante":
+            case COMERCIANTE:
                 p = new Comerciante(nombre);
                 break;
-            case "asistente":
+            case ASISTENTE:
                 p = new Asistente(nombre);
                 break;
-            case "artista":
+            case ARTISTA:
                 p = new Artista(nombre);
                 break;
             default:

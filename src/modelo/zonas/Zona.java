@@ -1,21 +1,28 @@
 package modelo.zonas;
 
+import modelo.enums.TipoPers;
 import modelo.enums.TipoZona;
 
 import java.util.Objects;
 
 public abstract class Zona {
+    private static int contZ = 0; //Cuento todas las zonas que fueron creadas
     protected String codigo; // todo PROTECTED?
     private String descripcion;
     protected TipoZona tipo; // todo PROTECTED?
 
-    Zona(String codigo, String descripcion, TipoZona tipo){
-        this.codigo=codigo;
+    Zona(String descripcion, TipoZona tipo){
+        this.codigo = this.generateCod(tipo);
         this.descripcion=descripcion;
         this.tipo=tipo;
+        contZ++;
     }
 
-    public String getCodigo() {
+    private String generateCod(TipoZona t){
+        return String.valueOf(t) + "-" + String.format("%04d", contZ); //Genero un Id unico con inforamcion de tipo
+    }
+
+    public String getCod() {
         return codigo;
     }
 

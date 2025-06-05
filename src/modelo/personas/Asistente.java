@@ -1,12 +1,13 @@
 package modelo.personas;
 
+import modelo.enums.TipoPers;
 import modelo.enums.TipoZona;
 import modelo.zonas.Zona;
 
 
 public class Asistente extends Persona{
     public Asistente(String nombre){
-        super(nombre,'E'); // todo CAMBIAR LETRA POR ENUM???
+        super(nombre, TipoPers.ASISTENTE);
     }
 
     @Override

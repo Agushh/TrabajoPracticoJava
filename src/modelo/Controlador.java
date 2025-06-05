@@ -1,8 +1,12 @@
 package modelo;
 
+import modelo.enums.TipoPers;
+import modelo.enums.TipoZona;
 import modelo.personas.*;
 import modelo.zonas.Zona;
 import modelo.zonas.Stand;
+import modelo.zonas.ZonaFactory;
+
 import java.util.TreeMap;
 
 public class Controlador {
@@ -25,15 +29,24 @@ public class Controlador {
     //Get para obtener la unica instancia que existe
     public static Controlador getControllador() {return controlador;}
 
-    //Agrego persona al Map
-    public Persona addPersona(String tipo, String nombre) throws IllegalArgumentException {
+    //Agrego persona al Map //todo TENDRIA QUE HACER UN FACTORY DE BUILDERS PARA SOLUCIONAR TEMA DE LOS PARAMETROS???? RECIBO DIRECTAMENTE LA PERSONA CREADA DESDE LA VISTA, ESTA MAL
+    public Persona addPersona(TipoPers tipo, String nombre) throws IllegalArgumentException {
         //Uso el patron de diseño Factory para mayor claridad
         Persona p = PersonaFactory.crear(tipo, nombre);
         personas.put(p.getId(),p);
-        return p; // todo Me sirve retornarlo para poder usar patron Bilder??
+        return p; // todo Me sirve retornarlo para poder usar patron Builder??
     }
 
-    public void addZonaPermitida(String persCod,Zona zona) throws IllegalArgumentException {
+    //Agrego zona al Map //todo TENDRIA QUE HACER UN FACTORY DE BUILDERS PARA SOLUCIONAR TEMA DE LOS PARAMETROS???? RECIBO DIRECTAMENTE LA PERSONA CREADA DESDE LA VISTA, ESTA MAL
+    public Zona addZona(TipoZona tipo, String descripcion) throws IllegalArgumentException {
+        //Uso el patron de diseño Factory para mayor claridad
+        Zona z = ZonaFactory.crear(tipo, descripcion);
+        zonas.put(z.getCod(),z);
+        return z; // todo Me sirve retornarlo para poder usar patron Builder??
+    }
+
+    //Agrego una zona permitida a una persona con su codigo
+    public void addZonaPermitida(String persCod,Zona zona) throws IllegalArgumentException { //todo tener en cuenta escenario de artista (reescribir el metodo de addZona)
         try{
             Persona p = personas.get(persCod);
             p.addZona(zona);

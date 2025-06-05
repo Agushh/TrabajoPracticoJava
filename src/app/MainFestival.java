@@ -2,6 +2,7 @@ package app;
 
 import Exceptions.GUIException;
 import modelo.Controlador;
+import modelo.enums.TipoPers;
 import modelo.enums.TipoZona;
 import modelo.zonas.*;
 import modelo.evento.Evento;
@@ -17,8 +18,8 @@ public class MainFestival {
 
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
-            controlador.addPersona("comerciante", "Alejo");
-            controlador.addPersona("staff", "Facu");
+            controlador.addPersona(TipoPers.COMERCIANTE, "Alejo");
+            controlador.addPersona(TipoPers.STAFF, "Facu");
         }catch (Exception e){ // todo ESPECIFICAR MEJOR LAS EXCEPCIONES
             System.out.println(e);
         }
@@ -34,9 +35,9 @@ public class MainFestival {
 
         Evento even= new Evento(LocalDateTime.now(),"Calamaro");
         Evento tu= new Evento(LocalDateTime.now(),"coldplay");
-        ZonaComun centro = new ZonaComun("dx20","centro especial");
-        ZonaComun patio = new ZonaComun("dx10","Patio Central");
-        Escenario es=new Escenario("ESC1", "Escenario Norte", 2, TipoZona.ESCENARIO);
+        ZonaComun centro = new ZonaComun("centro especial");
+        ZonaComun patio = new ZonaComun("Patio Central");
+        Escenario es=new Escenario( "Escenario Norte", 2);
         es.addEvento(even);
         //System.out.println(estand);
         es.addEvento(tu);

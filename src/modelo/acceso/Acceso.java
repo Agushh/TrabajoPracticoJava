@@ -35,7 +35,7 @@ public Acceso(Zona zona, LocalDateTime fechahora,int minutos, EstadoAcceso estad
 
     @Override
     public String toString(){
-        return fechahora + " - Zona: " + zona.getCodigo() + " - Estado: " + estado + " - " + minutos + " min";
+        return fechahora + " - Zona: " + zona.getCod() + " - Estado: " + estado + " - " + minutos + " min";
     }
 
 
