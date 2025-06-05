@@ -5,11 +5,11 @@ import modelo.enums.TipoZona;
 import java.util.Objects;
 
 public abstract class Zona {
-protected String codigo;
-protected String descripcion;
-protected TipoZona tipo;
+    protected String codigo; // todo PROTECTED?
+    private String descripcion;
+    protected TipoZona tipo; // todo PROTECTED?
 
-    Zona(String codigo, String descripcion, TipoZona tipo ){
+    Zona(String codigo, String descripcion, TipoZona tipo){
         this.codigo=codigo;
         this.descripcion=descripcion;
         this.tipo=tipo;

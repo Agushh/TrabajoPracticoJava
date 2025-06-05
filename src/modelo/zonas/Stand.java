@@ -10,12 +10,11 @@ public class Stand extends ZonaRestringida{
     private Comerciante responsable;
     private List<String> empleados= new ArrayList<>();
 
-
     public Stand(String codigo, String descripcion, int capacidadMaxima, String ubicacion, Comerciante responsable) {
         super(codigo, descripcion, capacidadMaxima);
-        this.tipo = TipoZona.STAND;
         this.ubicacion = ubicacion;
         this.responsable = responsable;
+        this.tipo = TipoZona.STAND;
     }
 
   public void agregarEmpleado(String nombre){empleados.add(nombre);}

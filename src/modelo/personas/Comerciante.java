@@ -3,8 +3,9 @@ package modelo.personas;
 import modelo.zonas.Zona;
 
 public class Comerciante extends Persona {
+
     public Comerciante(String nombre) {
-        super(nombre, 'C');
+        super(nombre, 'C'); // todo CAMBIAR LETRA POR ENUM???
     }
 
     @Override

@@ -6,20 +6,23 @@ import modelo.evento.Evento;
 import java.util.*;
 
 
-public class Escenario extends ZonaRestringida{
-private List<Evento> eventos;
-public Escenario(String codigo, String descripcion,int capacidadMaxima){
-    super(codigo,descripcion,capacidadMaxima);
-    this.eventos=new ArrayList<>();
-    this.tipo=TipoZona.ESCENARIO;
-}
+public class Escenario extends ZonaRestringida{ // todo ZONA RESTRINGIDA?
+    private int capacidadMaxima;
+    private static int cantActualPers = 0;
+    private List<Evento> eventos;
+    private TipoZona tipo;
 
-public void agregarEvento(Evento e){
-    eventos.add(e);
-}
+    public Escenario(String codigo, String descripcion,int capacidadMaxima, TipoZona tipo){
+        super(codigo,descripcion,capacidadMaxima);
+        this.eventos=new ArrayList<>();
+        this.tipo= tipo;
+    }
 
-public List<Evento> getEventos(){
-    return eventos;
-}
+    public void addEvento(Evento e){
+        eventos.add(e);
+    }
 
+    public List<Evento> getEventos(){
+        return eventos;
+    }
 }

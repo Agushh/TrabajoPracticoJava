@@ -13,7 +13,7 @@ public class Persona {
     protected List<Zona> zonasPermitidas; //todo List? Protected?
 
     public Persona(String nombre, char tipo){
-        this.id= tipo + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
+        this.id= tipo + "-" + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
         this.nombre=nombre;
         accesos = new ArrayList<>(); //todo ArrayList?
         zonasPermitidas= new ArrayList<>(); //todo ArrayList?
@@ -21,10 +21,18 @@ public class Persona {
     }
 
     public String getId(){return id;}
+
     public String getNombre(){return nombre;}
+
     public List<Acceso> getAccesos(){return  accesos;}
-    public void agregarZonaPermitira(Zona z){zonasPermitidas.add(z);}
+
+    public void addZona(Zona z){zonasPermitidas.add(z);}
+
     public boolean puedeAcceder(Zona z){
         return true; // se referine despues
+    }
+
+    public String toString(){
+        return ("ID: " + this.id + ", Nombre: " + this.nombre);
     }
 }

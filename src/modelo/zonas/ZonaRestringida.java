@@ -2,7 +2,8 @@ package modelo.zonas;
 import modelo.enums.TipoZona;
 
 public class ZonaRestringida extends Zona{
-    protected int capacidadMaxima;
+    private int capacidadMaxima;
+    private static int cantActualPers = 0;
 
     public ZonaRestringida(String codigo, String descripcion, int capacidadMaxima){
         super(codigo,descripcion,TipoZona.ZONA_RESTRINGIDA);

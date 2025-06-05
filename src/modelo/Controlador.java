@@ -25,35 +25,27 @@ public class Controlador {
     //Get para obtener la unica instancia que existe
     public static Controlador getControllador() {return controlador;}
 
-    public void addPersona(String nombre, String tipo) throws IllegalArgumentException {
-        //todo PATRON DE DISEÑO BUILDER???????????
-        Persona p;
-
-        // Creo persona segun su tipo todo (SEGURO MEJORABLE CON PATRON BUILDER)
-        switch(tipo){
-            case "staff":
-                p = new Staff(nombre);
-                break;
-            case "comerciante":
-                p = new Comerciante(nombre);
-                break;
-            case "asistente":
-                p = new Asistente(nombre);
-                break;
-            case "artista":
-                p = new Artista(nombre);
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de persona inválido: " + tipo);
-        }
-
-        //Meto la persona en el Map con su id como clave
+    //Agrego persona al Map
+    public Persona addPersona(String tipo, String nombre) throws IllegalArgumentException {
+        //Uso el patron de diseño Factory para mayor claridad
+        Persona p = PersonaFactory.crear(tipo, nombre);
         personas.put(p.getId(),p);
+        return p; // todo Me sirve retornarlo para poder usar patron Bilder??
+    }
+
+    public void addZonaPermitida(String persCod,Zona zona) throws IllegalArgumentException {
+        try{
+            Persona p = personas.get(persCod);
+            p.addZona(zona);
+            personas.put(p.getId(),p);
+        }catch (Exception e){
+            throw new IllegalArgumentException("Codigo de persona no encontrado: " + persCod);
+        }
     }
 
     public void mostrarPersonas(){
         personas.forEach((id,persona)->{
-            System.out.println(id + " :" + persona.getNombre());
+            System.out.println(persona.toString());
         });
     }
 }

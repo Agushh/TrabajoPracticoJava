@@ -6,7 +6,7 @@ import modelo.zonas.Zona;
 
 public class Asistente extends Persona{
     public Asistente(String nombre){
-        super(nombre,'E');
+        super(nombre,'E'); // todo CAMBIAR LETRA POR ENUM???
     }
 
     @Override
