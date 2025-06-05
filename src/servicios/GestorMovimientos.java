@@ -58,5 +58,13 @@ public class GestorMovimientos {
 
         // Simular movimientos
         System.out.println("Movimientos de Ana:");
-        moverPersona(gestor, ana, patio, 30);      //debería entrar
-        moverPersona(gestor, ana, camarines, 15); // no deberia dejarle
+        moverYMostrarResultado(gestor, ana, patio, 30);      //debería entrar
+        moverYMostrarResultado(gestor, ana, camarines, 15); // no deberia dejarle
+
+public static void moverYMostrarResultado(GestorMovimientos gestor, Persona persona, Zona zona, int minutos) {
+        boolean ok = gestor.moverPersona(persona, zona, minutos);
+        System.out.printf("→ %s intenta entrar a %s... %s\n",
+                persona.getNombre(),
+                zona.getDescripcion(),
+                ok ? "✔ AUTORIZADO" : "✘ DENEGADO");
+    }
