@@ -1,4 +1,4 @@
-package servicios;
+/*package servicios;
 
 import modelo.acceso.Acceso;
 import modelo.enums.EstadoAcceso;
@@ -68,3 +68,4 @@ public static void moverYMostrarResultado(GestorMovimientos gestor, Persona pers
                 zona.getDescripcion(),
                 ok ? "✔ AUTORIZADO" : "✘ DENEGADO");
     }
+*/

@@ -31,8 +31,15 @@ public class MainFestival {
         CustomJFrame window = new CustomJFrame("hola", 300, 300, 100, 100, true);
 
         //metodo para añadir texto / label
-        window.addLabel("text");
+       // window.addLabel("text");
+        //gui
+        window.addboton("Muestra persona",e->window.abrir_panel_personas());
+        window.addboton("Mover persona",e -> window.abri_panel_mover());
+        window.addboton("Reporte de stands",e ->window.abrir_panle_stands());
+        window.addboton("Reporte de zonas",e -> window.abri_panel_zonas());
 
+        //esto dsp lo sacamos del main en una funcion carga gui
+        //fin gui
         Evento even= new Evento(LocalDateTime.now(),"Calamaro");
         Evento tu= new Evento(LocalDateTime.now(),"coldplay");
         ZonaComun centro = new ZonaComun("centro especial");
