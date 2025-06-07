@@ -23,4 +23,5 @@ public class Escenario extends ZonaRestringida{ // todo ZONA RESTRINGIDA?
     public List<Evento> getEventos(){
         return eventos;
     }
+
 }

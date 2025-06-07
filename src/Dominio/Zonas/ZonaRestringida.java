@@ -20,6 +20,4 @@ public class ZonaRestringida extends Zona{
     return capacidadMaxima;
     }
 
-
-
 }

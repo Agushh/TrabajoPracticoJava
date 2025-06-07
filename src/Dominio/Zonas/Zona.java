@@ -60,4 +60,8 @@ public abstract class Zona {
         System.out.println(this.toString());
     }
 
+    public boolean estaLlena(){ // todo esto no tiene que estar aca tiene que estar solo en zonas con capacidad, creo que hay que crear una interfaz
+        return false;
+    }
+
 }
