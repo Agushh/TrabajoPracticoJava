@@ -10,6 +10,11 @@ public class ZonaRestringida extends Zona{
         this.capacidadMaxima=capacidadMaxima;
     }
 
+    public ZonaRestringida(String descripcion, int capacidadMaxima, TipoZona tipo){
+        super(descripcion,tipo);
+        this.capacidadMaxima=capacidadMaxima;
+    }
+
     @Override
     public int getCapacidadMaxima(){
     return capacidadMaxima;

@@ -10,17 +10,23 @@ public class MainFestival {
     public static void main(String[] args){
 
         //Genero instancia de controlador
-        Controlador controlador = Controlador.getControllador();
+        Controlador controlador = Controlador.getControlador();
 
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
-            controlador.addPersona(TipoPers.COMERCIANTE, "Alejo");
-            controlador.addPersona(TipoPers.STAFF, "Facu");
+            controlador
+                    .persona()
+                    .add(TipoPers.COMERCIANTE, "Alejo");
+            controlador
+                    .persona()
+                    .add(TipoPers.STAFF, "Facu");
         }catch (Exception e){ // todo ESPECIFICAR MEJOR LAS EXCEPCIONES
             System.out.println(e);
         }
 
-        controlador.mostrarPersonas();
+        controlador
+                .persona()
+                .mostrarTodas();
 
         //creacion de ventana en Swing.
         //CustomJFrame es una clase heredada de JFrame para que los parametros del constructor construyan la ventana a la hora de invocarlo.
@@ -41,9 +47,7 @@ public class MainFestival {
         ZonaComun centro = new ZonaComun("centro especial");
         ZonaComun patio = new ZonaComun("Patio Central");
         Escenario es=new Escenario( "Escenario Norte", 2);
-        es.addEvento(even);
         //System.out.println(estand);
-        es.addEvento(tu);
         System.out.println(patio.equals(centro));
         System.out.println(patio);
         System.out.println("\n");

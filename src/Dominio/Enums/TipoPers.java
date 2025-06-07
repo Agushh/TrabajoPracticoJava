@@ -3,7 +3,7 @@ package Dominio.Enums;
 public enum TipoPers {
     ARTISTA, ASISTENTE, STAFF, COMERCIANTE;
 
-    public String toString() { //todo ROMPO LA PROGRAMACION ESTRUCTURADA?
+    public String trunc() { //todo ROMPO LA PROGRAMACION ESTRUCTURADA?
         switch(this) {
             case ARTISTA: return "ART";
             case ASISTENTE: return "ASI";

@@ -3,11 +3,11 @@ package Dominio.Enums;
 public enum TipoZona {
     ESCENARIO, ZONA_COMUN, ZONA_RESTRINGIDA, STAND;
 
-    public String toString() { //todo ROMPO LA PROGRAMACION ESTRUCTURADA?
+    public String trunc() { //todo ROMPO LA PROGRAMACION ESTRUCTURADA?
         switch(this) {
             case ESCENARIO: return "ESC";
-            case ZONA_COMUN: return "COM";
-            case ZONA_RESTRINGIDA: return "RES";
+            case ZONA_COMUN: return "ZCO";
+            case ZONA_RESTRINGIDA: return "ZRE";
             case STAND: return "STA";
             default: return "";
         }

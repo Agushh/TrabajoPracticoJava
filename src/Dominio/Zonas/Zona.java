@@ -8,7 +8,7 @@ public abstract class Zona {
     private static int contZ = 0; //Cuento todas las zonas que fueron creadas
     protected String codigo; // todo PROTECTED?
     private String descripcion;
-    protected TipoZona tipo; // todo PROTECTED?
+    private TipoZona tipo;
 
     // todo Hago PRIVATE CONSTRUCTOR PARA SOLO PODER CREAR A PARTIR DE FACTORY?? Y AGREGO FACTORY ACA??? COMO HAGO??
     Zona(String descripcion, TipoZona tipo){
@@ -19,7 +19,7 @@ public abstract class Zona {
     }
 
     private String generateCod(TipoZona t){
-        return String.valueOf(t) + "-" + String.format("%04d", contZ); //Genero un Id unico con inforamcion de tipo
+        return t.trunc() + "-" + String.format("%04d", contZ); //Genero un Id unico con inforamcion de tipo
     }
 
     public String getCod() {
@@ -56,6 +56,8 @@ public abstract class Zona {
         return Objects.hash(codigo);
     }
 
-
+    public void mostrar(){
+        System.out.println(this.toString());
+    }
 
 }

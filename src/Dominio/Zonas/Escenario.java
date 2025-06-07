@@ -2,9 +2,8 @@ package Dominio.Zonas;
 
 import Dominio.Enums.TipoZona;
 import Dominio.Zonas.Datos.Evento;
-
+import java.time.LocalDateTime;
 import java.util.*;
-
 
 public class Escenario extends ZonaRestringida{ // todo ZONA RESTRINGIDA?
     private int capacidadMaxima;
@@ -17,8 +16,8 @@ public class Escenario extends ZonaRestringida{ // todo ZONA RESTRINGIDA?
         this.eventos=new ArrayList<>();
     }
 
-    public void addEvento(Evento e){
-        eventos.add(e);
+    public void addEvento(LocalDateTime fecha, String artista){
+        eventos.add(new Evento(fecha,artista));
     }
 
     public List<Evento> getEventos(){

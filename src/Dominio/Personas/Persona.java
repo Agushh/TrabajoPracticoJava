@@ -22,7 +22,7 @@ public class Persona {
     }
 
     private String generateCod(TipoPers t){
-        return t.toString() + "-" + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
+        return t.trunc() + "-" + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
     }
 
     public String getId(){return id;}
@@ -39,5 +39,9 @@ public class Persona {
 
     public String toString(){
         return ("ID: " + this.id + ", Nombre: " + this.nombre);
+    }
+
+    public void mostrar(){
+        System.out.println(this.toString());
     }
 }
