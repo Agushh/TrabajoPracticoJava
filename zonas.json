@@ -1,0 +1,12 @@
+[
+  { "tipo": "ZONA_COMUN", "codigo": "ZC01", "descripcion": "Patio Central" },
+  { "tipo": "ESCENARIO", "codigo": "ESC1", "descripcion": "Escenario Norte", "capacidadMaxima": 500 },
+  { "tipo": "ZONA_RESTRINGIDA", "codigo": "ZR01", "descripcion": "Backstage", "capacidadMaxima": 30 },
+  {
+    "tipo": "STAND", "codigo": "ST01", "descripcion": "Puesto de Comida",
+    "capacidadMaxima": 5,
+    "ubicacion": "ZC01",
+    "responsable": { "tipo": "COMERCIANTE", "nombre": "Juan" },
+    "empleados": ["María", "Carlos"]
+  }
+]

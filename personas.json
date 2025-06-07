@@ -1,0 +1,6 @@
+[
+  { "tipo": "ASISTENTE", "nombre": "Ana" },
+  { "tipo": "ARTISTA", "nombre": "Leo" },
+  { "tipo": "COMERCIANTE", "nombre": "Juan" },
+  { "tipo": "STAFF", "nombre": "Lucía" }
+]

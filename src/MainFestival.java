@@ -3,12 +3,12 @@ import Dominio.Enums.TipoPers;
 import Dominio.Zonas.*;
 import Dominio.Zonas.Datos.Evento;
 import Vista.CustomJFrame;
-
+import Inicializador.CargaInicial;
+import Dominio.Personas.*;
 import java.time.LocalDateTime;
 
 public class MainFestival {
     public static void main(String[] args){
-
         //Genero instancia de controlador
         Controlador controlador = Controlador.getControlador();
 
@@ -40,18 +40,31 @@ public class MainFestival {
         window.addboton("Reporte de stands",e ->window.abrir_panle_stands());
         window.addboton("Reporte de zonas",e -> window.abri_panel_zonas());
 
-        //esto dsp lo sacamos del main en una funcion carga gui
-        //fin gui
-        Evento even= new Evento(LocalDateTime.now(),"Calamaro");
-        Evento tu= new Evento(LocalDateTime.now(),"coldplay");
-        ZonaComun centro = new ZonaComun("centro especial");
-        ZonaComun patio = new ZonaComun("Patio Central");
-        Escenario es=new Escenario( "Escenario Norte", 2);
-        //System.out.println(estand);
-        System.out.println(patio.equals(centro));
-        System.out.println(patio);
-        System.out.println("\n");
-        System.out.println(es.getEventos());
+
+/*
+        // Inicializamos los datos desde JSON
+        CargaInicial.inicializarDesdeJson();
+
+        // Obtenemos la instancia única del controlador
+        Controlador c = Controlador.getControlador();
+
+        // Recorremos y mostramos las personas cargadas
+        System.out.println("Personas cargadas:");
+        for (Persona p : c.getPersonas().values()) {
+            System.out.println("- " + p.getClass().getSimpleName() + ": " + p.getNombre() + " (ID: " + p.getId() + ")");
+        }
+
+        // Recorremos y mostramos las zonas cargadas
+        System.out.println("\nZonas cargadas:");
+        for (Zona z : c.getZonas().values()) {
+            System.out.println("- " + z.getClass().getSimpleName() + ": " + z.getCod() + " - " + z.getDescripcion());
+        }
+
+        // Mostrar cantidad total
+        System.out.println("\nTotal personas: " + c.getPersonas().size());
+        System.out.println("Total zonas: " + c.getZonas().size());
+*/
+
     }
 
 }
