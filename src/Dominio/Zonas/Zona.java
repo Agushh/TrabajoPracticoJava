@@ -4,22 +4,19 @@ import Dominio.Enums.TipoZona;
 
 import java.util.Objects;
 
-public abstract class Zona {
+public abstract class Zona implements Comparable{
     private static int contZ = 0; //Cuento todas las zonas que fueron creadas
-    protected String codigo; // todo PROTECTED?
+    private String codigo; // todo PROTECTED? ///Private, acceder con GetCod
     private String descripcion;
     private TipoZona tipo;
+    private int concurrencia; ///cantidad de personas. Se utiliza en todas las zonas.
 
     // todo Hago PRIVATE CONSTRUCTOR PARA SOLO PODER CREAR A PARTIR DE FACTORY?? Y AGREGO FACTORY ACA??? COMO HAGO??
     Zona(String descripcion, TipoZona tipo){
-        this.codigo = this.generateCod(tipo);
+        this.codigo = tipo.trunc() + "-" + String.format("%04d", contZ++); ;
         this.descripcion=descripcion;
         this.tipo=tipo;
-        contZ++;
-    }
-
-    private String generateCod(TipoZona t){
-        return t.trunc() + "-" + String.format("%04d", contZ); //Genero un Id unico con inforamcion de tipo
+        concurrencia = 0;
     }
 
     public String getCod() {
@@ -34,21 +31,33 @@ public abstract class Zona {
         return tipo;
     }
 
+    public int getConcurrencia()
+    {
+        return concurrencia;
+    }
 
     public abstract int getCapacidadMaxima();
+
+    public void ponePersona()
+    {
+        concurrencia ++;
+    }
+
+    public void sacaPersona()
+    {
+        concurrencia --;
+    }
 
     @Override
     public String toString() {
         return "[" + tipo + "] " + codigo + ": " + descripcion;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Zona zona = (Zona) o;
-        return codigo.equals(zona.codigo);
+        if (o == null) return false;
+        else if (o == this) return true;
+        else return codigo.equals(((Zona) o).getCod());
     }
 
     @Override
@@ -56,12 +65,20 @@ public abstract class Zona {
         return Objects.hash(codigo);
     }
 
+    /// Funcion para el TreeSet de Zonas en Persona. Se usa para ordenar los elementos de forma automatica.
+    @Override
+    public int compareTo(Object o) {
+        return codigo.compareTo(((Zona) o).codigo);
+    }
+
     public void mostrar(){
         System.out.println(this.toString());
     }
 
+
+    /*
     public boolean estaLlena(){ // todo esto no tiene que estar aca tiene que estar solo en zonas con capacidad, creo que hay que crear una interfaz
         return false;
     }
-
+    */
 }

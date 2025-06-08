@@ -1,28 +1,26 @@
 package Dominio.Personas;
 
+import Dominio.Enums.TipoZona;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Enums.TipoPers;
 import Dominio.Zonas.Zona;
 
 import java.util.*;
 
-public class Persona {
+public abstract class Persona {
     private static int contP = 0; //Cuento todas las personas que fueron creadas
     private  String id;
     private  String nombre;
-    private List<Acceso> accesos; //todo List?
-    protected TreeSet<Zona> zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN. Protected?
+    private final List<Acceso> accesos = new ArrayList<>(); //todo List?
+    private TreeSet<Zona> zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN. Protected?
+    private Zona zonaActual;
 
-    public Persona(String nombre, TipoPers tipo){
-        this.id = this.generateCod(tipo);
+
+    public Persona(String nombre, TipoPers tipo, Zona zonaActual){
+        id = tipo.trunc() + "-" + String.format("%04d", contP++); /*genera id unico*/ /// suprimi la funcion generateCod, y lo incorpore en linea.
         this.nombre=nombre;
-        accesos = new ArrayList<>(); //todo ArrayList?
         zonasPermitidas= new TreeSet<>(); //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
-        contP++;
-    }
-
-    private String generateCod(TipoPers t){
-        return t.trunc() + "-" + String.format("%04d", contP); //Genero un Id unico con inforamcion de tipo
+        this.zonaActual = zonaActual;
     }
 
     public String getId(){return id;}
@@ -31,17 +29,41 @@ public class Persona {
 
     public List<Acceso> getAccesos(){return  accesos;}
 
+    public TreeSet<Zona> getZonasPermitidas() {
+        return zonasPermitidas;
+    }
+
+    public Zona getZonaActual() {
+        return zonaActual;
+    }
+
+    public void setZonaActual(Zona zonaActual) {
+        this.zonaActual = zonaActual;
+    }
+
     public void addZona(Zona z){zonasPermitidas.add(z);}
 
-    public boolean puedeAcceder(Zona z){
-        return true; // todo se redefine despues
+    public void addAcceso(Acceso a) {accesos.add(a);}
+
+    public abstract boolean puedeAcceder(Zona z);
+
+    public String toString(){return ("ID: " + this.id + ", Nombre: " + this.nombre);}
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(obj instanceof Persona p) return id.equals(p.id);
+        else return false;
     }
 
-    public String toString(){
-        return ("ID: " + this.id + ", Nombre: " + this.nombre);
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
+    ///El ToString() cumple la misma funcion
     public void mostrar(){
         System.out.println(this.toString());
     }
+
 }

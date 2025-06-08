@@ -5,8 +5,8 @@ import Dominio.Zonas.Zona;
 
 
 public class Staff extends Persona {
-        public Staff(String nombre) {
-            super(nombre, TipoPers.STAFF);
+        public Staff(String nombre, Zona zonaActual) {
+            super(nombre, TipoPers.STAFF, zonaActual);
         }
 
         @Override
