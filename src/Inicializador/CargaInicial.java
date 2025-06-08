@@ -1,4 +1,4 @@
-/*package Inicializador;
+package Inicializador;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -65,5 +65,3 @@ public class CargaInicial {
         }
     }
 }
-
-*/

@@ -1,4 +1,4 @@
-/*
+
 package Util;
 
 import com.google.gson.*;
@@ -18,7 +18,7 @@ import java.util.Map;
  *     RuntimeTypeAdapterFactory.of(Animal.class, "type")
  *         .registerSubtype(Dog.class, "dog")
  *         .registerSubtype(Cat.class, "cat");
-
+*/
 public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     private final Class<?> baseType;
     private final String typeFieldName;
@@ -134,4 +134,3 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         }.nullSafe();
     }
 }
-*/
