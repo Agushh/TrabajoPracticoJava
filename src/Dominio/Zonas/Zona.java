@@ -4,22 +4,18 @@ import Dominio.Enums.TipoZona;
 
 import java.util.Objects;
 
-public abstract class Zona {
+public abstract class Zona implements Comparable{
     private static int contZ = 0; //Cuento todas las zonas que fueron creadas
-    protected String codigo; // todo PROTECTED?
+    private String codigo; // todo PROTECTED? ///Private, acceder con GetCod
     private String descripcion;
     private TipoZona tipo;
 
     // todo Hago PRIVATE CONSTRUCTOR PARA SOLO PODER CREAR A PARTIR DE FACTORY?? Y AGREGO FACTORY ACA??? COMO HAGO??
     Zona(String descripcion, TipoZona tipo){
-        this.codigo = this.generateCod(tipo);
+        this.codigo = tipo.trunc() + "-" + String.format("%04d", contZ); ;
         this.descripcion=descripcion;
         this.tipo=tipo;
         contZ++;
-    }
-
-    private String generateCod(TipoZona t){
-        return t.trunc() + "-" + String.format("%04d", contZ); //Genero un Id unico con inforamcion de tipo
     }
 
     public String getCod() {
@@ -45,15 +41,20 @@ public abstract class Zona {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Zona zona = (Zona) o;
-        return codigo.equals(zona.codigo);
+        if (o == null) return false; /// Borre, no hace falta comprobar la clase porque está dentro del código de zona
+        else if (o == this) return true;
+        else return codigo.equals(((Zona) o).getCod());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+    /// Funcion para el TreeSet de Zonas en Persona. De esta forma funcionara.
+    @Override
+    public int compareTo(Object o) {
+        return codigo.compareTo(((Zona) o).codigo);
     }
 
     public void mostrar(){
