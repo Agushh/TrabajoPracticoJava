@@ -7,7 +7,6 @@ import java.util.*;
 
 public class Escenario extends ZonaRestringida{ // todo ZONA RESTRINGIDA?
     private int capacidadMaxima;
-    private static int cantActualPers = 0;
     private List<Evento> eventos;
     private TipoZona tipo;
 
