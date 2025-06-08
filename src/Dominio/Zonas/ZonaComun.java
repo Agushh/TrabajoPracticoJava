@@ -14,10 +14,9 @@ public class ZonaComun extends Zona{
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof ZonaComun)){
-            return false;
+        if(obj instanceof ZonaComun zc){
+            return zc.getCod()!=null && getCod().equals((zc.getCod()));
         }
-        ZonaComun a=(ZonaComun) obj;
-        return this.codigo.equals(a.getCod()) && a.codigo!=null ;
+        return  false;
     }
 }

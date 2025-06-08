@@ -3,7 +3,7 @@ import Dominio.Enums.TipoZona;
 
 public class ZonaRestringida extends Zona{
     private int capacidadMaxima;
-    private static int cantActualPers = 0;
+    //private static int cantActualPers = 0; //Concurrencia.
 
     public ZonaRestringida(String descripcion, int capacidadMaxima){
         super(descripcion,TipoZona.ZONA_RESTRINGIDA);
@@ -13,6 +13,11 @@ public class ZonaRestringida extends Zona{
     public ZonaRestringida(String descripcion, int capacidadMaxima, TipoZona tipo){
         super(descripcion,tipo);
         this.capacidadMaxima=capacidadMaxima;
+    }
+
+    public int getCapacidad()
+    {
+        return capacidadMaxima - getConcurrencia();
     }
 
     @Override

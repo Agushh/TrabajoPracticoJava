@@ -5,8 +5,8 @@ import Dominio.Zonas.Zona;
 
 public class Artista extends Persona {
 
-    public Artista(String nombre) {
-        super(nombre, TipoPers.ARTISTA);
+    public Artista(String nombre, Zona zonaActual) {
+        super(nombre, TipoPers.ARTISTA, zonaActual);
     }
 
     public void addZona(Zona z){
@@ -15,6 +15,6 @@ public class Artista extends Persona {
 
     @Override
     public boolean puedeAcceder(Zona z) {
-        return zonasPermitidas.contains(z);
+        return getZonasPermitidas().contains(z);
     }
 }

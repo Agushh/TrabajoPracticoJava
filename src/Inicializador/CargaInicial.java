@@ -33,7 +33,7 @@ public class CargaInicial {
                 String nombre = entrada.get("nombre");
 
                 TipoPers tipo = TipoPers.valueOf(tipoStr);
-                Persona p = PersonaFactory.crear(tipo, nombre);
+                Persona p = PersonaFactory.crear(tipo, nombre); ///falta agregar la zona donde se encuentra la persona.
                 mapa.put(p.getId(), p);
             }
         } catch (IOException e) {
@@ -65,4 +65,3 @@ public class CargaInicial {
         }
     }
 }
-

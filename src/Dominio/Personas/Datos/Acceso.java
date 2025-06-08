@@ -5,6 +5,7 @@ import Dominio.Enums.EstadoAcceso;
 import Dominio.Zonas.Zona;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Acceso {
 private Zona zona;
@@ -18,30 +19,42 @@ public Acceso(Zona zona, LocalDateTime fechahora,int minutos, EstadoAcceso estad
     this.minutos=minutos;
     this.estado=estado;
 }
+public Acceso(Zona zona){
+    this.zona = zona;
+}
+//Constructor generico para comparacion a la hora de hacer una busqueda en Persona
 
+    /// Getters
     public Zona getZona() {
         return zona;
     }
-
 
     public LocalDateTime getFechahora() {
         return fechahora;
     }
 
-
     public int getMinutos() {
         return minutos;
     }
-
-    @Override
-    public String toString(){
-        return fechahora + " - Zona: " + zona.getCod() + " - Estado: " + estado + " - " + minutos + " min";
-    }
-
 
     public EstadoAcceso getEstado() {
         return estado;
     }
 
 
+    @Override
+    public String toString(){
+        return fechahora + " - Zona: " + zona.getCod() + " - Estado: " + estado + " - " + minutos + " min";
+    }
+
+    /// Fecha de ingreso + Zona => Clave primaria
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        return obj instanceof Acceso ac && ac.zona.equals(zona) && ac.fechahora.equals(fechahora);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(zona, fechahora);
+    }
 }
