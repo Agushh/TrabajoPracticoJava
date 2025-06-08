@@ -22,6 +22,7 @@ public Acceso(Zona zona, LocalDateTime fechahora,int minutos, EstadoAcceso estad
 public Acceso(Zona zona){
     this.zona = zona;
 }
+//Constructor generico para comparacion a la hora de hacer una busqueda en Persona
 
     /// Getters
     public Zona getZona() {

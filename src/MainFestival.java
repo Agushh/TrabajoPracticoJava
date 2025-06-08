@@ -1,9 +1,11 @@
 import Controlador.Controlador;
 import Dominio.Enums.TipoPers;
+import Dominio.Enums.TipoZona;
+import Dominio.Factory.ZonaFactory;
 import Dominio.Zonas.*;
 import Dominio.Zonas.Datos.Evento;
 import Vista.CustomJFrame;
-import Inicializador.CargaInicial;
+// import Inicializador.CargaInicial;
 import Dominio.Personas.*;
 import java.time.LocalDateTime;
 
@@ -12,14 +14,16 @@ public class MainFestival {
         //Genero instancia de controlador
         Controlador controlador = Controlador.getControlador();
 
+        Zona zc1 = ZonaFactory.crear(TipoZona.ZONA_COMUN, "Zona Comun N1");
+
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
             controlador
                     .persona()
-                    .add(TipoPers.COMERCIANTE, "Alejo");
+                    .add(TipoPers.COMERCIANTE, "Alejo", zc1);
             controlador
                     .persona()
-                    .add(TipoPers.STAFF, "Facu");
+                    .add(TipoPers.STAFF, "Facu", zc1);
         }catch (Exception e){ // todo ESPECIFICAR MEJOR LAS EXCEPCIONES
             System.out.println(e);
         }

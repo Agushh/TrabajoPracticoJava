@@ -4,9 +4,9 @@ import Dominio.Enums.EstadoAcceso;
 import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
+import Dominio.Zonas.Interface.Capado;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 public class MovimientosLogica {
 
@@ -15,19 +15,27 @@ public class MovimientosLogica {
 
     public boolean moverPersona(Persona persona, Zona zonaDestino, int minutos) {
         if(persona.puedeAcceder(zonaDestino)){ // revisa si esta autorizado
-            if((zonaDestino instanceof Escenario || zonaDestino instanceof ZonaRestringida) && zonaDestino.estaLlena()) { // todo INTERFAZ PARA ZONAS CON CAPACIDAD CON METODO ESTALLENA????
-                    //persona.addAcceso();
-                    return false;
+            if(zonaDestino instanceof Capado Es && Es.getCapacidad() == 0) {
+                persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
+                return false;
             }
-            //zonaDestino.nuevoIngreso;
-            //persona.addAcceso();
-            return true;
+            else {
+                zonaDestino.ponePersona();
+                persona.getZonaActual().sacaPersona();
+                persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now().plusMinutes(minutos), minutos, EstadoAcceso.AUTORIZADO));
+                /// zona actual o zonaDestino? rariiii . no entiendo :D
+
+                /// pienso en accesos como un registro que al cambiar de zona, se registra cuanto tiempo estuvo. Tambien estaria bien verlo como
+                /// un registro que indica cuanto tiempo estuvo en la zona en la cual se ingresa, pero no seria un cambio de zona, sino mas bien
+                /// un registro atemporal de la zona en la que estuvo la persona
+                /// nada, compliqueti
+
+                persona.setZonaActual(zonaDestino);
+                return true;
+            }
         }
-        //persona.addAcceso();
+        persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
         return false;
-
-
-
 
         //int ocupacion = ocupacionActual.getOrDefault(zonaDestino, 0); // devuelve el valor asociado a la clave, si existe en el mapa.
         //boolean tieneLugar = ocupacion < zonaDestino.getCapacidadMaxima(); // revisa que haya lugar

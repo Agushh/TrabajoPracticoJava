@@ -7,20 +7,20 @@ import Dominio.Zonas.Zona;
 
 import java.util.*;
 
-public class Persona {
+public abstract class Persona {
     private static int contP = 0; //Cuento todas las personas que fueron creadas
     private  String id;
     private  String nombre;
-    private TipoPers tipo;
-    private List<Acceso> accesos; //todo List?
-    protected TreeSet<Zona> zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN. Protected?
+    private final List<Acceso> accesos = new ArrayList<>(); //todo List?
+    private TreeSet<Zona> zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN. Protected?
+    private Zona zonaActual;
 
-    public Persona(String nombre, TipoPers tipo){
+
+    public Persona(String nombre, TipoPers tipo, Zona zonaActual){
         id = tipo.trunc() + "-" + String.format("%04d", contP++); /*genera id unico*/ /// suprimi la funcion generateCod, y lo incorpore en linea.
-        this.tipo = tipo;     ///Añadi tipo para la comprobación de si puede acceder
         this.nombre=nombre;
-        accesos = new ArrayList<>(); //todo ArrayList?
         zonasPermitidas= new TreeSet<>(); //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
+        this.zonaActual = zonaActual;
     }
 
     public String getId(){return id;}
@@ -29,25 +29,23 @@ public class Persona {
 
     public List<Acceso> getAccesos(){return  accesos;}
 
+    public TreeSet<Zona> getZonasPermitidas() {
+        return zonasPermitidas;
+    }
+
+    public Zona getZonaActual() {
+        return zonaActual;
+    }
+
+    public void setZonaActual(Zona zonaActual) {
+        this.zonaActual = zonaActual;
+    }
+
     public void addZona(Zona z){zonasPermitidas.add(z);}
 
     public void addAcceso(Acceso a) {accesos.add(a);}
 
-    public boolean puedeAcceder(Zona z){
-        switch (tipo)
-        {
-            case STAFF -> {
-            return true;
-            }
-            case ASISTENTE -> {
-                return z.getTipo() == TipoZona.ZONA_COMUN || z.getTipo() == TipoZona.ESCENARIO;
-            }
-            case ARTISTA, COMERCIANTE -> {
-                if(accesos.contains(new Acceso(z))) return true;
-            }
-        }
-        return false;
-    }
+    public abstract boolean puedeAcceder(Zona z);
 
     public String toString(){return ("ID: " + this.id + ", Nombre: " + this.nombre);}
 

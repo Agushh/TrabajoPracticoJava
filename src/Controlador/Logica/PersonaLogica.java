@@ -35,10 +35,10 @@ public class PersonaLogica {
     }
 
     //Agrego persona al Map
-    public Persona add(TipoPers tipo, String nombre) throws IllegalArgumentException {
+    public Persona add(TipoPers tipo, String nombre, Zona zonaActual) throws IllegalArgumentException {
         //Uso el patron de diseño Factory para mayor claridad
         try{
-            Persona p = PersonaFactory.crear(tipo, nombre);
+            Persona p = PersonaFactory.crear(tipo, nombre, zonaActual);
             personas.put(p.getId(),p);
             return p;
         }catch (IllegalArgumentException e){

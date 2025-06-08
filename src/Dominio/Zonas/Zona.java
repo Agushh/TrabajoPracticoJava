@@ -9,13 +9,14 @@ public abstract class Zona implements Comparable{
     private String codigo; // todo PROTECTED? ///Private, acceder con GetCod
     private String descripcion;
     private TipoZona tipo;
+    private int concurrencia; ///cantidad de personas. Se utiliza en todas las zonas.
 
     // todo Hago PRIVATE CONSTRUCTOR PARA SOLO PODER CREAR A PARTIR DE FACTORY?? Y AGREGO FACTORY ACA??? COMO HAGO??
     Zona(String descripcion, TipoZona tipo){
-        this.codigo = tipo.trunc() + "-" + String.format("%04d", contZ); ;
+        this.codigo = tipo.trunc() + "-" + String.format("%04d", contZ++); ;
         this.descripcion=descripcion;
         this.tipo=tipo;
-        contZ++;
+        concurrencia = 0;
     }
 
     public String getCod() {
@@ -30,18 +31,31 @@ public abstract class Zona implements Comparable{
         return tipo;
     }
 
+    public int getConcurrencia()
+    {
+        return concurrencia;
+    }
 
     public abstract int getCapacidadMaxima();
+
+    public void ponePersona()
+    {
+        concurrencia ++;
+    }
+
+    public void sacaPersona()
+    {
+        concurrencia --;
+    }
 
     @Override
     public String toString() {
         return "[" + tipo + "] " + codigo + ": " + descripcion;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (o == null) return false; /// Borre, no hace falta comprobar la clase porque está dentro del código de zona
+        if (o == null) return false;
         else if (o == this) return true;
         else return codigo.equals(((Zona) o).getCod());
     }
@@ -51,7 +65,7 @@ public abstract class Zona implements Comparable{
         return Objects.hash(codigo);
     }
 
-    /// Funcion para el TreeSet de Zonas en Persona. De esta forma funcionara.
+    /// Funcion para el TreeSet de Zonas en Persona. Se usa para ordenar los elementos de forma automatica.
     @Override
     public int compareTo(Object o) {
         return codigo.compareTo(((Zona) o).codigo);
@@ -61,8 +75,10 @@ public abstract class Zona implements Comparable{
         System.out.println(this.toString());
     }
 
+
+    /*
     public boolean estaLlena(){ // todo esto no tiene que estar aca tiene que estar solo en zonas con capacidad, creo que hay que crear una interfaz
         return false;
     }
-
+    */
 }
