@@ -14,11 +14,8 @@ public class MovimientosLogica {
     //private Map<Zona, Integer> ocupacionActual = new HashMap<>(); // zona= clave integer= cantidad de personas
 
     public static boolean moverPersona(Persona persona, Zona zonaDestino, int minutos) {
-        if(persona.puedeAcceder(zonaDestino)){ // revisa si esta autorizado
-            if(zonaDestino instanceof Capado Es && Es.getCapacidad() == 0) {
-                persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
-                return false;
-            } else {
+        if (persona.puedeAcceder(zonaDestino)) { // revisa si esta autorizado
+            if (!(zonaDestino instanceof Capado Es && Es.getCapacidad() == 0)) {
                 zonaDestino.ponePersona();
                 persona.getZonaActual().sacaPersona();
                 persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now().plusMinutes(minutos), minutos, EstadoAcceso.AUTORIZADO));
@@ -35,7 +32,8 @@ public class MovimientosLogica {
         }
         persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
         return false;
-
+    }
+}
         //int ocupacion = ocupacionActual.getOrDefault(zonaDestino, 0); // devuelve el valor asociado a la clave, si existe en el mapa.
         //boolean tieneLugar = ocupacion < zonaDestino.getCapacidadMaxima(); // revisa que haya lugar
 
@@ -61,8 +59,7 @@ public class MovimientosLogica {
     //public Map<Zona, Integer> getMapaOcupacion() {
     //    return ocupacionActual;
     //}
-    }
-}
+
 
 //// en main seria algo como:
 //ZonaComun patio = new ZonaComun("Patio Central");
