@@ -5,7 +5,7 @@ import Dominio.Factory.ZonaFactory;
 import Dominio.Zonas.*;
 import Dominio.Zonas.Datos.Evento;
 import Vista.CustomJFrame;
-// import Inicializador.CargaInicial;
+ import Inicializador.CargaInicial;
 import Dominio.Personas.*;
 import java.time.LocalDateTime;
 
@@ -45,7 +45,7 @@ public class MainFestival {
         window.addboton("Reporte de zonas",e -> window.abri_panel_zonas());
 
 
-/*
+
         // Inicializamos los datos desde JSON
         CargaInicial.inicializarDesdeJson();
 
@@ -67,7 +67,7 @@ public class MainFestival {
         // Mostrar cantidad total
         System.out.println("\nTotal personas: " + c.getPersonas().size());
         System.out.println("Total zonas: " + c.getZonas().size());
-*/
+
 
     }
 
