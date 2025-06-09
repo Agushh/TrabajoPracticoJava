@@ -14,7 +14,18 @@ public class MainFestival {
         //Genero instancia de controlador
         Controlador controlador = Controlador.getControlador();
 
-        Zona zc1 = ZonaFactory.crear(TipoZona.ZONA_COMUN, "Zona Comun N1");
+        //Agrego zona
+        controlador
+                .zona()
+                .add(TipoZona.ZONA_COMUN, "Zona Comun N1");
+
+        //Muestor zonas
+        controlador
+                .zona()
+                .mostrarTodas();
+
+        //Obtengo zona
+        Zona zc1 = controlador.zona().getZona("ZCO-0000");
 
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
@@ -28,6 +39,7 @@ public class MainFestival {
             System.out.println(e);
         }
 
+        //Muestro personas
         controlador
                 .persona()
                 .mostrarTodas();

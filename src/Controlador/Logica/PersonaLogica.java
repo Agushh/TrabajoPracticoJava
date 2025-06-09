@@ -25,8 +25,8 @@ public class PersonaLogica {
         return instancia;
     }
 
-    //Get una zona
-    public Persona getZona(String codPersona) throws IllegalArgumentException {
+    //Get una persona
+    public Persona getPersona(String codPersona) throws IllegalArgumentException {
         Persona p = personas.get(codPersona);
         if (p == null) {
             throw new IllegalArgumentException("No existe una zona con código: " + codPersona);

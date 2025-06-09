@@ -13,13 +13,12 @@ public class MovimientosLogica {
     //// Lleva el registro de cuántas personas hay en cada zona
     //private Map<Zona, Integer> ocupacionActual = new HashMap<>(); // zona= clave integer= cantidad de personas
 
-    public boolean moverPersona(Persona persona, Zona zonaDestino, int minutos) {
+    public static boolean moverPersona(Persona persona, Zona zonaDestino, int minutos) {
         if(persona.puedeAcceder(zonaDestino)){ // revisa si esta autorizado
             if(zonaDestino instanceof Capado Es && Es.getCapacidad() == 0) {
                 persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
                 return false;
-            }
-            else {
+            } else {
                 zonaDestino.ponePersona();
                 persona.getZonaActual().sacaPersona();
                 persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now().plusMinutes(minutos), minutos, EstadoAcceso.AUTORIZADO));

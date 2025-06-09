@@ -2,7 +2,7 @@ package Controlador.Logica;
 
 import Dominio.Enums.TipoZona;
 import Dominio.Factory.ZonaFactory;
-import Dominio.Zonas.Zona;
+import Dominio.Zonas.*;
 
 import java.util.TreeMap;
 
@@ -40,7 +40,7 @@ public class ZonaLogica {
         try{
             //verifico que coincida parametros con tipo
             if(tipo == TipoZona.ZONA_COMUN) {
-                Zona z = ZonaFactory.crear(tipo, descripcion);
+                Zona z = new ZonaComun(descripcion);
                 zonas.put(z.getCod(),z);
                 return z;
             }else{
@@ -54,14 +54,17 @@ public class ZonaLogica {
     public Zona add(TipoZona tipo, String descripcion, int capacidad) throws IllegalArgumentException {
         //Uso el patron de diseño Factory para mayor claridad
         try{
+            Zona z = null;
             //verifico que coincida parametros con tipo
-            if(tipo == TipoZona.ESCENARIO || tipo == TipoZona.ZONA_RESTRINGIDA) {
-                Zona z = ZonaFactory.crear(tipo, descripcion, capacidad);
-                zonas.put(z.getCod(),z);
-                return z;
-            }else{
+            if(tipo == TipoZona.ESCENARIO) {
+                z = new Escenario(descripcion, capacidad);
+            }else if(tipo == TipoZona.ZONA_RESTRINGIDA){
+                z = new ZonaRestringida(descripcion, capacidad);
+            }else {
                 throw new IllegalArgumentException(); // todo HACER EXCEPCION DE TIPO DE ZONA INVALIDO CON PARAMETROS
             }
+            zonas.put(z.getCod(),z);
+            return z;
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException();
         }
@@ -72,7 +75,7 @@ public class ZonaLogica {
         try{
             //verifico que coincida parametros con tipo
             if(tipo == TipoZona.STAND) {
-                Zona z = ZonaFactory.crear(tipo, descripcion, capacidad, zona, responsable);
+                Zona z = new Stand(descripcion, capacidad, zona, responsable);
                 zonas.put(z.getCod(),z);
                 return z;
             }else{
@@ -84,5 +87,13 @@ public class ZonaLogica {
     }
 
     //------------------------------------
+
+    //Muestro toda las zonas
+    public void mostrarTodas(){
+        zonas.forEach((id,zona)->{
+            System.out.println(zona.toString());
+        });
+    }
+
 
 }

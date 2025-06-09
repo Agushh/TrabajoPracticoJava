@@ -1,5 +1,6 @@
 package Controlador;
 
+import Controlador.Logica.MovimientosLogica;
 import Controlador.Logica.PersonaLogica;
 import Controlador.Logica.ZonaLogica;
 import Dominio.Personas.*;
@@ -33,6 +34,10 @@ public class Controlador {
 
     public ZonaLogica zona() {
         return zonaLogica;
+    }
+
+    public boolean mover(Persona persona, Zona zonaDestino, int minutos) {
+        return MovimientosLogica.moverPersona(persona, zonaDestino, minutos);
     }
 
     public TreeMap<String, Zona> getZonas() {
