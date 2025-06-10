@@ -1,13 +1,15 @@
 package Dominio.Personas;
 
+import Dominio.Enums.EstadoAcceso;
 import Dominio.Enums.TipoZona;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Enums.TipoPers;
 import Dominio.Zonas.Zona;
 
+import java.rmi.AccessException;
 import java.util.*;
 
-public abstract class Persona {
+public abstract class Persona implements Comparable {
     private static int contP = 0; //Cuento todas las personas que fueron creadas
     private  String id;
     private  String nombre;
@@ -28,6 +30,15 @@ public abstract class Persona {
     public String getNombre(){return nombre;}
 
     public List<Acceso> getAccesos(){return  accesos;}
+
+    public Acceso getUltimoAccesoAceptado() {
+        int index = accesos.size() -1;
+        Acceso temp = accesos.get( index);
+        while(temp.getEstado() == EstadoAcceso.DENEGADO) {
+            temp = accesos.get(index--);
+        }
+        return temp;
+    }
 
     public TreeSet<Zona> getZonasPermitidas() {
         return zonasPermitidas;
@@ -66,4 +77,11 @@ public abstract class Persona {
         System.out.println(this.toString());
     }
 
+
+    //todo
+    @Override
+    public int compareTo(Object o) {
+        if(this == o) return 0;
+        return id.compareTo(((Persona) o).id);
+    }
 }

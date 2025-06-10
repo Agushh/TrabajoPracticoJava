@@ -8,14 +8,12 @@ public abstract class Zona implements Comparable{
     private static int contZ = 0; //Cuento todas las zonas que fueron creadas
     private String codigo; // todo PROTECTED? ///Private, acceder con GetCod
     private String descripcion;
-    private TipoZona tipo;
     private int concurrencia; ///cantidad de personas. Se utiliza en todas las zonas.
 
     // todo Hago PRIVATE CONSTRUCTOR PARA SOLO PODER CREAR A PARTIR DE FACTORY?? Y AGREGO FACTORY ACA??? COMO HAGO??
     Zona(String descripcion, TipoZona tipo){
         this.codigo = tipo.trunc() + "-" + String.format("%04d", contZ++); ;
         this.descripcion=descripcion;
-        this.tipo=tipo;
         concurrencia = 0;
     }
 
@@ -25,10 +23,6 @@ public abstract class Zona implements Comparable{
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public TipoZona getTipo() {
-        return tipo;
     }
 
     public int getConcurrencia()
@@ -50,7 +44,7 @@ public abstract class Zona implements Comparable{
 
     @Override
     public String toString() {
-        return "[" + tipo + "] " + codigo + ": " + descripcion;
+        return "[" + codigo + "] " + codigo + ": " + descripcion;
     }
 
     @Override
@@ -68,6 +62,7 @@ public abstract class Zona implements Comparable{
     /// Funcion para el TreeSet de Zonas en Persona. Se usa para ordenar los elementos de forma automatica.
     @Override
     public int compareTo(Object o) {
+        if(o == this) return 0;
         return codigo.compareTo(((Zona) o).codigo);
     }
 

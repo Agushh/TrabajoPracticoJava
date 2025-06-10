@@ -6,9 +6,9 @@ import Dominio.Enums.TipoZona;
 import java.util.*;
 
 public class Stand extends ZonaRestringida{
-    private String ubicacion;
-    private String responsable;
-    private List<String> empleados= new ArrayList<>();
+    private String ubicacion; //todo Cambiar de string a Zona
+    private String responsable; // todo Cambiar de String a Comerciante
+    private List<String> empleados= new ArrayList<>();// todo Cambiar de String a Comerciante
 
     public Stand(String descripcion, int capacidadMaxima, String ubicacion, String responsable) {
         super(descripcion, capacidadMaxima, TipoZona.STAND);

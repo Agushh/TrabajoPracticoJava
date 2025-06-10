@@ -27,6 +27,8 @@ public class MainFestival {
         //Obtengo zona
         Zona zc1 = controlador.zona().getZona("ZCO-0000");
 
+
+
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
             controlador

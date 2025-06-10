@@ -6,6 +6,7 @@ import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
 import Dominio.Zonas.Interface.Capado;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class MovimientosLogica {
@@ -13,12 +14,13 @@ public class MovimientosLogica {
     //// Lleva el registro de cuántas personas hay en cada zona
     //private Map<Zona, Integer> ocupacionActual = new HashMap<>(); // zona= clave integer= cantidad de personas
 
-    public static boolean moverPersona(Persona persona, Zona zonaDestino, int minutos) {
+    public static boolean moverPersona(Persona persona, Zona zonaDestino) {
         if (persona.puedeAcceder(zonaDestino)) { // revisa si esta autorizado
             if (!(zonaDestino instanceof Capado Es && Es.getCapacidad() == 0)) {
                 zonaDestino.ponePersona();
                 persona.getZonaActual().sacaPersona();
-                persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now().plusMinutes(minutos), minutos, EstadoAcceso.AUTORIZADO));
+
+                persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int)Duration.between(LocalDateTime.now(),persona.getUltimoAccesoAceptado().getFechahora()).toMinutes() , EstadoAcceso.AUTORIZADO));
                 /// zona actual o zonaDestino? rariiii . no entiendo :D
 
                 /// pienso en accesos como un registro que al cambiar de zona, se registra cuanto tiempo estuvo. Tambien estaria bien verlo como

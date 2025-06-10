@@ -36,8 +36,8 @@ public class Controlador {
         return zonaLogica;
     }
 
-    public boolean mover(Persona persona, Zona zonaDestino, int minutos) {
-        return MovimientosLogica.moverPersona(persona, zonaDestino, minutos);
+    public boolean mover(Persona persona, Zona zonaDestino) {
+        return MovimientosLogica.moverPersona(persona, zonaDestino);
     }
 
     public TreeMap<String, Zona> getZonas() {
