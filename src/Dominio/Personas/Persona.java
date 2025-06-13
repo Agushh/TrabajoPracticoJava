@@ -24,7 +24,9 @@ public abstract class Persona implements Comparable {
         zonasPermitidas= new TreeSet<>(); //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
         this.zonaActual = zonaActual;
     }
-
+   /*public String mostrarpersona() {
+        return "Nombre: " + nombre + "\nTipo: " + tipo + "\nOtra info...";
+    }*/
     public String getId(){return id;}
 
     public String getNombre(){return nombre;}
@@ -58,7 +60,7 @@ public abstract class Persona implements Comparable {
 
     public abstract boolean puedeAcceder(Zona z);
 
-    public String toString(){return ("ID: " + this.id + ", Nombre: " + this.nombre);}
+    public String toString(){return (/*"ID: " + this.id + */ this.nombre);}
 
     @Override
     public boolean equals(Object obj) {
@@ -77,8 +79,6 @@ public abstract class Persona implements Comparable {
         System.out.println(this.toString());
     }
 
-
-    //todo
     @Override
     public int compareTo(Object o) {
         if(this == o) return 0;

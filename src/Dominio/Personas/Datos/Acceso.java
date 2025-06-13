@@ -5,6 +5,7 @@ import Dominio.Enums.EstadoAcceso;
 import Dominio.Zonas.Zona;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Acceso {
@@ -44,7 +45,10 @@ public Acceso(Zona zona){
 
     @Override
     public String toString(){
-        return fechahora + " - Zona: " + zona.getCod() + " - Estado: " + estado + " - " + minutos + " min";
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        return "Zona: " + zona.getCod() + " Estado: " +estado + " Fecha :"+ fechahora.format(formato) +" Min: " + minutos   ;
+        //return fechahora + " - Zona: " + zona.getCod() + " - Estado: " + estado + " - " + minutos + " min";
     }
 
     /// Fecha de ingreso + Zona => Clave primaria

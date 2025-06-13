@@ -44,7 +44,7 @@ public abstract class Zona implements Comparable{
 
     @Override
     public String toString() {
-        return "[" + codigo + "] " + codigo + ": " + descripcion;
+        return   codigo + "            Descripcion: " + descripcion;
     }
 
     @Override

@@ -1,7 +1,9 @@
 import Controlador.Controlador;
+import Dominio.Enums.EstadoAcceso;
 import Dominio.Enums.TipoPers;
 import Dominio.Enums.TipoZona;
 import Dominio.Factory.ZonaFactory;
+import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
 import Dominio.Zonas.Datos.Evento;
 import Vista.CustomJFrame;
@@ -17,7 +19,7 @@ public class MainFestival {
         //Agrego zona
         controlador
                 .zona()
-                .add(TipoZona.ZONA_COMUN, "Zona Comun N1");
+                .add(TipoZona.ZONA_COMUN, "Entrada");
 
         //Muestor zonas
         controlador
@@ -26,8 +28,6 @@ public class MainFestival {
 
         //Obtengo zona
         Zona zc1 = controlador.zona().getZona("ZCO-0000");
-
-
 
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
@@ -46,19 +46,17 @@ public class MainFestival {
                 .persona()
                 .mostrarTodas();
 
+        // Obtener una persona del sistema
+        Persona p1 = controlador.persona().getPersona("COM-0000"); // ID generado para Alejo
+
+        // Crear accesos y agregarlos a la persona
+        p1.addAcceso(new Acceso(zc1, LocalDateTime.now(), 10, EstadoAcceso.AUTORIZADO));
+        p1.addAcceso(new Acceso(zc1, LocalDateTime.now().plusMinutes(30), 5, EstadoAcceso.DENEGADO));
+        p1.addAcceso(new Acceso(zc1, LocalDateTime.now().plusHours(1), 20, EstadoAcceso.AUTORIZADO));
         //creacion de ventana en Swing.
+
         //CustomJFrame es una clase heredada de JFrame para que los parametros del constructor construyan la ventana a la hora de invocarlo.
-        CustomJFrame window = new CustomJFrame("hola", 300, 300, 100, 100, true);
-
-        //metodo para añadir texto / label
-       // window.addLabel("text");
-        //gui
-        window.addboton("Muestra persona",e->window.abrir_panel_personas());
-        window.addboton("Mover persona",e -> window.abri_panel_mover());
-        window.addboton("Reporte de stands",e ->window.abrir_panle_stands());
-        window.addboton("Reporte de zonas",e -> window.abri_panel_zonas());
-
-
+        CustomJFrame window = new CustomJFrame("TPjava", 300, 300, 100, 100, true,controlador);//inicia la gui
 
         // Inicializamos los datos desde JSON
         CargaInicial.inicializarDesdeJson();

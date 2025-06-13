@@ -1,7 +1,10 @@
 package Vista;
-
+import java.util.Collection;
+import java.util.TreeMap;
+import Controlador.Controlador;
 import Dominio.Exceptions.GUIException;
-
+import Dominio.Personas.Datos.Acceso;
+import Dominio.Personas.Persona;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -14,8 +17,8 @@ public class CustomJFrame extends JFrame{
     private List<JLabel> labels;
 
     //constructor
-    public CustomJFrame(String title, int minWidth, int minHeight, int x, int y, boolean centered) throws GUIException
-    {
+    public CustomJFrame(String title, int minWidth, int minHeight, int x, int y, boolean centered, Controlador controlador) throws GUIException
+    { //agrege pasar el controlador por parametro
         super("Example");
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         labels = new ArrayList<>();
@@ -29,30 +32,60 @@ public class CustomJFrame extends JFrame{
         else
             setLocation(x,y);
         setVisible(true);
+        addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
+        addBotonFrame("Mover persona",e -> abriPanelMover(),this);
+        addBotonFrame("Reporte de stands",e ->abrirPanleStands(),this);
+        addBotonFrame("Reporte de zonas",e -> abriPanelZonas(),this);
 
-       // setLayout(new FlowLayout());
+        // setLayout(new FlowLayout());
     }
-    public void addboton(String text, ActionListener accion){
+    public void addBotonFrame(String text, ActionListener accion, Container contenedor){ //crea btn de frame
         JButton btn =new JButton(text);
         btn.setPreferredSize(new Dimension(200, 60));
-        add(btn);
+        contenedor.add(btn);
         btn.addActionListener(accion);
         revalidate();
         repaint();
     }
-    public void abrir_panel_personas() {
+    public  void addBotonPanel(String text, ActionListener accion, Container contenedor){//crea btn de panel
+        JButton btn =new JButton(text);
+        btn.setPreferredSize(new Dimension(90, 30));
+        contenedor.add(btn);
+        btn.addActionListener(accion);
+        revalidate();
+        repaint();
+    }
+    public void abrirPanelPersonas(TreeMap<String, Persona> personas,Controlador controlador) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
-        String[] personas = {"Alejo", "Facu", "Agus", "Fran"};//ahora lo hago fijo dsp traemos del controlador
-        JComboBox<String> comboPersonas = new JComboBox<>(personas);
+
+        //crea una coleccion con los nombre de todas las personas para mostrar en el combo(nombre)
+
+        JComboBox<Persona> comboPersonas = new JComboBox<>();
+        for (Persona p : personas.values()) {
+            comboPersonas.addItem(p);
+        }
+
         panel.add(new JLabel("Seleccione una persona:"));
         panel.add(comboPersonas);
-        JButton btn=new JButton("Mostrar");
-        panel.add(btn);//falta funcionalidad
-        JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
+        addBotonPanel("Mostrar",e-> {Persona p = (Persona) comboPersonas.getSelectedItem();muestraPersonaEnGui(p);},panel);
 
+        JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
     }
-    public void abri_panel_mover(){
+    void muestraPersonaEnGui(Persona perAMostrar){
+        //JOptionPane.showMessageDialog(this, "Nombre: " + perAMostrar.getNombre());
+        //JOptionPane.showMessageDialog(this, "ID: " + perAMostrar.getId()); ejemplos para ver si funciona
+        JPanel panel = new JPanel(new GridLayout(0,1,0,10));
+        panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre()));
+        panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "));//todo FALTA AGREGAR QUE TIPO ES TENGO QUE PREGUNTAR NO SE COMO LO MANEJAMOS
+        panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual()));
+        panel.add(new JLabel("Acceso:" ));;
+        for (Acceso acceso : perAMostrar.getAccesos()) {
+            panel.add(new JLabel(""+ acceso.toString() ));
+        }
+        JOptionPane.showMessageDialog(this, panel, "Datos de la Persona", JOptionPane.PLAIN_MESSAGE);
+    }
+    public void abriPanelMover(){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
         String[] personas = {"Alejo", "Facu", "Agus", "Fran"};//ahora lo hago fijo dsp traemos del controlador
@@ -67,26 +100,16 @@ public class CustomJFrame extends JFrame{
         panel.add(btn);
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
     }
-    public void abri_panel_zonas(){
+    public void abriPanelZonas(){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 500));
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
         //falta funcionalidad
     }
-    public  void abrir_panle_stands(){
+    public  void abrirPanleStands(){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 500));
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
         //falta funcionalidad
-    }
-    //añadir texto
-    public void addLabel(String text)
-    {
-        JLabel label = new JLabel(text);
-        labels.add(label);
-        add(label);
-        label.setText("hola");
-        label.setHorizontalTextPosition(JLabel.CENTER);
-        setVisible(true);
     }
 }
