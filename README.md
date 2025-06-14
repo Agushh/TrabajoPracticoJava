@@ -6,4 +6,4 @@ completar los parametros que se pasan de una desde la deserializacion del archiv
 
 Concurrencias. Por la zona en la que este 
 
-
+revisar si anda la concurrencia 

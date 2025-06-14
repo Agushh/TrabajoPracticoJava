@@ -6,19 +6,24 @@ import Dominio.Enums.TipoZona;
 import java.util.*;
 
 public class Stand extends ZonaRestringida{
-    private String ubicacion; //todo Cambiar de string a Zona
-    private String responsable; // todo Cambiar de String a Comerciante
+    private Zona ubicacion; //se cambio de string a comerciante
+    private Comerciante responsable; //se cambio de string a comerciante
     private List<String> empleados= new ArrayList<>();// todo Cambiar de String a Comerciante
 
-    public Stand(String descripcion, int capacidadMaxima, String ubicacion, String responsable) {
+    public Stand(String descripcion, int capacidadMaxima, Zona ubicacion, Comerciante responsable) {
         super(descripcion, capacidadMaxima, TipoZona.STAND);
         this.ubicacion = ubicacion;
         this.responsable = responsable;
     }
 
-  public void agregarEmpleado(String nombre){empleados.add(nombre);}
-  public String getUbicacion(){return ubicacion;}
-    public String getResponsable() { return responsable; }
+    @Override
+    public String toString() {
+        return "<html>" + super.toString().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable()+"</html>";
+    }
+
+    public void agregarEmpleado(String nombre){empleados.add(nombre);}
+  public Zona getUbicacion(){return ubicacion;}
+    public Comerciante getResponsable() { return responsable; }
     public List<String> getEmpleados() { return empleados; }
 
 

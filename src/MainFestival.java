@@ -17,10 +17,12 @@ public class MainFestival {
         Controlador controlador = Controlador.getControlador();
 
         //Agrego zona
-        controlador
-                .zona()
-                .add(TipoZona.ZONA_COMUN, "Entrada");
+        controlador.zona().add(TipoZona.ZONA_COMUN, "Entrada");
+        controlador.zona().add(TipoZona.ZONA_COMUN, "Patio de Comidas");
+        controlador.zona().add(TipoZona.ZONA_COMUN, "Baño 1");
+        controlador.zona().add(TipoZona.ESCENARIO,"Escenario principal",20);
 
+        
         //Muestor zonas
         controlador
                 .zona()
@@ -28,6 +30,9 @@ public class MainFestival {
 
         //Obtengo zona
         Zona zc1 = controlador.zona().getZona("ZCO-0000");
+        Comerciante c1 = (Comerciante) controlador
+                .persona()
+                .add(TipoPers.COMERCIANTE, "Alejo", zc1);
 
         //Intento agregar personas, si el tipo no coincide muestro el error
         try {
@@ -41,6 +46,7 @@ public class MainFestival {
             System.out.println(e);
         }
 
+        controlador.zona().add(TipoZona.STAND,"Expresso Sabores",10,zc1,c1);
         //Muestro personas
         controlador
                 .persona()
@@ -49,12 +55,11 @@ public class MainFestival {
         // Obtener una persona del sistema
         Persona p1 = controlador.persona().getPersona("COM-0000"); // ID generado para Alejo
 
-        // Crear accesos y agregarlos a la persona
+        // Crea algunos accesos para ver como quedan
         p1.addAcceso(new Acceso(zc1, LocalDateTime.now(), 10, EstadoAcceso.AUTORIZADO));
         p1.addAcceso(new Acceso(zc1, LocalDateTime.now().plusMinutes(30), 5, EstadoAcceso.DENEGADO));
         p1.addAcceso(new Acceso(zc1, LocalDateTime.now().plusHours(1), 20, EstadoAcceso.AUTORIZADO));
         //creacion de ventana en Swing.
-
         //CustomJFrame es una clase heredada de JFrame para que los parametros del constructor construyan la ventana a la hora de invocarlo.
         CustomJFrame window = new CustomJFrame("TPjava", 300, 300, 100, 100, true,controlador);//inicia la gui
 

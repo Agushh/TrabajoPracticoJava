@@ -2,6 +2,7 @@ package Controlador.Logica;
 
 import Dominio.Enums.TipoZona;
 import Dominio.Factory.ZonaFactory;
+import Dominio.Personas.Comerciante;
 import Dominio.Zonas.*;
 
 import java.util.TreeMap;
@@ -70,7 +71,7 @@ public class ZonaLogica {
         }
     }
 
-    public Zona add(TipoZona tipo, String descripcion, int capacidad, String zona, String responsable) throws IllegalArgumentException { // todo VERIFICAR QUE LOS CODIGOS QUE SE PASEN SEAN CORRESPONDIENTES A LA DATA
+    public Zona add(TipoZona tipo, String descripcion, int capacidad, Zona zona, Comerciante responsable) throws IllegalArgumentException { // todo VERIFICAR QUE LOS CODIGOS QUE SE PASEN SEAN CORRESPONDIENTES A LA DATA
         //Uso el patron de diseño Factory para mayor claridad
         try{
             //verifico que coincida parametros con tipo

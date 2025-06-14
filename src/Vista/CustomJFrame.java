@@ -5,6 +5,8 @@ import Controlador.Controlador;
 import Dominio.Exceptions.GUIException;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
+import Dominio.Zonas.Zona;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -35,7 +37,7 @@ public class CustomJFrame extends JFrame{
         addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
         addBotonFrame("Mover persona",e -> abriPanelMover(),this);
         addBotonFrame("Reporte de stands",e ->abrirPanleStands(),this);
-        addBotonFrame("Reporte de zonas",e -> abriPanelZonas(),this);
+        addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
 
         // setLayout(new FlowLayout());
     }
@@ -60,12 +62,10 @@ public class CustomJFrame extends JFrame{
         panel.setPreferredSize(new Dimension(300, 150));
 
         //crea una coleccion con los nombre de todas las personas para mostrar en el combo(nombre)
-
         JComboBox<Persona> comboPersonas = new JComboBox<>();
         for (Persona p : personas.values()) {
             comboPersonas.addItem(p);
         }
-
         panel.add(new JLabel("Seleccione una persona:"));
         panel.add(comboPersonas);
         addBotonPanel("Mostrar",e-> {Persona p = (Persona) comboPersonas.getSelectedItem();muestraPersonaEnGui(p);},panel);
@@ -73,12 +73,10 @@ public class CustomJFrame extends JFrame{
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
     }
     void muestraPersonaEnGui(Persona perAMostrar){
-        //JOptionPane.showMessageDialog(this, "Nombre: " + perAMostrar.getNombre());
-        //JOptionPane.showMessageDialog(this, "ID: " + perAMostrar.getId()); ejemplos para ver si funciona
         JPanel panel = new JPanel(new GridLayout(0,1,0,10));
-        panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre()));
+        panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string
         panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "));//todo FALTA AGREGAR QUE TIPO ES TENGO QUE PREGUNTAR NO SE COMO LO MANEJAMOS
-        panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual()));
+        panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
         panel.add(new JLabel("Acceso:" ));;
         for (Acceso acceso : perAMostrar.getAccesos()) {
             panel.add(new JLabel(""+ acceso.toString() ));
@@ -98,18 +96,29 @@ public class CustomJFrame extends JFrame{
         panel.add(combozonas);
         JButton btn=new JButton("Mover");
         panel.add(btn);
-        JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, panel, "Panel Mover", JOptionPane.PLAIN_MESSAGE);
     }
-    public void abriPanelZonas(){
+    public void abriPanelZonas(TreeMap<String, Zona> zonas){ //todo ESTOY ACAAAAAAA---------------
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // margen interno
+
+        JLabel titulo = new JLabel("Zonas:");//crea el titulo lo centra y lo agrega al panel
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(titulo);
+        panel.add(Box.createRigidArea(new Dimension(0, 30)));
         panel.setPreferredSize(new Dimension(500, 500));
-        JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
-        //falta funcionalidad
+        for (Zona zonaAMostrar : zonas.values()) {
+            panel.add(new JLabel(zonaAMostrar.toString()));
+            panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        }
+        JOptionPane.showMessageDialog(this, panel, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
+
     }
     public  void abrirPanleStands(){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(500, 500));
-        JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, panel, "Panel Stands", JOptionPane.PLAIN_MESSAGE);
         //falta funcionalidad
     }
 }

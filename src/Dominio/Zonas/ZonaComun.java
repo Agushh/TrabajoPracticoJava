@@ -12,6 +12,8 @@ public class ZonaComun extends Zona{
         return Integer.MAX_VALUE;
     }
 
+    // no overadeo to string por que los datos son los mismos que los de zona
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof ZonaComun zc){

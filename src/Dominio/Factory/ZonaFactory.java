@@ -1,6 +1,7 @@
 package Dominio.Factory;
 
 import Dominio.Enums.TipoZona;
+import Dominio.Personas.Comerciante;
 import Dominio.Zonas.*;
 
 public class ZonaFactory {
@@ -41,7 +42,7 @@ public class ZonaFactory {
         return z;
     }
 
-    public static Zona crear(TipoZona tipo, String descripcion, int capacidad, String zona, String responsable) throws IllegalArgumentException {
+    public static Zona crear(TipoZona tipo, String descripcion, int capacidad, Zona zona, Comerciante responsable) throws IllegalArgumentException {
         Zona z = null;
 
         switch(tipo){
