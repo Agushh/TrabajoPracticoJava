@@ -8,7 +8,7 @@ import java.util.*;
 public class Stand extends ZonaRestringida{
     private Zona ubicacion; //se cambio de string a comerciante
     private Comerciante responsable; //se cambio de string a comerciante
-    private List<String> empleados= new ArrayList<>();// todo Cambiar de String a Comerciante
+    private List<Comerciante> empleados= new ArrayList<>();// todo Cambiar de String a Comerciante
 
     public Stand(String descripcion, int capacidadMaxima, Zona ubicacion, Comerciante responsable) {
         super(descripcion, capacidadMaxima, TipoZona.STAND);
@@ -21,11 +21,9 @@ public class Stand extends ZonaRestringida{
         return "<html>" + super.toString().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable()+"</html>";
     }
 
-    public void agregarEmpleado(String nombre){empleados.add(nombre);}
-  public Zona getUbicacion(){return ubicacion;}
+    public void agregarEmpleado(Comerciante id){empleados.add(id);} //debe ser lista de empleados no de nombres
+    public Zona getUbicacion(){return ubicacion;}
     public Comerciante getResponsable() { return responsable; }
-    public List<String> getEmpleados() { return empleados; }
-
-
+    public List<Comerciante> getEmpleados() { return empleados; }
 
 }

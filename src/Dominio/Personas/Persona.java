@@ -24,15 +24,18 @@ public abstract class Persona implements Comparable {
         zonasPermitidas= new TreeSet<>(); //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
         this.zonaActual = zonaActual;
     }
-   /*public String mostrarpersona() {
-        return "Nombre: " + nombre + "\nTipo: " + tipo + "\nOtra info...";
-    }*/
+
     public String getId(){return id;}
-
     public String getNombre(){return nombre;}
-
     public List<Acceso> getAccesos(){return  accesos;}
 
+    public String getTipo() {
+        if (this instanceof Staff) return "STAFF";
+        if (this instanceof Comerciante) return "COMERCIANTE";
+        if(this instanceof  Artista)return "ARTISTA";
+        if (this instanceof  Asistente)return  "ASISTENTE";
+        return "OTRO";
+    }
     public Acceso getUltimoAccesoAceptado() {
         int index = accesos.size() -1;
         Acceso temp = accesos.get( index);
@@ -60,7 +63,7 @@ public abstract class Persona implements Comparable {
 
     public abstract boolean puedeAcceder(Zona z);
 
-    public String toString(){return (/*"ID: " + this.id + */ this.nombre);}
+    public String toString(){return (this.nombre+ "  ID:  "+this.id);} //por que sale con corchetes y una coma?
 
     @Override
     public boolean equals(Object obj) {

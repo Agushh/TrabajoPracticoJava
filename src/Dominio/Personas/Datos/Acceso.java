@@ -45,10 +45,8 @@ public Acceso(Zona zona){
 
     @Override
     public String toString(){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-        return "Zona: " + zona.getCod() + " Estado: " +estado + " Fecha :"+ fechahora.format(formato) +" Min: " + minutos   ;
-        //return fechahora + " - Zona: " + zona.getCod() + " - Estado: " + estado + " - " + minutos + " min";
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");// agrego un formato para que se vea bien la hora y la fecha
+        return "<html>"+ "Zona: " + zona.getCod() + " Estado: " +estado + "<br>"+" Fecha :"+ fechahora.format(formato) +"   Min: " + minutos  +"</html>" ;
     }
 
     /// Fecha de ingreso + Zona => Clave primaria

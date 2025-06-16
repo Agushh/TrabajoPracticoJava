@@ -42,11 +42,19 @@ public class MainFestival {
             controlador
                     .persona()
                     .add(TipoPers.STAFF, "Facu", zc1);
+            controlador
+                    .persona()
+                    .add(TipoPers.COMERCIANTE, "mauro", zc1);
         }catch (Exception e){ // todo ESPECIFICAR MEJOR LAS EXCEPCIONES
             System.out.println(e);
         }
 
-        controlador.zona().add(TipoZona.STAND,"Expresso Sabores",10,zc1,c1);
+
+        Stand stand = (Stand) controlador.zona().add(TipoZona.STAND, "Expresso Sabores", 10, zc1, c1);
+        stand.agregarEmpleado((Comerciante) controlador.persona().add(TipoPers.COMERCIANTE, "Mauro", zc1));
+        stand.agregarEmpleado((Comerciante) controlador.persona().add(TipoPers.COMERCIANTE, "Lucas", zc1));
+
+        ((Stand) controlador.zona().add(TipoZona.STAND, "Parliamo Pizza", 40, zc1, c1)).agregarEmpleado((Comerciante) controlador.persona().add(TipoPers.COMERCIANTE, "Pilar", zc1)); //creo una zona y un empleado para probar
         //Muestro personas
         controlador
                 .persona()

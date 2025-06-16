@@ -1,11 +1,14 @@
 package Controlador.Logica;
 
+import Controlador.Controlador;
 import Dominio.Enums.TipoZona;
 import Dominio.Factory.ZonaFactory;
 import Dominio.Personas.Comerciante;
 import Dominio.Zonas.*;
 
 import java.util.TreeMap;
+
+import static Controlador.Controlador.getControlador;
 
 public class ZonaLogica {
 
@@ -77,8 +80,11 @@ public class ZonaLogica {
             //verifico que coincida parametros con tipo
             if(tipo == TipoZona.STAND) {
                 Zona z = new Stand(descripcion, capacidad, zona, responsable);
-                zonas.put(z.getCod(),z);
+                zonas.put(z.getCod(), z);
+                Controlador controlador = Controlador.getControlador();
+                controlador.getStands().put(z.getCod(), (Stand) z);
                 return z;
+
             }else{
                 throw new IllegalArgumentException(); // todo HACER EXCEPCION DE TIPO DE ZONA INVALIDO CON PARAMETROS
             }

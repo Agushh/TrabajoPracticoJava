@@ -5,6 +5,7 @@ import Controlador.Controlador;
 import Dominio.Exceptions.GUIException;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
+import Dominio.Zonas.Stand;
 import Dominio.Zonas.Zona;
 
 import javax.swing.*;
@@ -35,8 +36,8 @@ public class CustomJFrame extends JFrame{
             setLocation(x,y);
         setVisible(true);
         addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
-        addBotonFrame("Mover persona",e -> abriPanelMover(),this);
-        addBotonFrame("Reporte de stands",e ->abrirPanleStands(),this);
+        addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
+        addBotonFrame("Reporte de stands",e ->abrirPanleStands(controlador.getStands()),this);
         addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
 
         // setLayout(new FlowLayout());
@@ -63,6 +64,7 @@ public class CustomJFrame extends JFrame{
 
         //crea una coleccion con los nombre de todas las personas para mostrar en el combo(nombre)
         JComboBox<Persona> comboPersonas = new JComboBox<>();
+
         for (Persona p : personas.values()) {
             comboPersonas.addItem(p);
         }
@@ -74,8 +76,8 @@ public class CustomJFrame extends JFrame{
     }
     void muestraPersonaEnGui(Persona perAMostrar){
         JPanel panel = new JPanel(new GridLayout(0,1,0,10));
-        panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string
-        panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "));//todo FALTA AGREGAR QUE TIPO ES TENGO QUE PREGUNTAR NO SE COMO LO MANEJAMOS
+        panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string?
+        panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "+perAMostrar.getTipo()));
         panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
         panel.add(new JLabel("Acceso:" ));;
         for (Acceso acceso : perAMostrar.getAccesos()) {
@@ -83,25 +85,24 @@ public class CustomJFrame extends JFrame{
         }
         JOptionPane.showMessageDialog(this, panel, "Datos de la Persona", JOptionPane.PLAIN_MESSAGE);
     }
-    public void abriPanelMover(){
+    public void abriPanelMover(TreeMap<String, Persona> personas, TreeMap<String, Zona> zonas){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
-        String[] personas = {"Alejo", "Facu", "Agus", "Fran"};//ahora lo hago fijo dsp traemos del controlador
-        String[] zonas={"Escenario 1","Patio de comidas","Campo"};
-        JComboBox<String> combopersonas = new JComboBox<>(personas);
-        JComboBox<String> combozonas = new JComboBox<>(zonas);
+        //falta terminar
+        //JComboBox<String> combopersonas = new JComboBox<>(Persona);
+        //JComboBox<String> combozonas = new JComboBox<>(Zona);
         panel.add(new JLabel("Seleccione una persona:"));
-        panel.add(combopersonas);
+       // panel.add(combopersonas);
         panel.add(new JLabel("Seleccione una zona:"));
-        panel.add(combozonas);
+        //panel.add(combozonas);
         JButton btn=new JButton("Mover");
         panel.add(btn);
         JOptionPane.showMessageDialog(this, panel, "Panel Mover", JOptionPane.PLAIN_MESSAGE);
     }
-    public void abriPanelZonas(TreeMap<String, Zona> zonas){ //todo ESTOY ACAAAAAAA---------------
+    public void abriPanelZonas(TreeMap<String, Zona> zonas){
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // margen interno
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); //
 
         JLabel titulo = new JLabel("Zonas:");//crea el titulo lo centra y lo agrega al panel
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -115,10 +116,24 @@ public class CustomJFrame extends JFrame{
         JOptionPane.showMessageDialog(this, panel, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
 
     }
-    public  void abrirPanleStands(){
+    public  void abrirPanleStands(TreeMap<String, Stand> stands){
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        JLabel titulo = new JLabel("Stands:");//crea el titulo lo centra y lo agrega al panel
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(titulo);
+        panel.add(Box.createRigidArea(new Dimension(0, 30)));//agrega un epacio
         panel.setPreferredSize(new Dimension(500, 500));
+        for (Stand standAMostrar : stands.values()) {
+            panel.add(new JLabel(standAMostrar.toString()));
+            panel.add(Box.createRigidArea(new Dimension(0, 20)));
+            panel.add(new JLabel("Lista de empleados:"));
+            panel.add(Box.createRigidArea(new Dimension(0, 5)));
+            panel.add(new JLabel(standAMostrar.getEmpleados().toString()));
+            panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        }
         JOptionPane.showMessageDialog(this, panel, "Panel Stands", JOptionPane.PLAIN_MESSAGE);
-        //falta funcionalidad
     }
 }
