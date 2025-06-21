@@ -88,15 +88,23 @@ public class CustomJFrame extends JFrame{
     public void abriPanelMover(TreeMap<String, Persona> personas, TreeMap<String, Zona> zonas){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
-        //falta terminar
-        //JComboBox<String> combopersonas = new JComboBox<>(Persona);
+        JComboBox<Persona> comboPersonas = new JComboBox<>();
+        for (Persona p : personas.values()) {
+            comboPersonas.addItem(p);
+        }
+        JComboBox<Zona> comboZonas =new JComboBox<>();
+        for (Zona z : zonas.values()) {
+            comboZonas.addItem(z);
+        }
         //JComboBox<String> combozonas = new JComboBox<>(Zona);
         panel.add(new JLabel("Seleccione una persona:"));
-       // panel.add(combopersonas);
+        panel.add(comboPersonas);
+        panel.add(new JLabel() {{ setPreferredSize(new Dimension(300, 5)); }});//hago un espacio
         panel.add(new JLabel("Seleccione una zona:"));
-        //panel.add(combozonas);
-        JButton btn=new JButton("Mover");
-        panel.add(btn);
+        panel.add(comboZonas);
+        //JButton btn=new JButton("Mover",e->{});
+        addBotonPanel("Mover",e->{},panel);
+       // panel.add(btn);
         JOptionPane.showMessageDialog(this, panel, "Panel Mover", JOptionPane.PLAIN_MESSAGE);
     }
     public void abriPanelZonas(TreeMap<String, Zona> zonas){
@@ -110,7 +118,7 @@ public class CustomJFrame extends JFrame{
         panel.add(Box.createRigidArea(new Dimension(0, 30)));
         panel.setPreferredSize(new Dimension(500, 500));
         for (Zona zonaAMostrar : zonas.values()) {
-            panel.add(new JLabel(zonaAMostrar.toString()));
+            panel.add(new JLabel(zonaAMostrar.toStringCompleto()));
             panel.add(Box.createRigidArea(new Dimension(0, 20)));
         }
         JOptionPane.showMessageDialog(this, panel, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);

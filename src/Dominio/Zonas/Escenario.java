@@ -32,8 +32,8 @@ public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA
     }
 
     @Override
-    public String toString() {
-        return "<html>" + super.toString().replace("<html>", "").replace("</html>", "")+ "<br>" + "Capacidad: " + getCapacidad() + "</html>";
+    public String toStringCompleto() {
+        return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "")+ "<br>" + "Capacidad: " + getCapacidad() + "</html>";
     }
 
     public void addEvento(LocalDateTime fecha, String artista){

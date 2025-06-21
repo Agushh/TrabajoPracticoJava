@@ -1,4 +1,4 @@
-package Controlador.Logica;
+    package Controlador.Logica;
 
 import Dominio.Enums.EstadoAcceso;
 import Dominio.Personas.*;
@@ -10,7 +10,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class MovimientosLogica {
-
     //// Lleva el registro de cuántas personas hay en cada zona
     //private Map<Zona, Integer> ocupacionActual = new HashMap<>(); // zona= clave integer= cantidad de personas
 
@@ -22,12 +21,10 @@ public class MovimientosLogica {
 
                 persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int)Duration.between(LocalDateTime.now(),persona.getUltimoAccesoAceptado().getFechahora()).toMinutes() , EstadoAcceso.AUTORIZADO));
                 /// zona actual o zonaDestino? rariiii . no entiendo :D
-
                 /// pienso en accesos como un registro que al cambiar de zona, se registra cuanto tiempo estuvo. Tambien estaria bien verlo como
                 /// un registro que indica cuanto tiempo estuvo en la zona en la cual se ingresa, pero no seria un cambio de zona, sino mas bien
                 /// un registro atemporal de la zona en la que estuvo la persona
                 /// nada, compliqueti
-
                 persona.setZonaActual(zonaDestino);
                 return true;
             }
@@ -38,9 +35,7 @@ public class MovimientosLogica {
 }
         //int ocupacion = ocupacionActual.getOrDefault(zonaDestino, 0); // devuelve el valor asociado a la clave, si existe en el mapa.
         //boolean tieneLugar = ocupacion < zonaDestino.getCapacidadMaxima(); // revisa que haya lugar
-
         //EstadoAcceso estado = (autorizado && tieneLugar) ? EstadoAcceso.AUTORIZADO : EstadoAcceso.DENEGADO;
-
         // Registrar el acceso con hora actual
     //    Acceso acceso = new Acceso(zonaDestino, LocalDateTime.now(), minutos, estado); // se crea el objeto acceso con los datos
     //    persona.getAccesos().add(acceso); // agrega el acceso a la persona
@@ -61,8 +56,6 @@ public class MovimientosLogica {
     //public Map<Zona, Integer> getMapaOcupacion() {
     //    return ocupacionActual;
     //}
-
-
 //// en main seria algo como:
 //ZonaComun patio = new ZonaComun("Patio Central");
 //ZonaRestringida camarines = new ZonaRestringida("Camarines A", 1);

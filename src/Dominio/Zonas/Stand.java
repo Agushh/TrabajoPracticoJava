@@ -17,8 +17,8 @@ public class Stand extends ZonaRestringida{
     }
 
     @Override
-    public String toString() {
-        return "<html>" + super.toString().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable()+"</html>";
+    public String toStringCompleto() {
+        return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable()+"</html>";
     }
 
     public void agregarEmpleado(Comerciante id){empleados.add(id);} //debe ser lista de empleados no de nombres
