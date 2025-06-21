@@ -2,7 +2,11 @@ package Vista;
 import java.util.Collection;
 import java.util.TreeMap;
 import Controlador.Controlador;
+import Controlador.Logica.MovimientosLogica;
+import Dominio.Exceptions.AccesoDenegadoException;
 import Dominio.Exceptions.GUIException;
+import Dominio.Exceptions.ZonaEsLaActualException;
+import Dominio.Exceptions.ZonaLlenaException;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
 import Dominio.Zonas.Stand;
@@ -102,10 +106,20 @@ public class CustomJFrame extends JFrame{
         panel.add(new JLabel() {{ setPreferredSize(new Dimension(300, 5)); }});//hago un espacio
         panel.add(new JLabel("Seleccione una zona:"));
         panel.add(comboZonas);
-        //JButton btn=new JButton("Mover",e->{});
-        addBotonPanel("Mover",e->{},panel);
-       // panel.add(btn);
+        addBotonPanel("Mover",e->{Persona p = (Persona) comboPersonas.getSelectedItem(); Zona z = (Zona) comboZonas.getSelectedItem();accionMover(p,z);},panel);
         JOptionPane.showMessageDialog(this, panel, "Panel Mover", JOptionPane.PLAIN_MESSAGE);
+    }
+    void accionMover(Persona perAMover , Zona destino){
+        try {
+            MovimientosLogica.moverPersona(perAMover, destino);//muevo la persona
+            JOptionPane.showMessageDialog(null, "✔ Persona movida");
+        } catch (AccesoDenegadoException e) {
+            JOptionPane.showMessageDialog(null, "✘ Persona sin acceso");
+        } catch (ZonaLlenaException e) {
+            JOptionPane.showMessageDialog(null, "✘ Zona llena");
+        }catch (ZonaEsLaActualException e){
+            JOptionPane.showMessageDialog(null, "✘ Persona actualmente en la zona");
+        }
     }
     public void abriPanelZonas(TreeMap<String, Zona> zonas){
         JPanel panel = new JPanel();
@@ -122,7 +136,6 @@ public class CustomJFrame extends JFrame{
             panel.add(Box.createRigidArea(new Dimension(0, 20)));
         }
         JOptionPane.showMessageDialog(this, panel, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
-
     }
     public  void abrirPanleStands(TreeMap<String, Stand> stands){
         JPanel panel = new JPanel();
@@ -135,7 +148,7 @@ public class CustomJFrame extends JFrame{
         panel.add(Box.createRigidArea(new Dimension(0, 30)));//agrega un epacio
         panel.setPreferredSize(new Dimension(500, 500));
         for (Stand standAMostrar : stands.values()) {
-            panel.add(new JLabel(standAMostrar.toString()));
+            panel.add(new JLabel(standAMostrar.toStringCompleto().toString()));
             panel.add(Box.createRigidArea(new Dimension(0, 20)));
             panel.add(new JLabel("Lista de empleados:"));
             panel.add(Box.createRigidArea(new Dimension(0, 5)));
