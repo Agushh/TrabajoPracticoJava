@@ -1,12 +1,19 @@
 package Dominio.Personas;
 
 import Dominio.Enums.TipoPers;
+import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.Zona;
+
+import java.util.List;
+import java.util.TreeSet;
 
 public class Artista extends Persona {
 
-    public Artista(String nombre, Zona zonaActual) {
-        super(nombre, TipoPers.ARTISTA, zonaActual);
+    public Artista(String nombre, String id, Zona zonaActual, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
+        super(nombre, id, zonaActual, zonasPermitidas, accesos);
+    }
+
+    public Artista() {
     }
 
     public void addZona(Zona z){

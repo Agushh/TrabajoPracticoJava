@@ -1,8 +1,6 @@
 package Controlador;
 
 import Controlador.Logica.MovimientosLogica;
-import Controlador.Logica.PersonaLogica;
-import Controlador.Logica.ZonaLogica;
 import Dominio.Personas.*;
 import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
@@ -17,8 +15,9 @@ public class Controlador {
 
     //Aplico patron de diseño Singleton (Te permite generar una sola instancia del objeto)
     private static final Controlador controlador = new Controlador();
-    private final PersonaLogica personaLogica = PersonaLogica.getInstancia(this.personas);
-    private final ZonaLogica zonaLogica = ZonaLogica.getInstancia(this.zonas);
+
+    //private final PersonaLogica personaLogica = PersonaLogica.getInstancia(this.personas);
+    //private final ZonaLogica zonaLogica = ZonaLogica.getInstancia(this.zonas);
 
     //Constructor privado para la aplicacion de Singleton
     private Controlador(){
@@ -28,6 +27,7 @@ public class Controlador {
     //Get para obtener la unica instancia que existe
     public static Controlador getControlador() {return controlador;}
 
+    /*
     public PersonaLogica persona() {
         return personaLogica;
     }
@@ -35,6 +35,7 @@ public class Controlador {
     public ZonaLogica zona() {
         return zonaLogica;
     }
+    */
 
     public boolean mover(Persona persona, Zona zonaDestino) {
         return MovimientosLogica.moverPersona(persona, zonaDestino);

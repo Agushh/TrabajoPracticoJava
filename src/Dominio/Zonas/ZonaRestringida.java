@@ -1,28 +1,19 @@
 package Dominio.Zonas;
-import Dominio.Enums.TipoZona;
+import Dominio.Zonas.Interface.Capado;
 
-public class ZonaRestringida extends Zona{
+public class ZonaRestringida extends Zona implements Capado {
     private int capacidadMaxima;
-    //private static int cantActualPers = 0; //Concurrencia.
 
-    public ZonaRestringida(String descripcion, int capacidadMaxima){
-        super(descripcion,TipoZona.ZONA_RESTRINGIDA);
-        this.capacidadMaxima=capacidadMaxima;
+    public ZonaRestringida(String id, String descripcion, int concurrencia, int capacidadMaxima) {
+        super(id, descripcion, concurrencia);
+        this.capacidadMaxima = capacidadMaxima;
     }
 
-    public ZonaRestringida(String descripcion, int capacidadMaxima, TipoZona tipo){
-        super(descripcion,tipo);
-        this.capacidadMaxima=capacidadMaxima;
-    }
+    public ZonaRestringida(){}
 
-    public int getCapacidad()
-    {
-        return capacidadMaxima - getConcurrencia();
-    }
+    public int getCapacidadMaxima(){return capacidadMaxima;}
+    public void setCapacidadMaxima(int capacidadMaxima){ this.capacidadMaxima = capacidadMaxima;}
 
     @Override
-    public int getCapacidadMaxima(){
-    return capacidadMaxima;
-    }
-
+    public int getCapacidad() {return capacidadMaxima - getConcurrencia();}
 }

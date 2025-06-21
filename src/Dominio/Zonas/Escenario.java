@@ -9,39 +9,35 @@ import java.util.*;
 
 public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA?
     private int capacidadMaxima;
-    //private static int cantActualPers = 0; // se hereda var concurrencia de Zona.
+    private List<Evento> eventos = new ArrayList<>();
 
-    private final List<Evento> eventos;
-    private TipoZona tipo;
-
-    public Escenario(String descripcion,int capacidadMaxima){
-        super(descripcion, TipoZona.ESCENARIO);
+    public Escenario(String id, String descripcion, int concurrencia, int capacidadMaxima, List<Evento> eventos) {
+        super(id, descripcion, concurrencia);
         this.capacidadMaxima = capacidadMaxima;
-        this.eventos=new ArrayList<>();
+        this.eventos = eventos;
     }
 
-    @Override
-    public int getCapacidad()
-    {
-        return capacidadMaxima - getConcurrencia();
-    }
+    public Escenario(){}
 
-    @Override
     public int getCapacidadMaxima() {
         return capacidadMaxima;
     }
+    public void setCapacidadMaxima(int capacidadMaxima){ this.capacidadMaxima = capacidadMaxima;}
+
+    public List<Evento> getEventos(){
+        return eventos;
+    }
+    public void setEventos(List<Evento> eventos){this.eventos = eventos;}
+
+    public void addEvento(LocalDateTime fecha, String artista){
+        eventos.add(new Evento(fecha.toString(),artista));
+    }
+
+    @Override
+    public int getCapacidad() {return capacidadMaxima - getConcurrencia();}
 
     @Override
     public String toStringCompleto() {
         return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "")+ "<br>" + "Capacidad: " + getCapacidad() + "</html>";
     }
-
-    public void addEvento(LocalDateTime fecha, String artista){
-        eventos.add(new Evento(fecha,artista));
-    }
-
-    public List<Evento> getEventos(){
-        return eventos;
-    }
-
 }

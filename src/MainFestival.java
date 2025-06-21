@@ -1,18 +1,18 @@
-import Controlador.Controlador;
 import Dominio.Enums.EstadoAcceso;
 import Dominio.Enums.TipoPers;
 import Dominio.Enums.TipoZona;
-import Dominio.Factory.ZonaFactory;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
 import Dominio.Zonas.Datos.Evento;
-import Vista.CustomJFrame;
- import Inicializador.CargaInicial;
+import Inicializador.Serialization;
 import Dominio.Personas.*;
 import java.time.LocalDateTime;
 
 public class MainFestival {
     public static void main(String[] args){
+
+        Serialization.createDatos();
+        /*
         //Genero instancia de controlador
         Controlador controlador = Controlador.getControlador();
 
@@ -22,7 +22,7 @@ public class MainFestival {
         controlador.zona().add(TipoZona.ZONA_COMUN, "Baño 1");
         controlador.zona().add(TipoZona.ESCENARIO,"Escenario principal",20);
 
-        
+
         //Muestor zonas
         controlador
                 .zona()
@@ -93,6 +93,8 @@ public class MainFestival {
         System.out.println("\nTotal personas: " + c.getPersonas().size());
         System.out.println("Total zonas: " + c.getZonas().size());
 
+
+         */
 
     }
 

@@ -1,3 +1,4 @@
+/*
 package Inicializador;
 
 import com.google.gson.*;
@@ -65,3 +66,4 @@ public class CargaInicial {
         }
     }
 }
+*/

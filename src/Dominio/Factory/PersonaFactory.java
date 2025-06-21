@@ -1,3 +1,4 @@
+/*
 package Dominio.Factory;
 
 import Dominio.Enums.TipoPers;
@@ -16,3 +17,4 @@ public class PersonaFactory {
         };
     }
 }
+ */

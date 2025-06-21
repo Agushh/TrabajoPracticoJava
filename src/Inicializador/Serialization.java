@@ -1,0 +1,110 @@
+package Inicializador;
+
+import Dominio.Enums.EstadoAcceso;
+import Dominio.Personas.*;
+import Dominio.Personas.Datos.Acceso;
+import Dominio.Zonas.*;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import java.io.File;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.TreeSet;
+
+public class Serialization {
+
+
+    public static void createDatos(){
+        PersonasLista personasLista = new PersonasLista();
+        ZonasLista zonasLista = new ZonasLista();
+
+
+        Persona p1 = new Artista("Agustin", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p2 = new Artista("Alejo", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p3 = new Asistente("Facundo", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p4 = new Asistente("Francisco", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p5 = new Comerciante("Martin", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p6 = new Comerciante("Julian", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p7 = new Staff("Roberto", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p8 = new Staff("Pepito", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+
+
+        Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas", 2);
+        Zona z2 = new ZonaComun("ZC002", "Zona de baños", 1);
+        Zona z3 = new ZonaRestringida("ZR003", "Camarines", 1, 100);
+        Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido", 0, 200);
+        Zona z5 = new Stand("ZS005", "Stand de Comida", 1, 200, z1, p5, null);
+        Zona z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, p6, null);
+        Zona z7 = new Escenario("ZE007", "Escenario N1", 2, 100, null);
+        Zona z8 = new Escenario("ZE008", "Escenario N2", 0, 200, null);
+
+
+        Acceso acceso = new Acceso(z1, LocalDateTime.now().toString(), 100, EstadoAcceso.DENEGADO);
+
+        p1.addAcceso(acceso);
+        p2.addAcceso(acceso);
+        p3.addAcceso(acceso);
+        p4.addAcceso(acceso);
+        p5.addAcceso(acceso);
+        p6.addAcceso(acceso);
+        p7.addAcceso(acceso);
+        p8.addAcceso(acceso);
+        //Carga de listas de ZonasAccesibles
+        p1.addZona(z1);
+        p1.addZona(z8);
+        p2.addZona(z5);
+        p2.addZona(z2);
+        p3.addZona(z2);
+        p3.addZona(z7);
+        p4.addZona(z6);
+        p4.addZona(z7);
+        p5.addZona(z7);
+        p5.addZona(z1);
+        p6.addZona(z4);
+        p6.addZona(z3);
+        p7.addZona(z3);
+        p7.addZona(z6);
+        p8.addZona(z8);
+        p8.addZona(z7);
+
+        p1.setZonaActual(z1);
+        p2.setZonaActual(z5);
+        p3.setZonaActual(z2);
+        p4.setZonaActual(z7);
+        p5.setZonaActual(z1);
+        p6.setZonaActual(z3);
+        p7.setZonaActual(z6);
+        p8.setZonaActual(z7);
+
+        personasLista.addPersona(p1);
+        personasLista.addPersona(p2);
+        personasLista.addPersona(p3);
+        personasLista.addPersona(p4);
+        personasLista.addPersona(p5);
+        personasLista.addPersona(p6);
+        personasLista.addPersona(p7);
+        personasLista.addPersona(p8);
+
+        zonasLista.addZona(z1);
+        zonasLista.addZona(z2);
+        zonasLista.addZona(z3);
+        zonasLista.addZona(z4);
+        zonasLista.addZona(z5);
+        zonasLista.addZona(z6);
+        zonasLista.addZona(z7);
+        zonasLista.addZona(z8);
+
+        XmlMapper mapper = new XmlMapper();
+
+        try
+        {
+            mapper.writeValue(new File("personas.xml"), personasLista);
+            mapper.writeValue(new File("zonas.xml"), zonasLista);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+}

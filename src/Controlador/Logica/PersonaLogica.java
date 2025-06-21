@@ -1,4 +1,4 @@
-package Controlador.Logica;
+/*package Controlador.Logica;
 
 import Dominio.Enums.TipoPers;
 import Dominio.Factory.PersonaFactory;
@@ -64,3 +64,6 @@ public class PersonaLogica {
         });
     }
 }
+
+
+ */

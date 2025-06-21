@@ -1,3 +1,4 @@
+/*
 package Dominio.Factory;
 
 import Dominio.Enums.TipoZona;
@@ -56,3 +57,4 @@ public class ZonaFactory {
         return z;
     }
 }
+*/

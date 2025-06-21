@@ -5,38 +5,36 @@ import Dominio.Enums.TipoZona;
 import java.util.Objects;
 
 public abstract class Zona implements Comparable{
-    private static int contZ = 0; //Cuento todas las zonas que fueron creadas
-    private String codigo; // todo PROTECTED? ///Private, acceder con GetCod
+    private String id; // todo PROTECTED? ///Private, acceder con GetCod
     private String descripcion;
     private int concurrencia; ///cantidad de personas. Se utiliza en todas las zonas.
 
-    // todo Hago PRIVATE CONSTRUCTOR PARA SOLO PODER CREAR A PARTIR DE FACTORY?? Y AGREGO FACTORY ACA??? COMO HAGO??
-    Zona(String descripcion, TipoZona tipo){
-        this.codigo = tipo.trunc() + "-" + String.format("%04d", contZ++); ;
+    public Zona(String id, String descripcion, int concurrencia){
+        this.id =
         this.descripcion=descripcion;
-        concurrencia = 0;
+        this.concurrencia = 0;
     }
 
-    public String getCod() {
-        return codigo;
-    }
+    public Zona(){}
+
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
 
     public String getDescripcion() {
         return descripcion;
     }
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion; }
 
     public int getConcurrencia()
     {
         return concurrencia;
     }
-
-    public abstract int getCapacidadMaxima();
+    public void setConcurrencia(int concurrencia) {this.concurrencia = concurrencia; }
 
     public void ponePersona()
     {
         concurrencia ++;
     }
-
     public void sacaPersona()
     {
         concurrencia --;
@@ -44,40 +42,29 @@ public abstract class Zona implements Comparable{
 
     @Override
     public String toString() {
-        return   "<html>" + "Cod:  " + codigo + " --   Desc:   " + descripcion + "</html>" ;
+        return   "<html>" + "Cod:  " + id + " --   Desc:   " + descripcion + "</html>" ;
                 //+"<br>"+"Concurrencia actual : "+getConcurrencia()+"</html>";
     }
     public  String toStringCompleto(){
-        return   "<html>" + "Cod:  " + codigo + " --   Desc:   " + descripcion+"<br>"+"Concurrencia actual : "+getConcurrencia()+"</html>";
+        return   "<html>" + "Cod:  " + id + " --   Desc:   " + descripcion+"<br>"+"Concurrencia actual : "+getConcurrencia()+"</html>";
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null) return false;
         else if (o == this) return true;
-        else return codigo.equals(((Zona) o).getCod());
+        else return id.equals(((Zona) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo);
+        return Objects.hash(id);
     }
 
     /// Funcion para el TreeSet de Zonas en Persona. Se usa para ordenar los elementos de forma automatica.
     @Override
     public int compareTo(Object o) {
         if(o == this) return 0;
-        return codigo.compareTo(((Zona) o).codigo);
+        return id.compareTo(((Zona) o).id);
     }
-
-    public void mostrar(){
-        System.out.println(this.toString());
-    }
-
-
-    /*
-    public boolean estaLlena(){ // todo esto no tiene que estar aca tiene que estar solo en zonas con capacidad, creo que hay que crear una interfaz
-        return false;
-    }
-    */
 }

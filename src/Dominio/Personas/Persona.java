@@ -5,29 +5,66 @@ import Dominio.Enums.TipoZona;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Enums.TipoPers;
 import Dominio.Zonas.Zona;
+import com.fasterxml.jackson.annotation.*;
+import com.sun.source.tree.Tree;
 
 import java.rmi.AccessException;
 import java.util.*;
 
-public abstract class Persona implements Comparable {
-    private static int contP = 0; //Cuento todas las personas que fueron creadas
-    private  String id;
-    private  String nombre;
-    private final List<Acceso> accesos = new ArrayList<>(); //todo List?
-    private TreeSet<Zona> zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN. Protected?
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,               // cómo identificar el tipo (por nombre)
+        include = JsonTypeInfo.As.PROPERTY,     // dónde incluirlo (como propiedad)
+        property = "type"                        // nombre del campo que indica el tipo
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Artista.class, name = "artista"),
+        @JsonSubTypes.Type(value = Asistente.class, name = "asistente"),
+        @JsonSubTypes.Type(value = Comerciante.class, name = "comerciante"),
+        @JsonSubTypes.Type(value = Staff.class, name = "staff")
+})
+
+
+public abstract class Persona{
+    private String id;
+    private String nombre;
+    private List<Acceso> accesos = new ArrayList<>();
+    private TreeSet<Zona> zonasPermitidas = new TreeSet<Zona>();
     private Zona zonaActual;
 
 
-    public Persona(String nombre, TipoPers tipo, Zona zonaActual){
-        id = tipo.trunc() + "-" + String.format("%04d", contP++); /*genera id unico*/ /// suprimi la funcion generateCod, y lo incorpore en linea.
+    public Persona(String nombre, String id, Zona zonaActual, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos){
+        this.id = id;
         this.nombre=nombre;
-        zonasPermitidas= new TreeSet<>(); //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
+        this.zonasPermitidas = zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
         this.zonaActual = zonaActual;
+        this.accesos = accesos;
     }
 
+    public Persona(){}
+
     public String getId(){return id;}
+    public void setId(String id){this.id = id;}
+
     public String getNombre(){return nombre;}
+    public void setNombre(String nombre){this.nombre = nombre;}
+
     public List<Acceso> getAccesos(){return  accesos;}
+    public void setAccesos(List<Acceso> accesos){this.accesos = accesos;}
+
+    public TreeSet<Zona> getZonasPermitidas() {
+        return zonasPermitidas;
+    }
+    public void setZonasPermitidas(TreeSet<Zona> zonasPermitidas) { this.zonasPermitidas = zonasPermitidas;}
+
+    public Zona getZonaActual() {
+        return zonaActual;
+    }
+    public void setZonaActual(Zona zonaActual) {
+        this.zonaActual = zonaActual;
+    }
 
     public String getTipo() {
         if (this instanceof Staff) return "STAFF";
@@ -36,6 +73,7 @@ public abstract class Persona implements Comparable {
         if (this instanceof  Asistente)return  "ASISTENTE";
         return "OTRO";
     }
+    @JsonIgnore
     public Acceso getUltimoAccesoAceptado() {
         int index = accesos.size() -1;
         Acceso temp = accesos.get( index);
@@ -43,18 +81,6 @@ public abstract class Persona implements Comparable {
             temp = accesos.get(index--);
         }
         return temp;
-    }
-
-    public TreeSet<Zona> getZonasPermitidas() {
-        return zonasPermitidas;
-    }
-
-    public Zona getZonaActual() {
-        return zonaActual;
-    }
-
-    public void setZonaActual(Zona zonaActual) {
-        this.zonaActual = zonaActual;
     }
 
     public void addZona(Zona z){zonasPermitidas.add(z);}
@@ -80,11 +106,5 @@ public abstract class Persona implements Comparable {
     ///El ToString() cumple la misma funcion
     public void mostrar(){
         System.out.println(this.toString());
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        if(this == o) return 0;
-        return id.compareTo(((Persona) o).id);
     }
 }
