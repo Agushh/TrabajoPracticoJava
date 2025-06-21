@@ -1,8 +1,32 @@
 package Dominio.Zonas;
 
 import Dominio.Enums.TipoZona;
+import Dominio.Personas.Artista;
+import Dominio.Personas.Asistente;
+import Dominio.Personas.Comerciante;
+import Dominio.Personas.Staff;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Objects;
+
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,               // cómo identificar el tipo (por nombre)
+        include = JsonTypeInfo.As.PROPERTY,     // dónde incluirlo (como propiedad)
+        property = "type"                        // nombre del campo que indica el tipo
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Escenario.class, name = "escenario"),
+        @JsonSubTypes.Type(value = Stand.class, name = "stand"),
+        @JsonSubTypes.Type(value = ZonaComun.class, name = "zona Comun"),
+        @JsonSubTypes.Type(value = ZonaRestringida.class, name = "zona Restringida")
+})
+
 
 public abstract class Zona implements Comparable{
     private String id; // todo PROTECTED? ///Private, acceder con GetCod
@@ -10,7 +34,7 @@ public abstract class Zona implements Comparable{
     private int concurrencia; ///cantidad de personas. Se utiliza en todas las zonas.
 
     public Zona(String id, String descripcion, int concurrencia){
-        this.id =
+        this.id = id;
         this.descripcion=descripcion;
         this.concurrencia = 0;
     }

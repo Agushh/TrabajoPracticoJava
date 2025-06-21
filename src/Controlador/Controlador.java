@@ -27,16 +27,6 @@ public class Controlador {
     //Get para obtener la unica instancia que existe
     public static Controlador getControlador() {return controlador;}
 
-    /*
-    public PersonaLogica persona() {
-        return personaLogica;
-    }
-
-    public ZonaLogica zona() {
-        return zonaLogica;
-    }
-    */
-
     public boolean mover(Persona persona, Zona zonaDestino) {
         return MovimientosLogica.moverPersona(persona, zonaDestino);
     }

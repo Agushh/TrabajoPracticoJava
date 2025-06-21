@@ -17,7 +17,7 @@ public class MovimientosLogica {
     //// Lleva el registro de cuántas personas hay en cada zona
     //private Map<Zona, Integer> ocupacionActual = new HashMap<>(); // zona= clave integer= cantidad de personas
 
-    public static boolean moverPersona(Persona persona, Zona zonaDestino){
+    public static boolean moverPersona(Persona persona, Zona zonaDestino) throws AccesoDenegadoException, ZonaLlenaException, ZonaEsLaActualException{
         if (!persona.puedeAcceder(zonaDestino)) {
             throw new AccesoDenegadoException("La persona no tiene acceso a la zona.");
         }

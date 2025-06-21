@@ -9,8 +9,8 @@ import java.util.TreeSet;
 
 public class Comerciante extends Persona {
 
-    public Comerciante(String nombre, String id, Zona zonaActual, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
-        super(nombre, id, zonaActual, zonasPermitidas, accesos);
+    public Comerciante(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
+        super(nombre, id, zonasPermitidas, accesos);
     }
 
     public Comerciante() {

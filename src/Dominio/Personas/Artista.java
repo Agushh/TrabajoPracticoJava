@@ -9,8 +9,8 @@ import java.util.TreeSet;
 
 public class Artista extends Persona {
 
-    public Artista(String nombre, String id, Zona zonaActual, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
-        super(nombre, id, zonaActual, zonasPermitidas, accesos);
+    public Artista(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
+        super(nombre, id, zonasPermitidas, accesos);
     }
 
     public Artista() {

@@ -4,6 +4,8 @@ import Dominio.Enums.EstadoAcceso;
 import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.File;
@@ -15,18 +17,18 @@ public class Serialization {
 
 
     public static void createDatos(){
+
         PersonasLista personasLista = new PersonasLista();
         ZonasLista zonasLista = new ZonasLista();
 
-
-        Persona p1 = new Artista("Agustin", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p2 = new Artista("Alejo", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p3 = new Asistente("Facundo", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p4 = new Asistente("Francisco", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p5 = new Comerciante("Martin", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p6 = new Comerciante("Julian", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p7 = new Staff("Roberto", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p8 = new Staff("Pepito", "0001", null, new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p1 = new Artista("Agustin", "0001", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p2 = new Artista("Alejo", "0002", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p3 = new Asistente("Facundo", "0003", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p4 = new Asistente("Francisco", "0004", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p5 = new Comerciante("Martin", "0005", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p6 = new Comerciante("Julian", "0006", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p7 = new Staff("Roberto", "0007", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Persona p8 = new Staff("Pepito", "0008", new TreeSet<Zona>(), new ArrayList<Acceso>());
 
 
         Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas", 2);
@@ -107,4 +109,36 @@ public class Serialization {
 
 
     }
+    public static ArrayList<Persona> leePersonas()
+    {
+        PersonasLista personas = new PersonasLista();
+        try
+        {
+            XmlMapper mapper = new XmlMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            personas = mapper.readValue(new File("personas.xml"), PersonasLista.class);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return personas.getPersonas();
+    }
+
+    public static ArrayList<Zona> leeZonas()
+    {
+        ZonasLista zonas = new ZonasLista();
+        try
+        {
+            XmlMapper mapper = new XmlMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            zonas = mapper.readValue(new File("zonas.xml"), ZonasLista.class);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return zonas.getZonas();
+    }
+
 }

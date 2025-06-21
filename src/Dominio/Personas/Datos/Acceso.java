@@ -25,6 +25,8 @@ public class Acceso {
     this.zona = zona;
 }
 
+    public Acceso(){}
+
     @JsonIgnore
     public LocalDateTime getFechaAsDateTime() {
         return LocalDateTime.parse(fecha);
@@ -51,6 +53,21 @@ public class Acceso {
         return estado;
     }
 
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setMinutos(int minutos) {
+        this.minutos = minutos;
+    }
+
+    public void setEstado(EstadoAcceso estado) {
+        this.estado = estado;
+    }
 
     @Override
     public String toString(){
