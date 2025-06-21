@@ -31,7 +31,7 @@ public class MovimientosLogica {
             //if (!(zonaDestino instanceof Capado Es && Es.getCapacidad() == 0)) {// es nesesario preguntar aca? cuando se lanza la excepcion no descarta esta opcion?
                 zonaDestino.ponePersona();
                 persona.getZonaActual().sacaPersona();
-                persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int)Duration.between(LocalDateTime.now(),persona.getUltimoAccesoAceptado().getFechahora()).toMinutes() , EstadoAcceso.AUTORIZADO));
+                persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now().toString(), (int)Duration.between(LocalDateTime.now(), persona.getUltimoAccesoAceptado().getFechaAsDateTime()).toMinutes() , EstadoAcceso.AUTORIZADO));
                 /// zona actual o zonaDestino? rariiii . no entiendo :D
                 /// pienso en accesos como un registro que al cambiar de zona, se registra cuanto tiempo estuvo. Tambien estaria bien verlo como
                 /// un registro que indica cuanto tiempo estuvo en la zona en la cual se ingresa, pero no seria un cambio de zona, sino mas bien
@@ -41,7 +41,7 @@ public class MovimientosLogica {
 
             //}
         //}
-        persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
+        persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now().toString(), 0, EstadoAcceso.DENEGADO));
         return true;
      //   return false;
     }
