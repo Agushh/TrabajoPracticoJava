@@ -1,4 +1,6 @@
 package Vista;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.*;
 
 import Controlador.Controlador;
@@ -25,27 +27,30 @@ public class CustomJFrame extends JFrame{
     private List<JLabel> labels;
 
     //constructor
-    public CustomJFrame(String title, int minWidth, int minHeight, int x, int y, boolean centered, Controlador controlador) throws GUIException
-    { //agrege pasar el controlador por parametro
-        super("Example");
+    public CustomJFrame() throws GUIException
+    {
+        Controlador controlador = Controlador.getControlador();
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         labels = new ArrayList<>();
-        setTitle(title);
+        setTitle("Trabajo Practico Java");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(minWidth,minHeight));
+        setMinimumSize(new Dimension(300,300));
         setSize(500, 500);
         setResizable(true);
-        if(centered)
-            setLocationRelativeTo(null);
-        else
-            setLocation(x,y);
+        setLocationRelativeTo(null);
         setVisible(true);
         addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
         addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
         addBotonFrame("Reporte de stands",e ->abrirPanelStands(controlador.getStands()),this);
         addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
         addBotonFrame("Cargar Datos",e -> cargarDatosGui(controlador),this);
-
+    // Ejecutar función al cerrar
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Controlador.getControlador().guardarDatos(); // o cualquier función que quieras ejecutar
+            }
+        });
         // setLayout(new FlowLayout());
     }
 
@@ -314,7 +319,7 @@ public class CustomJFrame extends JFrame{
             controlador.cargaDeDatos();
             JOptionPane.showMessageDialog(dialog, "Datos cargados correctamente...");
         }catch (DatosIncorrectosException e){
-            JOptionPane.showMessageDialog(dialog, "Datos cargados con errores... \n" + e.getMessage() + "\n El programa funcionara pero con posibles errores!! \n Se recomienda acomodar datos!!!");
+            JOptionPane.showMessageDialog(dialog, "Datos cargados. Se detectaron las siguientes inconsistencias : \n \n" + e.getMessage() + "\n El programa funcionara pero con posibles errores!! \n Se recomienda verificar los datos enlistados!");
         }catch (DeserializationException e){
             JOptionPane.showMessageDialog(dialog, e.getMessage());
         }
