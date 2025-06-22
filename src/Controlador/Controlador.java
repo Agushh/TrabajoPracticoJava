@@ -103,7 +103,7 @@ public class Controlador {
         }
         zonaDestino.ponePersona();
         persona.getZonaActual().sacaPersona();
-        persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int) Duration.between(LocalDateTime.now(), LocalDateTime.parse(persona.getUltimoAccesoAceptado().getFecha())).toMinutes() , EstadoAcceso.AUTORIZADO));
+        persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int) Duration.between(LocalDateTime.parse(persona.getUltimoAccesoAceptado().getFecha()), LocalDateTime.now()).toMinutes() , EstadoAcceso.AUTORIZADO));
         persona.setZonaActual(zonaDestino);
 
     }
@@ -151,6 +151,7 @@ public class Controlador {
             {
                 TreeSet<Zona> zonasPermitidas = new TreeSet<>();
                 for(Zona z : persona.getZonasPermitidas()){
+                    System.out.println("HOLA");
                     Zona temp = zonasPorId.get(z.getId());
                     if(temp != null)
                         zonasPermitidas.add(temp);

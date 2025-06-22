@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.sun.source.tree.Tree;
 
 import java.rmi.AccessException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -75,12 +76,11 @@ public abstract class Persona{
     @JsonIgnore
     public Acceso getUltimoAccesoAceptado() {
         int index = accesos.size() -1;
-        Acceso temp = accesos.get( index);
-        while(temp.getEstado() == EstadoAcceso.DENEGADO) {
-            System.out.print(index);
-            temp = accesos.get(--index);
+        Acceso temp = accesos.get(index);
+        while(index >= 0 && temp.getEstado() == EstadoAcceso.DENEGADO) {
+            temp = accesos.get(index--);
         }
-        System.out.print(accesos.size());
+        if(index < 0) return new Acceso(null, LocalDateTime.now(), 0, null);
         return temp;
     }
 
