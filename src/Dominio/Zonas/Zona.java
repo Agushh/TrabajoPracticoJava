@@ -1,10 +1,5 @@
 package Dominio.Zonas;
 
-import Dominio.Enums.TipoZona;
-import Dominio.Personas.Artista;
-import Dominio.Personas.Asistente;
-import Dominio.Personas.Comerciante;
-import Dominio.Personas.Staff;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -28,7 +23,7 @@ import java.util.Objects;
 })
 
 
-public abstract class Zona implements Comparable{
+public abstract class Zona implements Comparable<Zona>{
     private String id; // todo PROTECTED? ///Private, acceder con GetCod
     private String descripcion;
     private int concurrencia; ///cantidad de personas. Se utiliza en todas las zonas.
@@ -86,8 +81,8 @@ public abstract class Zona implements Comparable{
 
     /// Funcion para el TreeSet de Zonas en Persona. Se usa para ordenar los elementos de forma automatica.
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Zona o) {
         if(o == this) return 0;
-        return id.compareTo(((Zona) o).id);
+        return id.compareTo(o.id);
     }
 }

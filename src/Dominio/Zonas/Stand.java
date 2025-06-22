@@ -1,7 +1,6 @@
 package Dominio.Zonas;
 
 import Dominio.Personas.Comerciante;
-import Dominio.Personas.Persona;
 
 import java.util.*;
 

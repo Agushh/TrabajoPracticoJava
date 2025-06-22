@@ -1,6 +1,5 @@
 package Dominio.Zonas;
 
-import Dominio.Enums.TipoZona;
 import Dominio.Personas.Artista;
 import Dominio.Zonas.Datos.Evento;
 import Dominio.Zonas.Interface.Capado;

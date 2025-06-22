@@ -1,7 +1,6 @@
 package Dominio.Zonas.Datos;
 
 import Dominio.Personas.Artista;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,7 +23,7 @@ public class Evento {
     public void setFecha(String fecha) {
         this.fecha = LocalDateTime.parse(fecha);
     }
-    public Artista getArtista(){return artista;};
+    public Artista getArtista(){return artista;}
 
     public void setArtista(Artista artista) {
         this.artista = artista;

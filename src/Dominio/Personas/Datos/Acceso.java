@@ -1,9 +1,7 @@
 package Dominio.Personas.Datos;
 
-
 import Dominio.Enums.EstadoAcceso;
 import Dominio.Zonas.Zona;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

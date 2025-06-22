@@ -1,12 +1,7 @@
 package Dominio.Personas;
 
-import Dominio.Enums.TipoPers;
-import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Zona;
-
-import java.util.List;
-import java.util.TreeSet;
 
 public class Artista extends Persona {
 

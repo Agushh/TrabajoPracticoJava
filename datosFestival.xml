@@ -23,7 +23,7 @@
           <accesos>
             <accesos>
               <zona>ZC001</zona>
-              <fecha>2025-06-22T18:51:55.948705500</fecha>
+              <fecha>2025-06-22T19:24:41.184463900</fecha>
               <minutos>100</minutos>
               <estado>AUTORIZADO</estado>
             </accesos>
@@ -54,7 +54,7 @@
                   <accesos>
                     <accesos>
                       <zona>ZC001</zona>
-                      <fecha>2025-06-22T18:51:55.948705500</fecha>
+                      <fecha>2025-06-22T19:24:41.184463900</fecha>
                       <minutos>100</minutos>
                       <estado>AUTORIZADO</estado>
                     </accesos>
@@ -73,7 +73,7 @@
                         <accesos>
                           <accesos>
                             <zona>ZC001</zona>
-                            <fecha>2025-06-22T18:51:55.948705500</fecha>
+                            <fecha>2025-06-22T19:24:41.184463900</fecha>
                             <minutos>100</minutos>
                             <estado>AUTORIZADO</estado>
                           </accesos>
@@ -84,7 +84,6 @@
                         </zonasPermitidas>
                         <zonaActual>ZC001</zonaActual>
                         <stand>ZS005</stand>
-                        <tipo>COMERCIANTE</tipo>
                       </responsable>
                       <empleados>
                         <empleados type="comerciante">
@@ -93,7 +92,7 @@
                           <accesos>
                             <accesos>
                               <zona>ZC001</zona>
-                              <fecha>2025-06-22T18:51:55.948705500</fecha>
+                              <fecha>2025-06-22T19:24:41.184463900</fecha>
                               <minutos>100</minutos>
                               <estado>AUTORIZADO</estado>
                             </accesos>
@@ -114,7 +113,7 @@
                               <accesos>
                                 <accesos>
                                   <zona>ZC001</zona>
-                                  <fecha>2025-06-22T18:51:55.948705500</fecha>
+                                  <fecha>2025-06-22T19:24:41.184463900</fecha>
                                   <minutos>100</minutos>
                                   <estado>AUTORIZADO</estado>
                                 </accesos>
@@ -137,7 +136,6 @@
                               </zonasPermitidas>
                               <zonaActual>ZR003</zonaActual>
                               <stand>ZS006</stand>
-                              <tipo>COMERCIANTE</tipo>
                             </responsable>
                             <empleados>
                               <empleados type="comerciante">
@@ -146,7 +144,7 @@
                                 <accesos>
                                   <accesos>
                                     <zona>ZC001</zona>
-                                    <fecha>2025-06-22T18:51:55.948705500</fecha>
+                                    <fecha>2025-06-22T19:24:41.184463900</fecha>
                                     <minutos>100</minutos>
                                     <estado>AUTORIZADO</estado>
                                   </accesos>
@@ -157,7 +155,6 @@
                                 </zonasPermitidas>
                                 <zonaActual>ZE008</zonaActual>
                                 <stand>ZS005</stand>
-                                <tipo>COMERCIANTE</tipo>
                               </empleados>
                               <empleados type="comerciante">
                                 <id>0012</id>
@@ -165,7 +162,7 @@
                                 <accesos>
                                   <accesos>
                                     <zona>ZC001</zona>
-                                    <fecha>2025-06-22T18:51:55.948705500</fecha>
+                                    <fecha>2025-06-22T19:24:41.184463900</fecha>
                                     <minutos>100</minutos>
                                     <estado>AUTORIZADO</estado>
                                   </accesos>
@@ -176,13 +173,11 @@
                                 </zonasPermitidas>
                                 <zonaActual>ZC001</zonaActual>
                                 <stand>ZS006</stand>
-                                <tipo>COMERCIANTE</tipo>
                               </empleados>
                             </empleados>
                             <capacidad>197</capacidad>
                           </zonaActual>
                           <stand>ZS005</stand>
-                          <tipo>COMERCIANTE</tipo>
                         </empleados>
                         <empleados type="comerciante">
                           <id>0010</id>
@@ -190,7 +185,7 @@
                           <accesos>
                             <accesos>
                               <zona>ZC001</zona>
-                              <fecha>2025-06-22T18:51:55.948705500</fecha>
+                              <fecha>2025-06-22T19:24:41.184463900</fecha>
                               <minutos>100</minutos>
                               <estado>AUTORIZADO</estado>
                             </accesos>
@@ -201,7 +196,6 @@
                           </zonasPermitidas>
                           <zonaActual>ZC002</zonaActual>
                           <stand>ZS006</stand>
-                          <tipo>COMERCIANTE</tipo>
                         </empleados>
                       </empleados>
                       <capacidad>186</capacidad>
@@ -209,13 +203,11 @@
                   </zonasPermitidas>
                   <zonaActual>ZS005</zonaActual>
                   <escenario>ZE008</escenario>
-                  <tipo>ARTISTA</tipo>
                 </artista>
               </eventos>
             </eventos>
             <capacidad>199</capacidad>
           </escenario>
-          <tipo>ARTISTA</tipo>
         </artista>
       </eventos>
       <eventos>
@@ -242,7 +234,7 @@
     <accesos>
       <accesos>
         <zona>ZC001</zona>
-        <fecha>2025-06-22T18:51:55.948705500</fecha>
+        <fecha>2025-06-22T19:24:41.184463900</fecha>
         <minutos>100</minutos>
         <estado>AUTORIZADO</estado>
       </accesos>
@@ -252,7 +244,6 @@
       <zonasPermitidas>ZE007</zonasPermitidas>
     </zonasPermitidas>
     <zonaActual>ZC002</zonaActual>
-    <tipo>ASISTENTE</tipo>
   </personas>
   <personas type="asistente">
     <id>0004</id>
@@ -260,7 +251,7 @@
     <accesos>
       <accesos>
         <zona>ZC001</zona>
-        <fecha>2025-06-22T18:51:55.948705500</fecha>
+        <fecha>2025-06-22T19:24:41.184463900</fecha>
         <minutos>100</minutos>
         <estado>AUTORIZADO</estado>
       </accesos>
@@ -270,7 +261,6 @@
       <zonasPermitidas>ZS006</zonasPermitidas>
     </zonasPermitidas>
     <zonaActual>ZE007</zonaActual>
-    <tipo>ASISTENTE</tipo>
   </personas>
   <personas>0005</personas>
   <personas>0006</personas>
@@ -280,7 +270,7 @@
     <accesos>
       <accesos>
         <zona>ZC001</zona>
-        <fecha>2025-06-22T18:51:55.948705500</fecha>
+        <fecha>2025-06-22T19:24:41.184463900</fecha>
         <minutos>100</minutos>
         <estado>AUTORIZADO</estado>
       </accesos>
@@ -290,7 +280,6 @@
       <zonasPermitidas>ZS006</zonasPermitidas>
     </zonasPermitidas>
     <zonaActual>ZS006</zonaActual>
-    <tipo>STAFF</tipo>
   </personas>
   <personas type="staff">
     <id>0008</id>
@@ -298,7 +287,7 @@
     <accesos>
       <accesos>
         <zona>ZC001</zona>
-        <fecha>2025-06-22T18:51:55.948705500</fecha>
+        <fecha>2025-06-22T19:24:41.184463900</fecha>
         <minutos>100</minutos>
         <estado>AUTORIZADO</estado>
       </accesos>
@@ -308,7 +297,6 @@
       <zonasPermitidas>ZE008</zonasPermitidas>
     </zonasPermitidas>
     <zonaActual>ZE007</zonaActual>
-    <tipo>STAFF</tipo>
   </personas>
   <personas>0009</personas>
   <personas>0010</personas>

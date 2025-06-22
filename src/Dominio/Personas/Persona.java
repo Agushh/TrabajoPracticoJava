@@ -1,14 +1,10 @@
 package Dominio.Personas;
 
 import Dominio.Enums.EstadoAcceso;
-import Dominio.Enums.TipoZona;
 import Dominio.Personas.Datos.Acceso;
-import Dominio.Enums.TipoPers;
 import Dominio.Zonas.Zona;
 import com.fasterxml.jackson.annotation.*;
-import com.sun.source.tree.Tree;
 
-import java.rmi.AccessException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -32,7 +28,7 @@ public abstract class Persona{
     private String id;
     private String nombre;
     private List<Acceso> accesos = new ArrayList<>();
-    private TreeSet<Zona> zonasPermitidas = new TreeSet<Zona>();
+    private TreeSet<Zona> zonasPermitidas = new TreeSet<>();
     private Zona zonaActual;
 
 
@@ -64,13 +60,6 @@ public abstract class Persona{
         this.zonaActual = zonaActual;
     }
 
-    public String getTipo() {
-        if (this instanceof Staff) return "STAFF";
-        if (this instanceof Comerciante) return "COMERCIANTE";
-        if(this instanceof  Artista)return "ARTISTA";
-        if (this instanceof  Asistente)return  "ASISTENTE";
-        return "OTRO";
-    }
     @JsonIgnore
     public Acceso getUltimoAccesoAceptado() {
         int index = accesos.size() -1;
@@ -102,8 +91,4 @@ public abstract class Persona{
         return Objects.hash(id);
     }
 
-    ///El ToString() cumple la misma funcion
-    public void mostrar(){
-        System.out.println(this.toString());
-    }
 }

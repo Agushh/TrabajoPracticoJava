@@ -8,30 +8,23 @@ import Dominio.Exceptions.*;
 import Dominio.Personas.Comerciante;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
+import Dominio.Zonas.Datos.Evento;
 import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Stand;
 import Dominio.Zonas.Zona;
-import com.ctc.wstx.shaded.msv_core.datatype.xsd.StringType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class CustomJFrame extends JFrame{
-
-    //Guardar los labels en el objeto ventana por si hay que cambiarlos.
-    private List<JLabel> labels;
-
-    //constructor
-    public CustomJFrame() throws GUIException
+    public CustomJFrame()
     {
         Controlador controlador = Controlador.getControlador();
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        labels = new ArrayList<>();
         setTitle("Trabajo Practico Java");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(300,300));
@@ -39,19 +32,19 @@ public class CustomJFrame extends JFrame{
         setResizable(true);
         setLocationRelativeTo(null);
         setVisible(true);
-        addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
-        addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
-        addBotonFrame("Reporte de stands",e ->abrirPanelStands(controlador.getStands()),this);
-        addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
-        addBotonFrame("Cargar Datos",e -> cargarDatosGui(controlador),this);
-    // Ejecutar función al cerrar
+        addBotonFrame("Muestra persona", _ ->abrirPanelPersonas(controlador.getPersonas()),this);
+        addBotonFrame("Mover persona", _ -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
+        addBotonFrame("Reporte de stands", _ ->abrirPanelStands(controlador.getStands()),this);
+        addBotonFrame("Reporte de zonas", _ -> abriPanelZonas(controlador.getZonas()),this);
+        addBotonFrame("Cargar Datos", _ -> cargarDatosGui(controlador),this);
+
+        // Ejecutar función al cerrar
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Controlador.getControlador().guardarDatos(); // o cualquier función que quieras ejecutar
+                Controlador.getControlador().guardarDatos();
             }
         });
-        // setLayout(new FlowLayout());
     }
 
     public void addBotonFrame(String text, ActionListener accion, Container contenedor){ //crea btn de frame
@@ -70,11 +63,11 @@ public class CustomJFrame extends JFrame{
         revalidate();
         repaint();
     }
-    public void abrirPanelPersonas(TreeMap<String, Persona> personas,Controlador controlador) {
+    public void abrirPanelPersonas(TreeMap<String, Persona> personas) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
 
-        //crea una coleccion con los nombre de todas las personas para mostrar en el combo(nombre)
+        //crea una coleccion con el nombre de todas las personas para mostrar en el combo(nombre)
         JComboBox<Persona> comboPersonas = new JComboBox<>();
 
         for (Persona p : personas.values()) {
@@ -82,7 +75,7 @@ public class CustomJFrame extends JFrame{
         }
         panel.add(new JLabel("Seleccione una persona:"));
         panel.add(comboPersonas);
-        addBotonPanel("Mostrar",e-> {Persona p = (Persona) comboPersonas.getSelectedItem();muestraPersonaEnGui(p);},panel);
+        addBotonPanel("Mostrar", _ -> {Persona p = (Persona) comboPersonas.getSelectedItem();muestraPersonaEnGui(p);},panel);
 
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
     }
@@ -90,12 +83,12 @@ public class CustomJFrame extends JFrame{
         try{
             JPanel panel = new JPanel(new GridLayout(0,1,0,10));
             panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string?
-            panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "+perAMostrar.getTipo()));
+            panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: " + perAMostrar.getClass().getSimpleName()));
             panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
             panel.add(new JLabel("Zonas accesibles: "));
             for(Zona zona : perAMostrar.getZonasPermitidas())
                 panel.add(new JLabel( " * " + zona.toString()));
-            panel.add(new JLabel("Acceso:" ));;
+            panel.add(new JLabel("Acceso:" ));
             for (Acceso acceso : perAMostrar.getAccesos()) {
                 panel.add(new JLabel(acceso.toString()));
             }
@@ -124,7 +117,7 @@ public class CustomJFrame extends JFrame{
         panel.add(new JLabel() {{ setPreferredSize(new Dimension(300, 5)); }});//hago un espacio
         panel.add(new JLabel("Seleccione una zona:"));
         panel.add(comboZonas);
-        addBotonPanel("Mover",e->{
+        addBotonPanel("Mover", _ ->{
             Persona p = (Persona) comboPersonas.getSelectedItem();
             Zona z = (Zona) comboZonas.getSelectedItem();
             accionMover(p,z);}
@@ -164,11 +157,10 @@ public class CustomJFrame extends JFrame{
         for (Zona zonaAMostrar : zonasSorted) {
             acum += zonaAMostrar.getConcurrencia();
             box.add(new JLabel(zonaAMostrar.toHTML()));
-            if(zonaAMostrar instanceof Escenario){
+            if(zonaAMostrar instanceof Escenario escenario){
                 box.add(new JLabel("    Eventos:"));
-                ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
+                for(Evento evento : escenario.getEventos())
                     box.add(new JLabel("        " + evento.toString()));
-                });
             }
             box.add(Box.createRigidArea(new Dimension(0, 20)));
         }
@@ -184,10 +176,8 @@ public class CustomJFrame extends JFrame{
         JButton okButton = new JButton("OK");
         JButton exportButton = new JButton("Exportar");
 
-        okButton.addActionListener(e -> dialog.dispose());
-        exportButton.addActionListener(e -> {
-            generarReporteZonasTXT(dialog, zonasSorted);
-        });
+        okButton.addActionListener(_ -> dialog.dispose());
+        exportButton.addActionListener(_ -> generarReporteZonasTXT(dialog, zonasSorted));
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(okButton);
         buttonPanel.add(exportButton);
@@ -200,11 +190,6 @@ public class CustomJFrame extends JFrame{
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
-
-        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        //JOptionPane.showMessageDialog(this, scrollPane, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
     }
 
 
@@ -242,11 +227,9 @@ public class CustomJFrame extends JFrame{
         JButton okButton = new JButton("OK");
         JButton exportButton = new JButton("Exportar");
 
-        okButton.addActionListener(e -> dialog.dispose());
+        okButton.addActionListener(_ -> dialog.dispose());
 
-        exportButton.addActionListener(e -> {
-            generarReporteStandsTXT(dialog, stands);
-        });
+        exportButton.addActionListener(_ -> generarReporteStandsTXT(dialog, stands));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(okButton);
@@ -269,7 +252,7 @@ public class CustomJFrame extends JFrame{
             writer.write("Zonas: \n \n");
             for (Zona zona : zonas) {
                 acum += zona.getConcurrencia();
-                writer.write(zona.toString()+"\n");
+                writer.write(zona + "\n");
                 writer.write("Concurrencia: "+ zona.getConcurrencia()+"\n");
                 if(zona instanceof Escenario){
                     writer.write("  Eventos: \n");

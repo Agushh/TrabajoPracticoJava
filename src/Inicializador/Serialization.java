@@ -4,19 +4,10 @@ import Dominio.Enums.EstadoAcceso;
 import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class Serialization {
     public static void createDatos(){
@@ -43,36 +34,36 @@ public class Serialization {
         Zona z2 = new ZonaComun("ZC002", "Zona de baños", 11);
         Zona z3 = new ZonaRestringida("ZR003", "Camarines", 12, 1);
         Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido", 203, 200);
-        Zona z5 = new Stand("ZS005", "Stand de Comida", 13, 200, z1, c1);
-        Zona z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, c2);
-        Zona z7 = new Escenario("ZE007", "Escenario N1", 27, 100);
-        Zona z8 = new Escenario("ZE008", "Escenario N2", 0, 200);
+        Stand z5 = new Stand("ZS005", "Stand de Comida", 13, 200, z1, c1);
+        Stand z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, c2);
+        Escenario z7 = new Escenario("ZE007", "Escenario N1", 27, 100);
+        Escenario z8 = new Escenario("ZE008", "Escenario N2", 0, 200);
 
         Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.AUTORIZADO);
 
-        ((Escenario) z7).addEvento(LocalDateTime.of(2025, 10, 7, 22, 00), ar1);
-        ((Escenario) z7).addEvento(LocalDateTime.of(2025, 11, 2, 15, 00), ar2);
-        ((Escenario) z7).addEvento(LocalDateTime.of(2025, 12, 24, 20, 00), ar2);
-        ((Escenario) z8).addEvento(LocalDateTime.of(2025, 6, 30, 10, 00), ar1);
-        ((Escenario) z8).addEvento(LocalDateTime.of(2025, 7, 2, 12, 00), ar1);
-        ((Escenario) z8).addEvento(LocalDateTime.of(2025, 2, 16, 15, 00), ar2);
+        z7.addEvento(LocalDateTime.of(2025, 10, 7, 22, 0), ar1);
+        z7.addEvento(LocalDateTime.of(2025, 11, 2, 15, 0), ar2);
+        z7.addEvento(LocalDateTime.of(2025, 12, 24, 20, 0), ar2);
+        z8.addEvento(LocalDateTime.of(2025, 6, 30, 10, 0), ar1);
+        z8.addEvento(LocalDateTime.of(2025, 7, 2, 12, 0), ar1);
+        z8.addEvento(LocalDateTime.of(2025, 2, 16, 15, 0), ar2);
 
         //añadir Stand a cada comerciante, y Escenario a cada Artista
-        c5.setStand((Stand) z5);
-        c6.setStand((Stand) z6);
-        c3.setStand((Stand) z5);
-        c4.setStand((Stand) z6);
+        c5.setStand(z5);
+        c6.setStand(z6);
+        c3.setStand(z5);
+        c4.setStand(z6);
 
-        ar1.setEscenario((Escenario) z7);
-        ar2.setEscenario((Escenario) z8);
+        ar1.setEscenario(z7);
+        ar2.setEscenario(z8);
 
-        c1.setStand((Stand) z5);
-        c2.setStand((Stand) z6);
+        c1.setStand(z5);
+        c2.setStand(z6);
 
-        ((Stand) z5).agregarEmpleado(c5);
-        ((Stand) z5).agregarEmpleado(c6);
-        ((Stand) z6).agregarEmpleado(c3);
-        ((Stand) z6).agregarEmpleado(c4);
+        z5.agregarEmpleado(c5);
+        z5.agregarEmpleado(c6);
+        z6.agregarEmpleado(c3);
+        z6.agregarEmpleado(c4);
 
         ar1.addAcceso(acceso);
         ar2.addAcceso(acceso);

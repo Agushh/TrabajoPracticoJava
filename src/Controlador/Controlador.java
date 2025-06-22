@@ -11,36 +11,25 @@ import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
 import Dominio.Zonas.ZonaRestringida;
 import Inicializador.DataContainer;
-import Inicializador.Serialization;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.TreeMap;
 
 public class Controlador {
 
-    private final TreeMap<String, Zona> zonas= new TreeMap<String, Zona>();
-    private final TreeMap<String, Persona> personas= new TreeMap<String, Persona>();
-    private final TreeMap<String, Stand> stands = new TreeMap<String, Stand>();
+    private final TreeMap<String, Zona> zonas= new TreeMap<>();
+    private final TreeMap<String, Persona> personas= new TreeMap<>();
+    private final TreeMap<String, Stand> stands = new TreeMap<>();
 
     //Aplico patron de diseño Singleton (Te permite generar una sola instancia del objeto)
     private static final Controlador controlador = new Controlador();
 
-    //private final PersonaLogica personaLogica = PersonaLogica.getInstancia(this.personas);
-    //private final ZonaLogica zonaLogica = ZonaLogica.getInstancia(this.zonas);
-
     //Constructor privado para la aplicacion de Singleton
     private Controlador(){
-
     }
 
     //Get para obtener la unica instancia que existe
@@ -60,6 +49,7 @@ public class Controlador {
         return stands;
     }
 
+    @Deprecated
     public Zona getZonas(String codZona) throws IllegalArgumentException {
         Zona z = zonas.get(codZona);
         if (z == null) {
@@ -68,6 +58,7 @@ public class Controlador {
         return z;
     }
 
+    @Deprecated
     public Persona getPersona(String codPersona) throws IllegalArgumentException {
         Persona p = personas.get(codPersona);
         if (p == null) {
@@ -78,6 +69,7 @@ public class Controlador {
 
     //------------------- Adds -----------------------
 
+    @Deprecated
     public void addZona(Zona z) throws IllegalArgumentException {
         try{
             zonas.put(z.getId(),z);
@@ -86,6 +78,7 @@ public class Controlador {
         }
     }
 
+    @Deprecated
     public void addPersona(Persona p) throws IllegalArgumentException {
         try{
             personas.put(p.getId(),p);
@@ -122,36 +115,19 @@ public class Controlador {
     //--------------------- Mostrar Todas ------------------
     // Metodos para desarollo!!!
 
+    @Deprecated
     public void mostrarZonas(){
-        zonas.forEach((id,zona)->{
+        for(Zona zona : new ArrayList<>(zonas.values()))
             System.out.println(zona.toString());
-        });
     }
 
+    @Deprecated
     public void mostrarPersonas(){
-        personas.forEach((id,persona)->{
+        for(Persona persona : new ArrayList<>(personas.values()))
             System.out.println(persona.toString());
-        });
     }
 
     //-------------- Carga Datos De Archivo --------------
-
-    public void guardarDatos()
-    {
-        DataContainer dataContainer = new DataContainer(new ArrayList<>(personas.values()), new ArrayList<>(zonas.values()));
-        XmlMapper mapper = new XmlMapper();
-
-        // Habilitar el formato bonito (pretty print)
-        mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
-
-        try
-        {
-            mapper.writeValue(new File("datosFestival.xml"), dataContainer);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public void cargaDeDatos() throws DatosIncorrectosException, DeserializationException {
         DataContainer dataContainer;
@@ -185,35 +161,35 @@ public class Controlador {
             }
             if(z.getDescripcion().isEmpty())
             {
-                ExceptionLog.append("Zona " + z.getId() + "SIN DESCRIPCION" + " --> CORREGIDO <--\n");
+                ExceptionLog.append("Zona ").append(z.getId()).append("SIN DESCRIPCION").append(" --> CORREGIDO <--\n");
                 z.setDescripcion("ZONA-SIN-DESCRIPCION");
             }
             if(z instanceof Escenario escenario && escenario.getCapacidad() < 0)
             {
-                ExceptionLog.append("Escenario " + escenario.getId() + " con capacidad menor a 0" + " --> CORREGIDO <--\n");
+                ExceptionLog.append("Escenario ").append(escenario.getId()).append(" con capacidad menor a 0").append(" --> CORREGIDO <--\n");
                 escenario.setConcurrencia( escenario.getCapacidadMaxima());
                 for(Evento evento : escenario.getEventos())
                 {
                     if(evento.getArtista() == null)
                     {
-                        ExceptionLog.append("Escenario " + escenario.getId() + "Evento fecha :" +evento.getFecha() + "No tiene artista."  + "\n");
+                        ExceptionLog.append("Escenario ").append(escenario.getId()).append("Evento fecha :").append(evento.getFecha()).append("No tiene artista.").append("\n");
                     }
                 }
             }
             if(z instanceof ZonaRestringida zonaRestringida && zonaRestringida.getCapacidad() < 0)
             {
-                ExceptionLog.append("Zona Restringida " + zonaRestringida.getId() + " con capacidad menor a 0" + " --> CORREGIDO <--\n");
+                ExceptionLog.append("Zona Restringida ").append(zonaRestringida.getId()).append(" con capacidad menor a 0").append(" --> CORREGIDO <--\n");
                 zonaRestringida.setConcurrencia( zonaRestringida.getCapacidadMaxima());
             }
             if(z instanceof Stand stand )
             {
                 if(stand.getUbicacion() == null)
                 {
-                    ExceptionLog.append("Stand " + stand.getId() + " sin ubicacion determinada" + "\n");
+                    ExceptionLog.append("Stand ").append(stand.getId()).append(" sin ubicacion determinada").append("\n");
                 }
                 if(stand.getResponsable() == null)
                 {
-                    ExceptionLog.append("Stand " + stand.getId() + " sin Comerciante Responsable" + "\n");
+                    ExceptionLog.append("Stand ").append(stand.getId()).append(" sin Comerciante Responsable").append("\n");
                 }
             }
             zonasPorId.put(z.getId(), z);
@@ -230,18 +206,18 @@ public class Controlador {
             }
             if(p.getNombre().isEmpty())
             {
-                ExceptionLog.append("Persona" + p.getId() + "sin nombre" + " --> CORREGIDO <--\n");
+                ExceptionLog.append("Persona").append(p.getId()).append("sin nombre").append(" --> CORREGIDO <--\n");
                 p.setNombre("PERSONA-SIN-NOMBRE");
             }
             if(p.getZonaActual() == null)
             {
-                ExceptionLog.append("Persona "+ p.getId() + "Sin Zona Actual" + "\n");
+                ExceptionLog.append("Persona ").append(p.getId()).append("Sin Zona Actual").append("\n");
             }
 
             if(p instanceof Artista artista && artista.getEscenario() == null)
-                ExceptionLog.append("Artista "+ artista.getId() + " Sin Escenario"+ "\n");
+                ExceptionLog.append("Artista ").append(artista.getId()).append(" Sin Escenario").append("\n");
             if(p instanceof Comerciante comerciante && comerciante.getStand() == null)
-                ExceptionLog.append("Comerciante "+ comerciante.getId() + " Sin Stand asignado"+ "\n");
+                ExceptionLog.append("Comerciante ").append(comerciante.getId()).append(" Sin Stand asignado").append("\n");
 
             personasPorId.put(p.getId(), p);
         }
@@ -271,7 +247,6 @@ public class Controlador {
             {
                 TreeSet<Zona> zonasPermitidas = new TreeSet<>();
                 for(Zona z : persona.getZonasPermitidas()){
-                    System.out.println("HOLA");
                     Zona temp = zonasPorId.get(z.getId());
                     if(temp != null)
                         zonasPermitidas.add(temp);
@@ -305,5 +280,22 @@ public class Controlador {
             zonas.put(zona.getId(), zona);
         }
         if(!ExceptionLog.isEmpty()) throw new DatosIncorrectosException(ExceptionLog.toString());
+    }
+
+    public void guardarDatos()
+    {
+        DataContainer dataContainer = new DataContainer(new ArrayList<>(personas.values()), new ArrayList<>(zonas.values()));
+        XmlMapper mapper = new XmlMapper();
+
+        // Habilitar el formato bonito (pretty print)
+        mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
+
+        try
+        {
+            mapper.writeValue(new File("datosFestival.xml"), dataContainer);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
