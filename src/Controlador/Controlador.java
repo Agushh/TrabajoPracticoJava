@@ -91,9 +91,11 @@ public class Controlador {
     public static void moverPersona(Persona persona, Zona zonaDestino) throws AccesoDenegadoException, ZonaLlenaException, ZonaEsLaActualException
     {
         if (!persona.puedeAcceder(zonaDestino)) {
+            persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
             throw new AccesoDenegadoException();
         }
         if (zonaDestino instanceof Capado capado && capado.getCapacidad() == 0) {
+            persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
             throw new ZonaLlenaException();
         }
         if (persona.getZonaActual()==zonaDestino){
@@ -103,7 +105,7 @@ public class Controlador {
         persona.getZonaActual().sacaPersona();
         persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int) Duration.between(LocalDateTime.now(), LocalDateTime.parse(persona.getUltimoAccesoAceptado().getFecha())).toMinutes() , EstadoAcceso.AUTORIZADO));
         persona.setZonaActual(zonaDestino);
-        persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
+
     }
 
     //--------------------- Mostrar Todas ------------------
