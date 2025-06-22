@@ -1,7 +1,7 @@
 package Dominio.Exceptions;
 
 public class ZonaEsLaActualException extends GUIException {
-    public ZonaEsLaActualException(String message) {
-        super(message);
+    public ZonaEsLaActualException() {
+        super("El Zona es la actual");
     }
 }
