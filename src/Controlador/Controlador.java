@@ -12,6 +12,7 @@ import Dominio.Zonas.Stand;
 import Dominio.Zonas.ZonaRestringida;
 import Inicializador.DataContainer;
 import Inicializador.Serialization;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -134,6 +135,23 @@ public class Controlador {
     }
 
     //-------------- Carga Datos De Archivo --------------
+
+    public void guardarDatos()
+    {
+        DataContainer dataContainer = new DataContainer(new ArrayList<>(personas.values()), new ArrayList<>(zonas.values()));
+        XmlMapper mapper = new XmlMapper();
+
+        // Habilitar el formato bonito (pretty print)
+        mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
+
+        try
+        {
+            mapper.writeValue(new File("datosFestival.xml"), dataContainer);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void cargaDeDatos() throws DatosIncorrectosException, DeserializationException {
         DataContainer dataContainer;
