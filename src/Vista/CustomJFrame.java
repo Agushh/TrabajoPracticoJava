@@ -2,16 +2,14 @@ package Vista;
 import java.util.*;
 
 import Controlador.Controlador;
-import Dominio.Exceptions.AccesoDenegadoException;
-import Dominio.Exceptions.GUIException;
-import Dominio.Exceptions.ZonaEsLaActualException;
-import Dominio.Exceptions.ZonaLlenaException;
+import Dominio.Exceptions.*;
 import Dominio.Personas.Comerciante;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
 import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Stand;
 import Dominio.Zonas.Zona;
+import com.ctc.wstx.shaded.msv_core.datatype.xsd.StringType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +44,7 @@ public class CustomJFrame extends JFrame{
         addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
         addBotonFrame("Reporte de stands",e ->abrirPanelStands(controlador.getStands()),this);
         addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
-        addBotonFrame("Cargar Datos",e -> cargarDatosGui(),this);
+        addBotonFrame("Cargar Datos",e -> cargarDatosGui(controlador),this);
 
         // setLayout(new FlowLayout());
     }
@@ -83,19 +81,24 @@ public class CustomJFrame extends JFrame{
 
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
     }
-    void muestraPersonaEnGui(Persona perAMostrar){
-        JPanel panel = new JPanel(new GridLayout(0,1,0,10));
-        panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string?
-        panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "+perAMostrar.getTipo()));
-        panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
-        panel.add(new JLabel("Zonas accesibles: "));
-        for(Zona zona : perAMostrar.getZonasPermitidas())
-            panel.add(new JLabel( " * " + zona.toString()));
-        panel.add(new JLabel("Acceso:" ));;
-        for (Acceso acceso : perAMostrar.getAccesos()) {
-            panel.add(new JLabel(acceso.toString()));
+    void muestraPersonaEnGui(Persona perAMostrar) throws NullPointerException{
+        try{
+            JPanel panel = new JPanel(new GridLayout(0,1,0,10));
+            panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string?
+            panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "+perAMostrar.getTipo()));
+            panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
+            panel.add(new JLabel("Zonas accesibles: "));
+            for(Zona zona : perAMostrar.getZonasPermitidas())
+                panel.add(new JLabel( " * " + zona.toString()));
+            panel.add(new JLabel("Acceso:" ));;
+            for (Acceso acceso : perAMostrar.getAccesos()) {
+                panel.add(new JLabel(acceso.toString()));
+            }
+            JOptionPane.showMessageDialog(this, panel, "Datos de la Persona", JOptionPane.PLAIN_MESSAGE);
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar la persona \n Cargar datos!");
         }
-        JOptionPane.showMessageDialog(this, panel, "Datos de la Persona", JOptionPane.PLAIN_MESSAGE);
+
     }
     public void abriPanelMover(TreeMap<String, Persona> personas, TreeMap<String, Zona> zonas){
         JPanel panel = new JPanel();
@@ -133,6 +136,8 @@ public class CustomJFrame extends JFrame{
             JOptionPane.showMessageDialog(null, "✘ Zona llena");
         }catch (ZonaEsLaActualException e){
             JOptionPane.showMessageDialog(null, "✘ Persona actualmente en la zona");
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -303,8 +308,16 @@ public class CustomJFrame extends JFrame{
         }
     }
 
-    private void cargarDatosGui() {
-
+    private void cargarDatosGui(Controlador controlador) {
+        JDialog dialog = new JDialog((Frame) null, "Panel Carga Datos", true);
+        try{
+            controlador.cargaDeDatos();
+            JOptionPane.showMessageDialog(dialog, "Datos cargados correctamente...");
+        }catch (DatosIncorrectosException e){
+            JOptionPane.showMessageDialog(dialog, "Datos cargados con errores... \n" + e.getMessage() + "\n El programa funcionara pero con posibles errores!! \n Se recomienda acomodar datos!!!");
+        }catch (DeserializationException e){
+            JOptionPane.showMessageDialog(dialog, e.getMessage());
+        }
     }
 
 }

@@ -39,12 +39,6 @@ public class Controlador {
 
     //Constructor privado para la aplicacion de Singleton
     private Controlador(){
-        //todo comprobar existencia de archivos.
-        try
-        {
-            cargaDeDatos();
-        } catch (Exception e) {
-        }
 
     }
 
@@ -101,8 +95,11 @@ public class Controlador {
 
     //--------------------- Mover Persona ------------------
 
-    public static void moverPersona(Persona persona, Zona zonaDestino) throws AccesoDenegadoException, ZonaLlenaException, ZonaEsLaActualException
+    public static void moverPersona(Persona persona, Zona zonaDestino) throws AccesoDenegadoException, ZonaLlenaException, ZonaEsLaActualException, NullPointerException
     {
+        if (persona == null) {
+            throw new NullPointerException("Persona nula \n Cargar datos!");
+        }
         if (!persona.puedeAcceder(zonaDestino)) {
             persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
             throw new AccesoDenegadoException();
@@ -151,7 +148,7 @@ public class Controlador {
             dataContainer = mapper.readValue(new File("datosFestival.xml"), DataContainer.class);
 
         } catch (Exception e) {
-            throw new DeserializationException("Fallo en la lectura de datos sobre el archivo : " + e);
+            throw new DeserializationException("Fallo en la lectura de datos sobre el archivo : \n" + e);
         }
 
         //Guarda los datos de dataContainer en dos listas locales

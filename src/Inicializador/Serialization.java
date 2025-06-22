@@ -40,7 +40,7 @@ public class Serialization {
         Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas", 20);
         Zona z2 = new ZonaComun("ZC002", "Zona de baños", 11);
         Zona z3 = new ZonaRestringida("ZR003", "Camarines", 12, 1);
-        Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido", 0, 200);
+        Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido", 203, 200);
         Zona z5 = new Stand("ZS005", "Stand de Comida", 13, 200, z1, p5);
         Zona z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, p6);
         Zona z7 = new Escenario("ZE007", "Escenario N1", 27, 100);
