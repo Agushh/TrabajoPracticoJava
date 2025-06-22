@@ -77,13 +77,21 @@ public class Serialization {
         p8.addZona(z7);
 
         p1.setZonaActual(z1);
+        z1.ponePersona();
         p2.setZonaActual(z5);
+        z5.ponePersona();
         p3.setZonaActual(z2);
+        z2.ponePersona();
         p4.setZonaActual(z7);
+        z7.ponePersona();
         p5.setZonaActual(z1);
+        z1.ponePersona();
         p6.setZonaActual(z3);
+        z3.ponePersona();
         p7.setZonaActual(z6);
+        z6.ponePersona();
         p8.setZonaActual(z7);
+        z7.ponePersona();
 
         personasLista.addPersona(p1);
         personasLista.addPersona(p2);
