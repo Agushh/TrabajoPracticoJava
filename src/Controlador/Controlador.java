@@ -13,7 +13,10 @@ import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
 import Inicializador.DataContainer;
 import Inicializador.Serialization;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.time.Duration;
@@ -129,7 +132,19 @@ public class Controlador {
     //-------------- Carga Datos De Archivo --------------
 
     public void cargaDeDatos() {
-        DataContainer dataContainer = Serialization.leeArchivo("datosFestival.xml");
+        DataContainer dataContainer;
+
+        try
+        {
+            XmlMapper mapper = new XmlMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            dataContainer = mapper.readValue(new File("datosFestival.xml"), DataContainer.class);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         ArrayList<Zona> listZonas = dataContainer.getZonas();
         ArrayList<Persona> listPersonas = dataContainer.getPersonas();
         Map<String, Zona> zonasPorId = new HashMap<>();

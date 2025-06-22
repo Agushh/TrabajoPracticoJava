@@ -6,6 +6,7 @@ import Dominio.Exceptions.AccesoDenegadoException;
 import Dominio.Exceptions.GUIException;
 import Dominio.Exceptions.ZonaEsLaActualException;
 import Dominio.Exceptions.ZonaLlenaException;
+import Dominio.Personas.Comerciante;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
 import Dominio.Zonas.Escenario;
@@ -42,7 +43,7 @@ public class CustomJFrame extends JFrame{
         addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
         addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
         addBotonFrame("Reporte de stands",e ->abrirPanleStands(controlador.getStands()),this);
-        addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
+        addBotonFrame("Reporte de zonas por pantalla",e -> abriPanelZonas(controlador.getZonas()),this);
 
         // setLayout(new FlowLayout());
     }
@@ -83,9 +84,12 @@ public class CustomJFrame extends JFrame{
         panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string?
         panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: "+perAMostrar.getTipo()));
         panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
+        panel.add(new JLabel("Zonas accesibles: "));
+        for(Zona zona : perAMostrar.getZonasPermitidas())
+            panel.add(new JLabel( " * " + zona.toString()));
         panel.add(new JLabel("Acceso:" ));;
         for (Acceso acceso : perAMostrar.getAccesos()) {
-            panel.add(new JLabel(""+ acceso.toString() ));
+            panel.add(new JLabel(acceso.toString()));
         }
         JOptionPane.showMessageDialog(this, panel, "Datos de la Persona", JOptionPane.PLAIN_MESSAGE);
     }
@@ -140,16 +144,14 @@ public class CustomJFrame extends JFrame{
 
         List<Zona> zonasSorted = new ArrayList<>(zonas.values());
 
-        zonasSorted.sort(Comparator.comparingInt(Zona::getConcurrencia));
+        zonasSorted.sort(Comparator.comparingInt(Zona::getConcurrencia).reversed());
 
         int acum = 0;
-        for (Zona zonaAMostrar : zonasSorted.reversed()) {
-            System.out.println(zonaAMostrar.toString());
+        for (Zona zonaAMostrar : zonasSorted) {
             acum += zonaAMostrar.getConcurrencia();
             box.add(new JLabel(zonaAMostrar.toHTML()));
             if(zonaAMostrar instanceof Escenario){
                 box.add(new JLabel("Eventos:"));
-                System.out.println(zonaAMostrar.toHTML());
                 ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
                     box.add(new JLabel(evento.toString()));
                 });
@@ -163,10 +165,32 @@ public class CustomJFrame extends JFrame{
 
         JScrollPane scrollPane = new JScrollPane(box);
         scrollPane.setPreferredSize(new Dimension(500, 500));
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JOptionPane.showMessageDialog(this, scrollPane, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = new JDialog((Frame) null, "Panel Zonas", true);
+        JButton okButton = new JButton("OK");
+        JButton exportButton = new JButton("Exportar txt");
+
+        okButton.addActionListener(e -> dialog.dispose());
+        exportButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(dialog, "Exportando Zonas...");
+        });
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(okButton);
+        buttonPanel.add(exportButton);
+
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setContentPane(contentPanel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+
+        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        //JOptionPane.showMessageDialog(this, scrollPane, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
     }
 
 
@@ -187,7 +211,8 @@ public class CustomJFrame extends JFrame{
             box.add(new JLabel("Lista de empleados:"));
             box.add(Box.createRigidArea(new Dimension(0, 5)));
 
-            box.add(new JLabel(standAMostrar.getEmpleados().toString()));
+            for(Comerciante comerciante : standAMostrar.getEmpleados())
+                box.add(new JLabel(" * " + comerciante.toString()));
             box.add(Box.createRigidArea(new Dimension(0, 20)));
         }
 

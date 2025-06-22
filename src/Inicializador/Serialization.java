@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Serialization {
-
-
     public static void createDatos(){
 
         DataContainer dataContainer = new DataContainer();
@@ -171,21 +169,5 @@ public class Serialization {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
-    public static DataContainer leeArchivo(String file)
-    {
-        try
-        {
-            XmlMapper mapper = new XmlMapper();
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-            return mapper.readValue(new File(file), DataContainer.class);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
