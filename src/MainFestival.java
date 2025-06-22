@@ -5,7 +5,7 @@ import static Inicializador.Serialization.createDatos;
 
 public class MainFestival {
     public static void main(String[] args){
-        createDatos();
+        createDatos(); // todo SACAR DATOS
         Controlador controlador = Controlador.getControlador();
         System.out.println(controlador.getPersona("0008"));
         //creacion de ventana en Swing.

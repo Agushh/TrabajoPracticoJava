@@ -29,6 +29,6 @@ public class Artista extends Persona {
 
     @Override
     public boolean puedeAcceder(Zona z) {
-        return getZonasPermitidas().contains(z);
+        return z.equals(escenario) || getZonasPermitidas().contains(z);
     }
 }
