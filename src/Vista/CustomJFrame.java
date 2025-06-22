@@ -155,26 +155,16 @@ public class CustomJFrame extends JFrame{
 
             zonasSorted.sort(Comparator.comparingInt(Zona::getConcurrencia).reversed());
 
-        int acum = 0;
-        for (Zona zonaAMostrar : zonasSorted) {
-            acum += zonaAMostrar.getConcurrencia();
-            box.add(new JLabel(zonaAMostrar.toHTML()));
-            if(zonaAMostrar instanceof Escenario escenario){
-                box.add(new JLabel("    Eventos:"));
-                for(Evento evento : escenario.getEventos())
-                    box.add(new JLabel("        " + evento.toString()));
-            }
-            box.add(Box.createRigidArea(new Dimension(0, 20)));
-        }
             int acum = 0;
             for (Zona zonaAMostrar : zonasSorted) {
                 acum += zonaAMostrar.getConcurrencia();
                 box.add(new JLabel(zonaAMostrar.toHTML()));
-                if (zonaAMostrar instanceof Escenario) {
+                if (zonaAMostrar instanceof Escenario escenario) {
                     box.add(new JLabel("    Eventos:"));
-                    ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
+                    for(Evento evento : escenario.getEventos())
+                    {
                         box.add(new JLabel("        " + evento.toString()));
-                    });
+                    }
                 }
                 box.add(Box.createRigidArea(new Dimension(0, 20)));
             }
@@ -190,9 +180,7 @@ public class CustomJFrame extends JFrame{
             JButton exportButton = new JButton("Exportar");
 
             okButton.addActionListener(e -> dialog.dispose());
-            exportButton.addActionListener(e -> {
-                generarReporteZonasTXT(dialog, zonasSorted);
-            });
+            exportButton.addActionListener(e -> generarReporteZonasTXT(dialog, zonasSorted));
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             buttonPanel.add(okButton);
             buttonPanel.add(exportButton);
@@ -208,10 +196,6 @@ public class CustomJFrame extends JFrame{
         }else{
             JOptionPane.showMessageDialog(dialog, "Cargar datos!");
         }
-        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        //JOptionPane.showMessageDialog(this, scrollPane, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
     }
 
 
@@ -222,7 +206,7 @@ public class CustomJFrame extends JFrame{
         JDialog dialog = new JDialog((Frame) null, "Panel Stands", true);
         JLabel titulo = new JLabel("Stands:");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        if(stands.size() != 0){
+        if(!stands.isEmpty()){
             box.add(titulo);
             box.add(Box.createRigidArea(new Dimension(0, 30)));
 
@@ -251,9 +235,7 @@ public class CustomJFrame extends JFrame{
 
             okButton.addActionListener(e -> dialog.dispose());
 
-            exportButton.addActionListener(e -> {
-                generarReporteStandsTXT(dialog, stands);
-            });
+            exportButton.addActionListener(e -> generarReporteStandsTXT(dialog, stands));
 
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             buttonPanel.add(okButton);
