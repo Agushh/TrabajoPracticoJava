@@ -6,28 +6,20 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Evento {
-    private String fecha; // formato ISO como "2025-06-21T12:30:00"
+    private LocalDateTime fecha; // formato ISO como "2025-06-21T12:30:00"
     private String artista;
 
-    public Evento(String fecha, String artista){
+    public Evento(LocalDateTime fecha, String artista){
         this.fecha = fecha;
         this.artista=artista;
     }
-    @JsonIgnore
-    public LocalDateTime getFechaAsDateTime() {
-        return LocalDateTime.parse(fecha);
-    }
-    @JsonIgnore
-    public void setFechaFromDateTime(LocalDateTime fecha) {
-        this.fecha = fecha.toString(); // o con DateTimeFormatter
-    }
 
     public String getFecha() {
-        return fecha;
+        return fecha.toString();
     }
 
     public void setFecha(String fecha) {
-        this.fecha = fecha;
+        this.fecha = LocalDateTime.parse(fecha);
     }
     public String getArtista(){return artista;};
 

@@ -30,7 +30,7 @@ public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA
     public void setEventos(List<Evento> eventos){this.eventos = eventos;}
 
     public void addEvento(LocalDateTime fecha, String artista){
-        eventos.add(new Evento(fecha.toString(),artista));
+        eventos.add(new Evento(fecha,artista));
     }
 
     @Override

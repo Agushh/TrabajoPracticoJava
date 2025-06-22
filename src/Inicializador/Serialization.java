@@ -25,8 +25,8 @@ public class Serialization {
         Persona p2 = new Artista("Alejo", "0002", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Persona p3 = new Asistente("Facundo", "0003", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Persona p4 = new Asistente("Francisco", "0004", new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p5 = new Comerciante("Martin", "0005", new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p6 = new Comerciante("Julian", "0006", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Comerciante p5 = new Comerciante("Martin", "0005", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Comerciante p6 = new Comerciante("Julian", "0006", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Persona p7 = new Staff("Roberto", "0007", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Persona p8 = new Staff("Pepito", "0008", new TreeSet<Zona>(), new ArrayList<Acceso>());
 
@@ -41,7 +41,7 @@ public class Serialization {
         Zona z8 = new Escenario("ZE008", "Escenario N2", 0, 200, null);
 
 
-        Acceso acceso = new Acceso(z1, LocalDateTime.now().toString(), 100, EstadoAcceso.DENEGADO);
+        Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.DENEGADO);
 
         p1.addAcceso(acceso);
         p2.addAcceso(acceso);

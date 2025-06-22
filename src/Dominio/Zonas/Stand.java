@@ -7,10 +7,10 @@ import java.util.*;
 
 public class Stand extends ZonaRestringida{
     private Zona ubicacion;
-    private Persona responsable;
+    private Comerciante responsable;
     private List<Comerciante> empleados= new ArrayList<>();
 
-    public Stand(String id, String descripcion, int concurrencia, int capacidadMaxima, Zona ubicacion, Persona responsable, List<Comerciante> empleados) {
+    public Stand(String id, String descripcion, int concurrencia, int capacidadMaxima, Zona ubicacion, Comerciante responsable, List<Comerciante> empleados) {
         super(id, descripcion, concurrencia, capacidadMaxima);
         this.ubicacion = ubicacion;
         this.responsable = responsable;
@@ -22,7 +22,7 @@ public class Stand extends ZonaRestringida{
     public Zona getUbicacion() {return ubicacion;}
     public void setUbicacion(Zona ubicacion) {this.ubicacion = ubicacion;}
 
-    public Persona getResponsable() { return responsable; }
+    public Comerciante getResponsable() { return responsable; }
     public void setResponsable(Comerciante responsable){this.responsable = responsable;}
 
     public List<Comerciante> getEmpleados() { return empleados; }

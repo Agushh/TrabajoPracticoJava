@@ -14,11 +14,9 @@ public class MainFestival {
     public static void main(String[] args){
 
         Serialization.createDatos();
-        ArrayList<Persona> personas = Serialization.leePersonas();
-        ArrayList<Zona> zonas = Serialization.leeZonas();
         System.out.println(personas.get(0).getNombre());
         System.out.println(zonas.get(0).getDescripcion());
-
+        /*
         //Genero instancia de controlador
         Controlador controlador = Controlador.getControlador();
 

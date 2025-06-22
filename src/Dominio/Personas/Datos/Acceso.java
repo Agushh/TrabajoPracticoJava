@@ -11,11 +11,11 @@ import java.util.Objects;
 
 public class Acceso {
     private Zona zona;
-    private String fecha;
+    private LocalDateTime fecha;
     private int minutos;
     private EstadoAcceso estado;
 
-    public Acceso(Zona zona, String fecha,int minutos, EstadoAcceso estado){
+    public Acceso(Zona zona, LocalDateTime fecha,int minutos, EstadoAcceso estado){
      this.zona=zona;
       this.fecha=fecha;
       this.minutos=minutos;
@@ -27,22 +27,12 @@ public class Acceso {
 
     public Acceso(){}
 
-    @JsonIgnore
-    public LocalDateTime getFechaAsDateTime() {
-        return LocalDateTime.parse(fecha);
-    }
-
-    @JsonIgnore
-    public void setFechaFromDateTime(LocalDateTime fecha) {
-        this.fecha = fecha.toString(); // o con DateTimeFormatter
-    }
-    /// Getters
     public Zona getZona() {
         return zona;
     }
 
     public String getFecha() {
-        return fecha;
+        return fecha.toString();
     }
 
     public int getMinutos() {
@@ -58,7 +48,7 @@ public class Acceso {
     }
 
     public void setFecha(String fecha) {
-        this.fecha = fecha;
+        this.fecha = LocalDateTime.parse(fecha);
     }
 
     public void setMinutos(int minutos) {
@@ -72,7 +62,7 @@ public class Acceso {
     @Override
     public String toString(){
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");// agrego un formato para que se vea bien la hora y la fecha
-        return "<html>"+ "Zona: " + zona.getId() + " Estado: " +estado + "<br>"+" Fecha :"+ LocalDateTime.parse(fecha).format(formato) +"   Min: " + minutos  +"</html>" ;
+        return "<html>"+ "Zona: " + zona.getId() + " Estado: " +estado + "<br>"+" Fecha :"+ fecha.format(formato) +"   Min: " + minutos  +"</html>" ;
     }
 
     /// Fecha de ingreso + Zona => Clave primaria
