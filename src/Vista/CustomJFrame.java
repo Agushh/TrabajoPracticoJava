@@ -46,10 +46,11 @@ public class CustomJFrame extends JFrame{
         addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
         addBotonFrame("Reporte de stands",e ->abrirPanelStands(controlador.getStands()),this);
         addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
-        addBotonFrame("Cargar Datos",e -> abriPanelZonas(controlador.getZonas()),this);
+        addBotonFrame("Cargar Datos",e -> cargarDatosGui(),this);
 
         // setLayout(new FlowLayout());
     }
+
     public void addBotonFrame(String text, ActionListener accion, Container contenedor){ //crea btn de frame
         JButton btn =new JButton(text);
         btn.setPreferredSize(new Dimension(200, 60));
@@ -135,7 +136,7 @@ public class CustomJFrame extends JFrame{
         }
     }
 
-    public void abriPanelZonas(TreeMap<String, Zona> zonas){
+    private void abriPanelZonas(TreeMap<String, Zona> zonas){
         // Contenedor real para el scroll
         Box box = Box.createVerticalBox();
         box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -197,7 +198,7 @@ public class CustomJFrame extends JFrame{
     }
 
 
-    public void abrirPanelStands(TreeMap<String, Stand> stands) {
+    private void abrirPanelStands(TreeMap<String, Stand> stands) {
         Box box = Box.createVerticalBox();
         box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -301,4 +302,9 @@ public class CustomJFrame extends JFrame{
             JOptionPane.showMessageDialog(dialog, "Error al exportar stands...");
         }
     }
+
+    private void cargarDatosGui() {
+
+    }
+
 }
