@@ -31,13 +31,13 @@ public class Serialization {
         Persona p8 = new Staff("Pepito", "0008", new TreeSet<Zona>(), new ArrayList<Acceso>());
 
 
-        Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas", 2);
-        Zona z2 = new ZonaComun("ZC002", "Zona de baños", 1);
-        Zona z3 = new ZonaRestringida("ZR003", "Camarines", 1, 1);
+        Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas", 20);
+        Zona z2 = new ZonaComun("ZC002", "Zona de baños", 11);
+        Zona z3 = new ZonaRestringida("ZR003", "Camarines", 12, 1);
         Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido", 0, 200);
-        Zona z5 = new Stand("ZS005", "Stand de Comida", 1, 200, z1, p5, null);
+        Zona z5 = new Stand("ZS005", "Stand de Comida", 13, 200, z1, p5, null);
         Zona z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, p6, null);
-        Zona z7 = new Escenario("ZE007", "Escenario N1", 2, 100, null);
+        Zona z7 = new Escenario("ZE007", "Escenario N1", 27, 100, null);
         Zona z8 = new Escenario("ZE008", "Escenario N2", 0, 200, null);
 
 

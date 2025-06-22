@@ -1,5 +1,6 @@
 package Dominio.Zonas.Datos;
 
+import Dominio.Personas.Artista;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
@@ -7,31 +8,29 @@ import java.util.Objects;
 
 public class Evento {
     private LocalDateTime fecha; // formato ISO como "2025-06-21T12:30:00"
-    private String artista;
+    private Artista artista;
 
-    public Evento(LocalDateTime fecha, String artista){
+    public Evento(LocalDateTime fecha, Artista artista){
         this.fecha = fecha;
         this.artista=artista;
     }
 
-    public String getFecha() {
+    public String getFecha() { //todo Devuleve String????
         return fecha.toString();
     }
 
     public void setFecha(String fecha) {
         this.fecha = LocalDateTime.parse(fecha);
     }
-    public String getArtista(){return artista;};
+    public Artista getArtista(){return artista;};
 
-    public void setArtista(String artista) {
+    public void setArtista(Artista artista) {
         this.artista = artista;
     }
 
-
-
     @Override
     public String toString(){
-        return artista + "-"+ fecha;
+        return artista.getNombre() + "-"+ fecha.toString();
     }
 
     @Override

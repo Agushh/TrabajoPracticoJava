@@ -1,6 +1,7 @@
 package Dominio.Zonas;
 
 import Dominio.Enums.TipoZona;
+import Dominio.Personas.Artista;
 import Dominio.Zonas.Datos.Evento;
 import Dominio.Zonas.Interface.Capado;
 
@@ -29,7 +30,7 @@ public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA
     }
     public void setEventos(List<Evento> eventos){this.eventos = eventos;}
 
-    public void addEvento(LocalDateTime fecha, String artista){
+    public void addEvento(LocalDateTime fecha, Artista artista){
         eventos.add(new Evento(fecha,artista));
     }
 

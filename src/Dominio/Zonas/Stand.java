@@ -32,7 +32,14 @@ public class Stand extends ZonaRestringida{
 
     @Override
     public String toStringCompleto() {
-        return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable()+"</html>";
+        return super.toStringCompleto() + "\n" +
+                "Capacidad: " + getCapacidad() + "\n" +
+                "Comerciante responsable: " + getResponsable() + "\n" +
+                "Ubicacion: " + getUbicacion() + "\n";
+    }
+
+    public String toHTML() {
+        return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable() + "<br>" + "Ubicacion: " + getUbicacion() +"</html>";
     }
 
 

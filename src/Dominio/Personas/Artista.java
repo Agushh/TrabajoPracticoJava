@@ -16,7 +16,8 @@ public class Artista extends Persona {
         super(nombre, id, zonasPermitidas, accesos);
     }
 
-    public Artista() {
+    public Artista(){
+
     }
 
     public Escenario getEscenario() {
@@ -29,9 +30,9 @@ public class Artista extends Persona {
 
     public void addZona(Zona z){
         if(z instanceof Escenario) {
-            this.escenario = (Escenario) z;
+            this.escenario = (Escenario)z;
         }else{
-            addZona(escenario);
+            getZonasPermitidas().add(z);
         }
     }
 

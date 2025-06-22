@@ -8,6 +8,7 @@ import Dominio.Exceptions.ZonaEsLaActualException;
 import Dominio.Exceptions.ZonaLlenaException;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
+import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Stand;
 import Dominio.Zonas.Zona;
 
@@ -16,6 +17,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomJFrame extends JFrame{
 
@@ -135,10 +137,26 @@ public class CustomJFrame extends JFrame{
         box.add(titulo);
         box.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        for (Zona zonaAMostrar : zonas.values()) {
+        TreeMap<Integer, Zona> zonasSorted = new TreeMap<>();
+        zonas.forEach((k,v)->{
+            zonasSorted.put(v.getConcurrencia(),v);
+        });
+
+        int acum = 0;
+        for (Zona zonaAMostrar : zonasSorted.reversed().values()) {
+            acum += zonaAMostrar.getConcurrencia();
             box.add(new JLabel(zonaAMostrar.toStringCompleto()));
+            if(zonaAMostrar instanceof Escenario){
+                box.add(new JLabel("Eventos:"));
+                System.out.println(zonaAMostrar.toStringCompleto());
+                ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
+                    box.add(new JLabel(evento.toString()));
+                });
+            }
             box.add(Box.createRigidArea(new Dimension(0, 20)));
         }
+
+        box.add(new JLabel("Cantidad de personas en el predio: " + acum));
 
         box.add(Box.createRigidArea(new Dimension(0, 30)));
 
@@ -162,7 +180,7 @@ public class CustomJFrame extends JFrame{
         box.add(Box.createRigidArea(new Dimension(0, 30)));
 
         for (Stand standAMostrar : stands.values()) {
-            box.add(new JLabel(standAMostrar.toStringCompleto()));
+            box.add(new JLabel(String.valueOf(standAMostrar.toHTML())));
             box.add(Box.createRigidArea(new Dimension(0, 20)));
 
             box.add(new JLabel("Lista de empleados:"));

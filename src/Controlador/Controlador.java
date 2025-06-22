@@ -193,7 +193,7 @@ public class Controlador {
                 {
                     Persona artistaReal = personasPorId.get(evento.getArtista().toString());
                     if(artistaReal instanceof Artista artista)
-                    evento.setArtista(artista.toString());
+                    evento.setArtista(artista);
                 }
             }
             zonas.put(zona.getId(), zona);

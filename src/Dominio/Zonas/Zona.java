@@ -36,7 +36,7 @@ public abstract class Zona implements Comparable{
     public Zona(String id, String descripcion, int concurrencia){
         this.id = id;
         this.descripcion=descripcion;
-        this.concurrencia = 0;
+        this.concurrencia = concurrencia;
     }
 
     public Zona(){}
