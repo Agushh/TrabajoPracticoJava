@@ -4,8 +4,12 @@ import Dominio.Enums.EstadoAcceso;
 import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import javax.xml.crypto.Data;
@@ -28,7 +32,6 @@ public class Serialization {
         Persona p7 = new Staff("Roberto", "0007");
         Persona p8 = new Staff("Pepito", "0008");
 
-
         Comerciante c1 = new Comerciante("Marcos", "0009");
         Comerciante c2 = new Comerciante("Matias", "0010");
         Comerciante c3 = new Comerciante("Fidel", "0011");
@@ -42,7 +45,6 @@ public class Serialization {
         Zona z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, p6);
         Zona z7 = new Escenario("ZE007", "Escenario N1", 27, 100);
         Zona z8 = new Escenario("ZE008", "Escenario N2", 0, 200);
-
 
         Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.AUTORIZADO);
 
@@ -162,6 +164,7 @@ public class Serialization {
 
         // Habilitar el formato bonito (pretty print)
         mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
+        mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS); // guarda los campos null
         try
         {
             mapper.writeValue(new File("datosFestival.xml"), dataContainer);

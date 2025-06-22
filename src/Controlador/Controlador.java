@@ -1,9 +1,7 @@
 package Controlador;
 
 import Dominio.Enums.EstadoAcceso;
-import Dominio.Exceptions.AccesoDenegadoException;
-import Dominio.Exceptions.ZonaEsLaActualException;
-import Dominio.Exceptions.ZonaLlenaException;
+import Dominio.Exceptions.*;
 import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.Datos.Evento;
@@ -11,12 +9,16 @@ import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Interface.Capado;
 import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
+import Dominio.Zonas.ZonaRestringida;
 import Inicializador.DataContainer;
 import Inicializador.Serialization;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.time.Duration;
@@ -38,7 +40,12 @@ public class Controlador {
     //Constructor privado para la aplicacion de Singleton
     private Controlador(){
         //todo comprobar existencia de archivos.
-        cargaDeDatos();
+        try
+        {
+            cargaDeDatos();
+        } catch (Exception e) {
+        }
+
     }
 
     //Get para obtener la unica instancia que existe
@@ -131,8 +138,10 @@ public class Controlador {
 
     //-------------- Carga Datos De Archivo --------------
 
-    public void cargaDeDatos() {
+    public void cargaDeDatos() throws DatosIncorrectosException, DeserializationException {
         DataContainer dataContainer;
+
+        StringBuilder ExceptionLog = new StringBuilder();
 
         try
         {
@@ -142,18 +151,83 @@ public class Controlador {
             dataContainer = mapper.readValue(new File("datosFestival.xml"), DataContainer.class);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new DeserializationException("Fallo en la lectura de datos sobre el archivo : " + e);
         }
 
+        //Guarda los datos de dataContainer en dos listas locales
         ArrayList<Zona> listZonas = dataContainer.getZonas();
         ArrayList<Persona> listPersonas = dataContainer.getPersonas();
+
+
+        //Validacion de datos y carga en zonasPorId.
+
         Map<String, Zona> zonasPorId = new HashMap<>();
+        int contZona = 0;
         for (Zona z : listZonas) {
+            if(z.getId().isEmpty()) {
+                ExceptionLog.append("Se encontro zona SIN ID"  + " --> CORREGIDO <--\n");
+                z.setId("ZONA-SIN-ID-" + ++contZona);
+            }
+            if(z.getDescripcion().isEmpty())
+            {
+                ExceptionLog.append("Zona " + z.getId() + "SIN DESCRIPCION" + " --> CORREGIDO <--\n");
+                z.setDescripcion("ZONA-SIN-DESCRIPCION");
+            }
+            if(z instanceof Escenario escenario && escenario.getCapacidad() < 0)
+            {
+                ExceptionLog.append("Escenario " + escenario.getId() + " con capacidad menor a 0" + " --> CORREGIDO <--\n");
+                escenario.setConcurrencia( escenario.getCapacidadMaxima());
+                for(Evento evento : escenario.getEventos())
+                {
+                    if(evento.getArtista() == null)
+                    {
+                        ExceptionLog.append("Escenario " + escenario.getId() + "Evento fecha :" +evento.getFecha() + "No tiene artista."  + "\n");
+                    }
+                }
+            }
+            if(z instanceof ZonaRestringida zonaRestringida && zonaRestringida.getCapacidad() < 0)
+            {
+                ExceptionLog.append("Zona Restringida " + zonaRestringida.getId() + " con capacidad menor a 0" + " --> CORREGIDO <--\n");
+                zonaRestringida.setConcurrencia( zonaRestringida.getCapacidadMaxima());
+            }
+            if(z instanceof Stand stand )
+            {
+                if(stand.getUbicacion() == null)
+                {
+                    ExceptionLog.append("Stand " + stand.getId() + " sin ubicacion determinada" + "\n");
+                }
+                if(stand.getResponsable() == null)
+                {
+                    ExceptionLog.append("Stand " + stand.getId() + " sin Comerciante Responsable" + "\n");
+                }
+            }
             zonasPorId.put(z.getId(), z);
         }
 
         Map<String, Persona> personasPorId = new HashMap<>();
+        int contPersonasCode = 0;
         for (Persona p : listPersonas) {
+
+            if(p.getId().isEmpty())
+            {
+                ExceptionLog.append("Persona sin id" + " --> CORREGIDO <--\n");
+                p.setId("PERSONA-SIN-ID-" + ++contPersonasCode);
+            }
+            if(p.getNombre().isEmpty())
+            {
+                ExceptionLog.append("Persona" + p.getId() + "sin nombre" + " --> CORREGIDO <--\n");
+                p.setNombre("PERSONA-SIN-NOMBRE");
+            }
+            if(p.getZonaActual() == null)
+            {
+                ExceptionLog.append("Persona "+ p.getId() + "Sin Zona Actual" + "\n");
+            }
+
+            if(p instanceof Artista artista && artista.getEscenario() == null)
+                ExceptionLog.append("Artista "+ artista.getId() + " Sin Escenario"+ "\n");
+            if(p instanceof Comerciante comerciante && comerciante.getStand() == null)
+                ExceptionLog.append("Comerciante "+ comerciante.getId() + " Sin Stand asignado"+ "\n");
+
             personasPorId.put(p.getId(), p);
         }
 
@@ -210,11 +284,11 @@ public class Controlador {
                 {
                     Persona artistaReal = personasPorId.get(evento.getArtista().toString());
                     if(artistaReal instanceof Artista artista)
-                    evento.setArtista(artista);
+                        evento.setArtista(artista);
                 }
             }
             zonas.put(zona.getId(), zona);
         }
+        if(!ExceptionLog.isEmpty()) throw new DatosIncorrectosException(ExceptionLog.toString());
     }
-
 }
