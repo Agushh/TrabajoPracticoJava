@@ -1,6 +1,6 @@
 package Vista;
-import java.util.Collection;
-import java.util.TreeMap;
+import java.util.*;
+
 import Controlador.Controlador;
 import Dominio.Exceptions.AccesoDenegadoException;
 import Dominio.Exceptions.GUIException;
@@ -15,7 +15,6 @@ import Dominio.Zonas.Zona;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,13 +138,12 @@ public class CustomJFrame extends JFrame{
         box.add(titulo);
         box.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        TreeMap<Integer, Zona> zonasSorted = new TreeMap<>();
-        zonas.forEach((k,v)->{
-            zonasSorted.put(v.getConcurrencia(),v);
-        });
+        List<Zona> zonasSorted = new ArrayList<>(zonas.values());
+
+        zonasSorted.sort(Comparator.comparingInt(Zona::getConcurrencia));
 
         int acum = 0;
-        for (Zona zonaAMostrar : zonasSorted.reversed().values()) {
+        for (Zona zonaAMostrar : zonasSorted.reversed()) {
             System.out.println(zonaAMostrar.toString());
             acum += zonaAMostrar.getConcurrencia();
             box.add(new JLabel(zonaAMostrar.toHTML()));
