@@ -179,8 +179,8 @@ public class CustomJFrame extends JFrame{
             JButton okButton = new JButton("OK");
             JButton exportButton = new JButton("Exportar");
 
-            okButton.addActionListener(e -> dialog.dispose());
-            exportButton.addActionListener(e -> generarReporteZonasTXT(dialog, zonasSorted));
+            okButton.addActionListener(_ -> dialog.dispose());
+            exportButton.addActionListener(_ -> generarReporteZonasTXT(dialog, zonasSorted));
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             buttonPanel.add(okButton);
             buttonPanel.add(exportButton);
@@ -233,9 +233,9 @@ public class CustomJFrame extends JFrame{
             JButton okButton = new JButton("OK");
             JButton exportButton = new JButton("Exportar");
 
-            okButton.addActionListener(e -> dialog.dispose());
+            okButton.addActionListener(_ -> dialog.dispose());
 
-            exportButton.addActionListener(e -> generarReporteStandsTXT(dialog, stands));
+            exportButton.addActionListener(_ -> generarReporteStandsTXT(dialog, stands));
 
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             buttonPanel.add(okButton);
