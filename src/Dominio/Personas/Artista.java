@@ -20,9 +20,9 @@ public class Artista extends Persona {
     }
 
     public void addZona(Zona z){
-        if(z instanceof Escenario escenario) {
-            getZonasPermitidas().remove(this.escenario);
-            this.escenario = escenario;
+        if(z instanceof Escenario) {
+            this.escenario = (Escenario) z;
+        }else{
             addZona(escenario);
         }
     }
