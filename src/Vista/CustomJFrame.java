@@ -146,56 +146,59 @@ public class CustomJFrame extends JFrame{
         Box box = Box.createVerticalBox();
         box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
+        JDialog dialog = new JDialog((Frame) null, "Panel Zonas", true);
         JLabel titulo = new JLabel("Zonas:");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        box.add(titulo);
-        box.add(Box.createRigidArea(new Dimension(0, 30)));
+        if(!zonas.isEmpty()) {
+            box.add(titulo);
+            box.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        List<Zona> zonasSorted = new ArrayList<>(zonas.values());
+            List<Zona> zonasSorted = new ArrayList<>(zonas.values());
 
-        zonasSorted.sort(Comparator.comparingInt(Zona::getConcurrencia).reversed());
+            zonasSorted.sort(Comparator.comparingInt(Zona::getConcurrencia).reversed());
 
-        int acum = 0;
-        for (Zona zonaAMostrar : zonasSorted) {
-            acum += zonaAMostrar.getConcurrencia();
-            box.add(new JLabel(zonaAMostrar.toHTML()));
-            if(zonaAMostrar instanceof Escenario){
-                box.add(new JLabel("    Eventos:"));
-                ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
-                    box.add(new JLabel("        " + evento.toString()));
-                });
+            int acum = 0;
+            for (Zona zonaAMostrar : zonasSorted) {
+                acum += zonaAMostrar.getConcurrencia();
+                box.add(new JLabel(zonaAMostrar.toHTML()));
+                if (zonaAMostrar instanceof Escenario) {
+                    box.add(new JLabel("    Eventos:"));
+                    ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
+                        box.add(new JLabel("        " + evento.toString()));
+                    });
+                }
+                box.add(Box.createRigidArea(new Dimension(0, 20)));
             }
-            box.add(Box.createRigidArea(new Dimension(0, 20)));
+
+            box.add(new JLabel("Cantidad de personas en el predio: " + acum));
+
+            box.add(Box.createRigidArea(new Dimension(0, 30)));
+
+            JScrollPane scrollPane = new JScrollPane(box);
+            scrollPane.setPreferredSize(new Dimension(500, 500));
+
+            JButton okButton = new JButton("OK");
+            JButton exportButton = new JButton("Exportar");
+
+            okButton.addActionListener(e -> dialog.dispose());
+            exportButton.addActionListener(e -> {
+                generarReporteZonasTXT(dialog, zonasSorted);
+            });
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            buttonPanel.add(okButton);
+            buttonPanel.add(exportButton);
+
+            JPanel contentPanel = new JPanel(new BorderLayout());
+            contentPanel.add(scrollPane, BorderLayout.CENTER);
+            contentPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+            dialog.setContentPane(contentPanel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(dialog, "Cargar datos!");
         }
-
-        box.add(new JLabel("Cantidad de personas en el predio: " + acum));
-
-        box.add(Box.createRigidArea(new Dimension(0, 30)));
-
-        JScrollPane scrollPane = new JScrollPane(box);
-        scrollPane.setPreferredSize(new Dimension(500, 500));
-
-        JDialog dialog = new JDialog((Frame) null, "Panel Zonas", true);
-        JButton okButton = new JButton("OK");
-        JButton exportButton = new JButton("Exportar");
-
-        okButton.addActionListener(e -> dialog.dispose());
-        exportButton.addActionListener(e -> {
-            generarReporteZonasTXT(dialog, zonasSorted);
-        });
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(okButton);
-        buttonPanel.add(exportButton);
-
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
-        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        dialog.setContentPane(contentPanel);
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-
         //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -207,54 +210,58 @@ public class CustomJFrame extends JFrame{
         Box box = Box.createVerticalBox();
         box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
+        JDialog dialog = new JDialog((Frame) null, "Panel Stands", true);
         JLabel titulo = new JLabel("Stands:");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        box.add(titulo);
-        box.add(Box.createRigidArea(new Dimension(0, 30)));
+        if(stands.size() != 0){
+            box.add(titulo);
+            box.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        for (Stand standAMostrar : stands.values()) {
-            box.add(new JLabel(standAMostrar.toHTML()));
-            box.add(new JLabel("Responsable: "+ standAMostrar.getResponsable().getNombre()));
-            box.add(Box.createRigidArea(new Dimension(0, 20)));
-            box.add(new JLabel("Lista de empleados:"));
-            box.add(Box.createRigidArea(new Dimension(0, 5)));
+            for (Stand standAMostrar : stands.values()) {
+                box.add(new JLabel(standAMostrar.toHTML()));
+                box.add(new JLabel("Responsable: "+ standAMostrar.getResponsable().getNombre()));
+                box.add(Box.createRigidArea(new Dimension(0, 20)));
+                box.add(new JLabel("Lista de empleados:"));
+                box.add(Box.createRigidArea(new Dimension(0, 5)));
 
-            for (Comerciante comerciante : standAMostrar.getEmpleados()) {
-                box.add(new JLabel(" * " + comerciante));
+                for (Comerciante comerciante : standAMostrar.getEmpleados()) {
+                    box.add(new JLabel(" * " + comerciante));
+                }
+                box.add(Box.createRigidArea(new Dimension(0, 20)));
             }
-            box.add(Box.createRigidArea(new Dimension(0, 20)));
+
+            box.add(Box.createRigidArea(new Dimension(0, 30)));
+
+            JScrollPane scrollPane = new JScrollPane(box);
+            scrollPane.setPreferredSize(new Dimension(500, 500));
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+            JButton okButton = new JButton("OK");
+            JButton exportButton = new JButton("Exportar");
+
+            okButton.addActionListener(e -> dialog.dispose());
+
+            exportButton.addActionListener(e -> {
+                generarReporteStandsTXT(dialog, stands);
+            });
+
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            buttonPanel.add(okButton);
+            buttonPanel.add(exportButton);
+
+            JPanel contentPanel = new JPanel(new BorderLayout());
+            contentPanel.add(scrollPane, BorderLayout.CENTER);
+            contentPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+            dialog.setContentPane(contentPanel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(dialog, "Cargar datos!");
         }
 
-        box.add(Box.createRigidArea(new Dimension(0, 30)));
-
-        JScrollPane scrollPane = new JScrollPane(box);
-        scrollPane.setPreferredSize(new Dimension(500, 500));
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        JDialog dialog = new JDialog((Frame) null, "Panel Stands", true);
-
-        JButton okButton = new JButton("OK");
-        JButton exportButton = new JButton("Exportar");
-
-        okButton.addActionListener(e -> dialog.dispose());
-
-        exportButton.addActionListener(e -> {
-            generarReporteStandsTXT(dialog, stands);
-        });
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(okButton);
-        buttonPanel.add(exportButton);
-
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
-        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        dialog.setContentPane(contentPanel);
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
     }
 
     private void generarReporteZonasTXT (JDialog dialog, List<Zona> zonas) {
