@@ -97,10 +97,12 @@ public class CustomJFrame extends JFrame{
         for (Persona p : personas.values()) {
             comboPersonas.addItem(p);
         }
+
         JComboBox<Zona> comboZonas =new JComboBox<>();
         for (Zona z : zonas.values()) {
             comboZonas.addItem(z);
         }
+
         //JComboBox<String> combozonas = new JComboBox<>(Zona);
         panel.add(new JLabel("Seleccione una persona:"));
         panel.add(comboPersonas);
@@ -144,11 +146,12 @@ public class CustomJFrame extends JFrame{
 
         int acum = 0;
         for (Zona zonaAMostrar : zonasSorted.reversed().values()) {
+            System.out.println(zonaAMostrar.toString());
             acum += zonaAMostrar.getConcurrencia();
             box.add(new JLabel(zonaAMostrar.toHTML()));
             if(zonaAMostrar instanceof Escenario){
                 box.add(new JLabel("Eventos:"));
-                System.out.println(zonaAMostrar.toString());
+                System.out.println(zonaAMostrar.toHTML());
                 ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
                     box.add(new JLabel(evento.toString()));
                 });

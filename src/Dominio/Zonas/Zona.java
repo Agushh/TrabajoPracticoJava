@@ -65,7 +65,7 @@ public abstract class Zona implements Comparable{
     }
 
     public  String toString(){
-        return   "Cod:  " + id + " --   Desc:   " + descripcion + "Concurrencia actual : " + getConcurrencia();
+        return   "Cod:  " + id + " --   Desc:   " + descripcion;
     }
 
     public  String toHTML(){
