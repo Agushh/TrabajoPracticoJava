@@ -36,11 +36,9 @@ public abstract class Persona{
     private Zona zonaActual;
 
 
-    public Persona(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos){
+    public Persona(String nombre, String id){
         this.id = id;
         this.nombre=nombre;
-        this.zonasPermitidas = zonasPermitidas; //todo TreeSet? DEFINIR EQUALS ASI NO SE REPITEN
-        this.accesos = accesos;
     }
 
     public Persona(){}

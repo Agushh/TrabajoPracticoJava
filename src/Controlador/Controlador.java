@@ -11,6 +11,7 @@ import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Interface.Capado;
 import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
+import Inicializador.DataContainer;
 import Inicializador.Serialization;
 
 import java.lang.reflect.Array;
@@ -128,8 +129,9 @@ public class Controlador {
     //-------------- Carga Datos De Archivo --------------
 
     public void cargaDeDatos() {
-        ArrayList<Persona> listPersonas = Serialization.leePersonas();
-        ArrayList<Zona> listZonas = Serialization.leeZonas();
+        DataContainer dataContainer = Serialization.leeArchivo("datosFestival.xml");
+        ArrayList<Zona> listZonas = dataContainer.getZonas();
+        ArrayList<Persona> listPersonas = dataContainer.getPersonas();
         Map<String, Zona> zonasPorId = new HashMap<>();
         for (Zona z : listZonas) {
             zonasPorId.put(z.getId(), z);

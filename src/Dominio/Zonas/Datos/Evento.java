@@ -15,6 +15,8 @@ public class Evento {
         this.artista=artista;
     }
 
+    public Evento(){}
+
     public String getFecha() { //todo Devuleve String????
         return fecha.toString();
     }

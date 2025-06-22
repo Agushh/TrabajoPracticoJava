@@ -10,8 +10,8 @@ import java.util.TreeSet;
 
 public class Staff extends Persona {
 
-    public Staff(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
-        super(nombre, id, zonasPermitidas, accesos);
+    public Staff(String nombre, String id) {
+        super(nombre, id);
     }
 
     public Staff() {

@@ -12,8 +12,8 @@ public class Artista extends Persona {
 
     private Escenario escenario;
 
-    public Artista(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
-        super(nombre, id, zonasPermitidas, accesos);
+    public Artista(String nombre, String id) {
+        super(nombre, id);
     }
 
     public Artista(){

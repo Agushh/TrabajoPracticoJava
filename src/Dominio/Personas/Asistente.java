@@ -13,8 +13,8 @@ import java.util.TreeSet;
 
 public class Asistente extends Persona{
 
-    public Asistente(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
-        super(nombre, id, zonasPermitidas, accesos);
+    public Asistente(String nombre, String id) {
+        super(nombre, id);
     }
 
     public Asistente() {

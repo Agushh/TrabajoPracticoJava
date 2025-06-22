@@ -12,10 +12,9 @@ public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA
     private int capacidadMaxima;
     private List<Evento> eventos = new ArrayList<>();
 
-    public Escenario(String id, String descripcion, int concurrencia, int capacidadMaxima, List<Evento> eventos) {
+    public Escenario(String id, String descripcion, int concurrencia, int capacidadMaxima) {
         super(id, descripcion, concurrencia);
         this.capacidadMaxima = capacidadMaxima;
-        this.eventos = eventos;
     }
 
     public Escenario(){}

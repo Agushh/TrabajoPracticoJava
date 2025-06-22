@@ -12,8 +12,8 @@ public class Comerciante extends Persona {
 
     private Stand stand;
 
-    public Comerciante(String nombre, String id, TreeSet<Zona> zonasPermitidas, List<Acceso> accesos) {
-        super(nombre, id, zonasPermitidas, accesos);
+    public Comerciante(String nombre, String id) {
+        super(nombre, id);
     }
 
     public Comerciante() {
