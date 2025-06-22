@@ -19,7 +19,7 @@ import java.util.List;
 
 public class CustomJFrame extends JFrame{
 
-    //guardar los labels en el objeto ventana por si hay que cambiarlos.
+    //Guardar los labels en el objeto ventana por si hay que cambiarlos.
     private List<JLabel> labels;
 
     //constructor
@@ -105,7 +105,11 @@ public class CustomJFrame extends JFrame{
         panel.add(new JLabel() {{ setPreferredSize(new Dimension(300, 5)); }});//hago un espacio
         panel.add(new JLabel("Seleccione una zona:"));
         panel.add(comboZonas);
-        addBotonPanel("Mover",e->{Persona p = (Persona) comboPersonas.getSelectedItem(); Zona z = (Zona) comboZonas.getSelectedItem();accionMover(p,z);},panel);
+        addBotonPanel("Mover",e->{
+            Persona p = (Persona) comboPersonas.getSelectedItem();
+            Zona z = (Zona) comboZonas.getSelectedItem();
+            accionMover(p,z);}
+        ,panel);
         JOptionPane.showMessageDialog(this, panel, "Panel Mover", JOptionPane.PLAIN_MESSAGE);
     }
     void accionMover(Persona perAMover , Zona destino){
@@ -120,40 +124,63 @@ public class CustomJFrame extends JFrame{
             JOptionPane.showMessageDialog(null, "✘ Persona actualmente en la zona");
         }
     }
+
     public void abriPanelZonas(TreeMap<String, Zona> zonas){
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); //
+        // Contenedor real para el scroll
+        Box box = Box.createVerticalBox();
+        box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JLabel titulo = new JLabel("Zonas:");//crea el titulo lo centra y lo agrega al panel
+        JLabel titulo = new JLabel("Zonas:");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(titulo);
-        panel.add(Box.createRigidArea(new Dimension(0, 30)));
-        panel.setPreferredSize(new Dimension(500, 500));
+        box.add(titulo);
+        box.add(Box.createRigidArea(new Dimension(0, 30)));
+
         for (Zona zonaAMostrar : zonas.values()) {
-            panel.add(new JLabel(zonaAMostrar.toStringCompleto()));
-            panel.add(Box.createRigidArea(new Dimension(0, 20)));
+            box.add(new JLabel(zonaAMostrar.toStringCompleto()));
+            box.add(Box.createRigidArea(new Dimension(0, 20)));
         }
-        JOptionPane.showMessageDialog(this, panel, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
-    }
-    public  void abrirPanleStands(TreeMap<String, Stand> stands){
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JLabel titulo = new JLabel("Stands:");//crea el titulo lo centra y lo agrega al panel
-        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(titulo);
-        panel.add(Box.createRigidArea(new Dimension(0, 30)));//agrega un epacio
-        panel.setPreferredSize(new Dimension(500, 500));
-        for (Stand standAMostrar : stands.values()) {
-            panel.add(new JLabel(standAMostrar.toStringCompleto().toString()));
-            panel.add(Box.createRigidArea(new Dimension(0, 20)));
-            panel.add(new JLabel("Lista de empleados:"));
-            panel.add(Box.createRigidArea(new Dimension(0, 5)));
-            panel.add(new JLabel(standAMostrar.getEmpleados().toString()));
-            panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        }
-        JOptionPane.showMessageDialog(this, panel, "Panel Stands", JOptionPane.PLAIN_MESSAGE);
+        box.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        JScrollPane scrollPane = new JScrollPane(box);
+        scrollPane.setPreferredSize(new Dimension(500, 500));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        JOptionPane.showMessageDialog(this, scrollPane, "Panel Zonas", JOptionPane.PLAIN_MESSAGE);
     }
+
+
+    public void abrirPanleStands(TreeMap<String, Stand> stands) {
+        // Usamos un Box vertical para que funcione bien con JScrollPane
+        Box box = Box.createVerticalBox();
+        box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        JLabel titulo = new JLabel("Stands:");
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        box.add(titulo);
+        box.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        for (Stand standAMostrar : stands.values()) {
+            box.add(new JLabel(standAMostrar.toStringCompleto()));
+            box.add(Box.createRigidArea(new Dimension(0, 20)));
+
+            box.add(new JLabel("Lista de empleados:"));
+            box.add(Box.createRigidArea(new Dimension(0, 5)));
+
+            box.add(new JLabel(standAMostrar.getEmpleados().toString()));
+            box.add(Box.createRigidArea(new Dimension(0, 20)));
+        }
+
+        // Padding inferior para que el último elemento no quede cortado
+        box.add(Box.createRigidArea(new Dimension(0, 30)));
+
+        JScrollPane scrollPane = new JScrollPane(box);
+        scrollPane.setPreferredSize(new Dimension(500, 500));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        JOptionPane.showMessageDialog(this, scrollPane, "Panel Stands", JOptionPane.PLAIN_MESSAGE);
+    }
+
 }
