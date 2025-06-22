@@ -145,10 +145,10 @@ public class CustomJFrame extends JFrame{
         int acum = 0;
         for (Zona zonaAMostrar : zonasSorted.reversed().values()) {
             acum += zonaAMostrar.getConcurrencia();
-            box.add(new JLabel(zonaAMostrar.toStringCompleto()));
+            box.add(new JLabel(zonaAMostrar.toHTML()));
             if(zonaAMostrar instanceof Escenario){
                 box.add(new JLabel("Eventos:"));
-                System.out.println(zonaAMostrar.toStringCompleto());
+                System.out.println(zonaAMostrar.toString());
                 ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
                     box.add(new JLabel(evento.toString()));
                 });

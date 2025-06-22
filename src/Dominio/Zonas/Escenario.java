@@ -38,7 +38,7 @@ public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA
     public int getCapacidad() {return capacidadMaxima - getConcurrencia();}
 
     @Override
-    public String toStringCompleto() {
-        return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "")+ "<br>" + "Capacidad: " + getCapacidad() + "</html>";
+    public String toHTML() {
+        return "<html>" + super.toHTML().replace("<html>", "")+ "<br>" + "Capacidad: " + getCapacidad() + "</html>";
     }
 }

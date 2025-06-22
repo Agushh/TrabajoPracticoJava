@@ -64,12 +64,11 @@ public abstract class Zona implements Comparable{
         concurrencia --;
     }
 
-    @Override
-    public String toString() {
-        return   "<html>" + "Cod:  " + id + " --   Desc:   " + descripcion + "</html>" ;
-                //+"<br>"+"Concurrencia actual : "+getConcurrencia()+"</html>";
+    public  String toString(){
+        return   "Cod:  " + id + " --   Desc:   " + descripcion + "Concurrencia actual : " + getConcurrencia();
     }
-    public  String toStringCompleto(){
+
+    public  String toHTML(){
         return   "<html>" + "Cod:  " + id + " --   Desc:   " + descripcion+"<br>"+"Concurrencia actual : "+getConcurrencia()+"</html>";
     }
 

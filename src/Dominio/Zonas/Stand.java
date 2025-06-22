@@ -31,15 +31,15 @@ public class Stand extends ZonaRestringida{
     public void agregarEmpleado(Comerciante id){empleados.add(id);}
 
     @Override
-    public String toStringCompleto() {
-        return super.toStringCompleto() + "\n" +
+    public String toString() {
+        return super.toString() + "\n" +
                 "Capacidad: " + getCapacidad() + "\n" +
                 "Comerciante responsable: " + getResponsable() + "\n" +
                 "Ubicacion: " + getUbicacion() + "\n";
     }
 
     public String toHTML() {
-        return "<html>" + super.toStringCompleto().replace("<html>", "").replace("</html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable() + "<br>" + "Ubicacion: " + getUbicacion() +"</html>";
+        return "<html>" + super.toHTML().replace("<html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable() + "<br>" + "Ubicacion: " + getUbicacion() +"</html>";
     }
 
 
