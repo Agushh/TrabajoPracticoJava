@@ -12,10 +12,8 @@ import java.util.ArrayList;
 
 public class MainFestival {
     public static void main(String[] args){
-
-        Serialization.createDatos();
-        System.out.println(personas.get(0).getNombre());
-        System.out.println(zonas.get(0).getDescripcion());
+        Controlador controlador = Controlador.getControlador();
+        System.out.println(controlador.getPersona("0008"));
         /*
         //Genero instancia de controlador
         Controlador controlador = Controlador.getControlador();

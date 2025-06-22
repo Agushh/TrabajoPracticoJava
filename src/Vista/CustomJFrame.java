@@ -2,7 +2,6 @@ package Vista;
 import java.util.Collection;
 import java.util.TreeMap;
 import Controlador.Controlador;
-import Controlador.Logica.MovimientosLogica;
 import Dominio.Exceptions.AccesoDenegadoException;
 import Dominio.Exceptions.GUIException;
 import Dominio.Exceptions.ZonaEsLaActualException;
@@ -111,7 +110,7 @@ public class CustomJFrame extends JFrame{
     }
     void accionMover(Persona perAMover , Zona destino){
         try {
-            MovimientosLogica.moverPersona(perAMover, destino);//muevo la persona
+            Controlador.moverPersona(perAMover, destino);//muevo la persona
             JOptionPane.showMessageDialog(null, "✔ Persona movida");
         } catch (AccesoDenegadoException e) {
             JOptionPane.showMessageDialog(null, "✘ Persona sin acceso");

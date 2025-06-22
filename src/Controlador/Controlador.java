@@ -1,6 +1,5 @@
 package Controlador;
 
-import Controlador.Logica.MovimientosLogica;
 import Dominio.Enums.EstadoAcceso;
 import Dominio.Exceptions.AccesoDenegadoException;
 import Dominio.Exceptions.ZonaEsLaActualException;
@@ -113,14 +112,14 @@ public class Controlador {
     public Persona getPersona(String codPersona) throws IllegalArgumentException {
         Persona p = personas.get(codPersona);
         if (p == null) {
-            throw new IllegalArgumentException("No existe una zona con código: " + codPersona);
+            throw new IllegalArgumentException("No existe una persona con código: " + codPersona);
         }
         return p;
     }
 
     //------------------- Adds -----------------------
 
-    public Zona addZona(Zona z) throws IllegalArgumentException {
+    public void addZona(Zona z) throws IllegalArgumentException {
         try{
             zonas.put(z.getId(),z);
         }catch (IllegalArgumentException e){
@@ -128,7 +127,7 @@ public class Controlador {
         }
     }
 
-    public Persona addPersona(Persona p) throws IllegalArgumentException {
+    public void addPersona(Persona p) throws IllegalArgumentException {
         try{
             personas.put(p.getId(),p);
         }catch (IllegalArgumentException e){
@@ -151,9 +150,9 @@ public class Controlador {
         }
         zonaDestino.ponePersona();
         persona.getZonaActual().sacaPersona();
-        persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now().toString(), (int) Duration.between(LocalDateTime.now(), persona.getUltimoAccesoAceptado().getFechaAsDateTime()).toMinutes() , EstadoAcceso.AUTORIZADO));
+        persona.addAcceso(new Acceso(persona.getZonaActual(), LocalDateTime.now(), (int) Duration.between(LocalDateTime.now(), LocalDateTime.parse(persona.getUltimoAccesoAceptado().getFecha())).toMinutes() , EstadoAcceso.AUTORIZADO));
         persona.setZonaActual(zonaDestino);
-        persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now().toString(), 0, EstadoAcceso.DENEGADO));
+        persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
     }
 
     //--------------------- Mostrar Todas ------------------
