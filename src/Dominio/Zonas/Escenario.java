@@ -7,9 +7,18 @@ import Dominio.Zonas.Interface.Capado;
 
 import java.time.LocalDateTime;
 import java.util.*;
-
-public class Escenario extends Zona implements Capado { // todo ZONA RESTRINGIDA?
+/**
+ * Escenario es un tipo de Zona la cual tiene capacidad maxima y una lista de Eventos de artistas.
+ */
+public class Escenario extends Zona implements Capado {
+    /**
+     * Capacidad maxima.
+     */
     private int capacidadMaxima;
+
+    /**
+     * Lista de eventos.
+     */
     private List<Evento> eventos = new ArrayList<>();
 
     public Escenario(String id, String descripcion, int concurrencia, int capacidadMaxima) {

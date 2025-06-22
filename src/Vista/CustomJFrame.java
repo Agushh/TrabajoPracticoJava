@@ -18,6 +18,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class CustomJFrame extends JFrame{
 
@@ -42,8 +44,9 @@ public class CustomJFrame extends JFrame{
         setVisible(true);
         addBotonFrame("Muestra persona",e->abrirPanelPersonas(controlador.getPersonas(),controlador),this);
         addBotonFrame("Mover persona",e -> abriPanelMover(controlador.getPersonas(),controlador.getZonas()),this);
-        addBotonFrame("Reporte de stands",e ->abrirPanleStands(controlador.getStands()),this);
-        addBotonFrame("Reporte de zonas por pantalla",e -> abriPanelZonas(controlador.getZonas()),this);
+        addBotonFrame("Reporte de stands",e ->abrirPanelStands(controlador.getStands()),this);
+        addBotonFrame("Reporte de zonas",e -> abriPanelZonas(controlador.getZonas()),this);
+        addBotonFrame("Cargar Datos",e -> abriPanelZonas(controlador.getZonas()),this);
 
         // setLayout(new FlowLayout());
     }
@@ -151,9 +154,9 @@ public class CustomJFrame extends JFrame{
             acum += zonaAMostrar.getConcurrencia();
             box.add(new JLabel(zonaAMostrar.toHTML()));
             if(zonaAMostrar instanceof Escenario){
-                box.add(new JLabel("Eventos:"));
+                box.add(new JLabel("    Eventos:"));
                 ((Escenario) zonaAMostrar).getEventos().forEach((evento) -> {
-                    box.add(new JLabel(evento.toString()));
+                    box.add(new JLabel("        " + evento.toString()));
                 });
             }
             box.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -168,11 +171,11 @@ public class CustomJFrame extends JFrame{
 
         JDialog dialog = new JDialog((Frame) null, "Panel Zonas", true);
         JButton okButton = new JButton("OK");
-        JButton exportButton = new JButton("Exportar txt");
+        JButton exportButton = new JButton("Exportar");
 
         okButton.addActionListener(e -> dialog.dispose());
         exportButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(dialog, "Exportando Zonas...");
+            generarReporteZonasTXT(dialog, zonasSorted);
         });
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(okButton);
@@ -194,8 +197,7 @@ public class CustomJFrame extends JFrame{
     }
 
 
-    public void abrirPanleStands(TreeMap<String, Stand> stands) {
-        // Usamos un Box vertical para que funcione bien con JScrollPane
+    public void abrirPanelStands(TreeMap<String, Stand> stands) {
         Box box = Box.createVerticalBox();
         box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -205,18 +207,18 @@ public class CustomJFrame extends JFrame{
         box.add(Box.createRigidArea(new Dimension(0, 30)));
 
         for (Stand standAMostrar : stands.values()) {
-            box.add(new JLabel(String.valueOf(standAMostrar.toHTML())));
+            box.add(new JLabel(standAMostrar.toHTML()));
+            box.add(new JLabel("Responsable: "+ standAMostrar.getResponsable().getNombre()));
             box.add(Box.createRigidArea(new Dimension(0, 20)));
-
             box.add(new JLabel("Lista de empleados:"));
             box.add(Box.createRigidArea(new Dimension(0, 5)));
 
-            for(Comerciante comerciante : standAMostrar.getEmpleados())
-                box.add(new JLabel(" * " + comerciante.toString()));
+            for (Comerciante comerciante : standAMostrar.getEmpleados()) {
+                box.add(new JLabel(" * " + comerciante));
+            }
             box.add(Box.createRigidArea(new Dimension(0, 20)));
         }
 
-        // Padding inferior para que el último elemento no quede cortado
         box.add(Box.createRigidArea(new Dimension(0, 30)));
 
         JScrollPane scrollPane = new JScrollPane(box);
@@ -224,7 +226,79 @@ public class CustomJFrame extends JFrame{
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JOptionPane.showMessageDialog(this, scrollPane, "Panel Stands", JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = new JDialog((Frame) null, "Panel Stands", true);
+
+        JButton okButton = new JButton("OK");
+        JButton exportButton = new JButton("Exportar");
+
+        okButton.addActionListener(e -> dialog.dispose());
+
+        exportButton.addActionListener(e -> {
+            generarReporteStandsTXT(dialog, stands);
+        });
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(okButton);
+        buttonPanel.add(exportButton);
+
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setContentPane(contentPanel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
     }
 
+    private void generarReporteZonasTXT (JDialog dialog, List<Zona> zonas) {
+        try {
+            int acum = 0;
+            FileWriter writer = new FileWriter("Zonas.txt");
+            writer.write("Zonas: \n \n");
+            for (Zona zona : zonas) {
+                acum += zona.getConcurrencia();
+                writer.write(zona.toString()+"\n");
+                writer.write("Concurrencia: "+ zona.getConcurrencia()+"\n");
+                if(zona instanceof Escenario){
+                    writer.write("  Eventos: \n");
+                    ((Escenario) zona).getEventos().forEach((evento) -> {
+                        try {
+                            writer.write("   * " + evento.toString() +" \n");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                }
+                writer.write("\n");
+            }
+            writer.write("Cantidad de personas en el predio: " + acum);
+            writer.close();
+            JOptionPane.showMessageDialog(dialog, "Zonas.txt generado correctamente...");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(dialog, "Error al exportar zonas...");
+        }
+    }
+
+    private void generarReporteStandsTXT (JDialog dialog, TreeMap<String, Stand> stands) {
+        try {
+            FileWriter writer = new FileWriter("Stands.txt");
+            writer.write("Stands: \n \n");
+            for (Stand stand : stands.values()) {
+                writer.write(stand.toString()+"\n");
+                writer.write("Concurrencia: "+ stand.getConcurrencia()+"\n");
+                writer.write("Responsable: "+ stand.getResponsable().getNombre()+"\n");
+                writer.write("Lista de empleados \n");
+
+                for (Comerciante comerciante : stand.getEmpleados()) {
+                    writer.write(" * " + comerciante.toString() + "\n");
+                }
+                writer.write("\n");
+            }
+            writer.close();
+            JOptionPane.showMessageDialog(dialog, "Stands.txt generado correctamente...");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(dialog, "Error al exportar stands...");
+        }
+    }
 }
