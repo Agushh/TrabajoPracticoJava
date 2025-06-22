@@ -1,8 +1,11 @@
 import Controlador.Controlador;
 import Vista.CustomJFrame;
 
+import static Inicializador.Serialization.createDatos;
+
 public class MainFestival {
     public static void main(String[] args){
+        createDatos();
         Controlador controlador = Controlador.getControlador();
         System.out.println(controlador.getPersona("0008"));
         //creacion de ventana en Swing.

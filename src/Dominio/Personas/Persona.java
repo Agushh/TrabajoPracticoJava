@@ -77,8 +77,10 @@ public abstract class Persona{
         int index = accesos.size() -1;
         Acceso temp = accesos.get( index);
         while(temp.getEstado() == EstadoAcceso.DENEGADO) {
-            temp = accesos.get(index--);
+            System.out.print(index);
+            temp = accesos.get(--index);
         }
+        System.out.print(accesos.size());
         return temp;
     }
 

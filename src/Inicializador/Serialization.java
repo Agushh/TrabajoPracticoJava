@@ -41,7 +41,7 @@ public class Serialization {
         Zona z8 = new Escenario("ZE008", "Escenario N2", 0, 200, null);
 
 
-        Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.DENEGADO);
+        Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.AUTORIZADO);
 
         p1.addAcceso(acceso);
         p2.addAcceso(acceso);

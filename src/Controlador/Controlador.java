@@ -52,56 +52,7 @@ public class Controlador {
         return stands;
     }
 
-    public void cargaDeDatos() {
-        ArrayList<Persona> listPersonas = Serialization.leePersonas();
-        ArrayList<Zona> listZonas = Serialization.leeZonas();
-        Map<String, Zona> zonasPorId = new HashMap<>();
-        for (Zona z : listZonas) {
-            zonasPorId.put(z.getId(), z);
-        }
-
-        Map<String, Persona> personasPorId = new HashMap<>();
-        for (Persona p : listPersonas) {
-            personasPorId.put(p.getId(), p);
-        }
-
-        // Corrige zonas dentro de personas
-        for (Persona persona : listPersonas) {
-            // zonaActual
-            if (persona.getZonaActual() != null) {
-                Zona zonaReal = zonasPorId.get(persona.getZonaActual().getId());
-                if (zonaReal != null) {
-                    persona.setZonaActual(zonaReal);
-                }
-            }
-            if(persona.getZonasPermitidas() != null)
-            {
-                TreeSet<Zona> zonasPermitidas = new TreeSet<>();
-                for(Zona z : persona.getZonasPermitidas()){
-                    Zona temp = zonasPorId.get(z.getId());
-                    if(temp != null)
-                        zonasPermitidas.add(temp);
-                }
-                persona.setZonasPermitidas(zonasPermitidas);
-            }
-            personas.put(persona.getId(), persona);
-        }
-
-        for(Zona zona : listZonas)
-        {
-            if(zona instanceof Stand stand)
-            {
-                Zona zonaReal = zonasPorId.get(stand.getUbicacion().getId());
-                if(zonaReal != null) stand.setUbicacion(zonaReal);
-
-                Persona comercianteResponsable = personasPorId.get(stand.getResponsable().getId()); //Se guarda en tipo persona ya que lee de Un Map de personas, y luego se verifica que sea un comerciante mediante InstaceOf
-                if(comercianteResponsable instanceof Comerciante c) stand.setResponsable(c);
-                stands.put(stand.getResponsable().getNombre(), stand);
-            }
-            zonas.put(zona.getId(), zona);
-        }
-    }
-    public Zona getZona(String codZona) throws IllegalArgumentException {
+    public Zona getZonas(String codZona) throws IllegalArgumentException {
         Zona z = zonas.get(codZona);
         if (z == null) {
             throw new IllegalArgumentException("No existe una zona con código: " + codZona);
@@ -168,6 +119,58 @@ public class Controlador {
         personas.forEach((id,persona)->{
             System.out.println(persona.toString());
         });
+    }
+
+    //-------------- Carga Datos De Archivo --------------
+
+    public void cargaDeDatos() {
+        ArrayList<Persona> listPersonas = Serialization.leePersonas();
+        ArrayList<Zona> listZonas = Serialization.leeZonas();
+        Map<String, Zona> zonasPorId = new HashMap<>();
+        for (Zona z : listZonas) {
+            zonasPorId.put(z.getId(), z);
+        }
+
+        Map<String, Persona> personasPorId = new HashMap<>();
+        for (Persona p : listPersonas) {
+            personasPorId.put(p.getId(), p);
+        }
+
+        // Corrige zonas dentro de personas
+        for (Persona persona : listPersonas) {
+            // zonaActual
+            if (persona.getZonaActual() != null) {
+                Zona zonaReal = zonasPorId.get(persona.getZonaActual().getId());
+                if (zonaReal != null) {
+                    persona.setZonaActual(zonaReal);
+                }
+            }
+            if(persona.getZonasPermitidas() != null)
+            {
+                TreeSet<Zona> zonasPermitidas = new TreeSet<>();
+                for(Zona z : persona.getZonasPermitidas()){
+                    Zona temp = zonasPorId.get(z.getId());
+                    if(temp != null)
+                        zonasPermitidas.add(temp);
+                }
+                persona.setZonasPermitidas(zonasPermitidas);
+            }
+            personas.put(persona.getId(), persona);
+        }
+
+        for(Zona zona : listZonas)
+        {
+            if(zona instanceof Stand stand)
+            {
+                Zona zonaReal = zonasPorId.get(stand.getUbicacion().getId());
+                if(zonaReal != null) stand.setUbicacion(zonaReal);
+
+                Persona comercianteResponsable = personasPorId.get(stand.getResponsable().getId()); //Se guarda en tipo persona ya que lee de Un Map de personas, y luego se verifica que sea un comerciante mediante InstaceOf
+                if(comercianteResponsable instanceof Comerciante c) stand.setResponsable(c);
+                stands.put(stand.getResponsable().getNombre(), stand);
+            }
+            zonas.put(zona.getId(), zona);
+        }
     }
 
 }
