@@ -19,6 +19,14 @@ public class Artista extends Persona {
     public Artista() {
     }
 
+    public Escenario getEscenario() {
+        return escenario;
+    }
+
+    public void setEscenario(Escenario escenario) {
+        this.escenario = escenario;
+    }
+
     public void addZona(Zona z){
         if(z instanceof Escenario) {
             this.escenario = (Escenario) z;

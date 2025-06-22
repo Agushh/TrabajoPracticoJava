@@ -6,6 +6,8 @@ import Dominio.Exceptions.ZonaEsLaActualException;
 import Dominio.Exceptions.ZonaLlenaException;
 import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
+import Dominio.Zonas.Datos.Evento;
+import Dominio.Zonas.Escenario;
 import Dominio.Zonas.Interface.Capado;
 import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
@@ -140,7 +142,19 @@ public class Controlador {
 
         // Corrige zonas dentro de personas
         for (Persona persona : listPersonas) {
-            // zonaActual
+            if(persona instanceof Artista artista)
+            {
+                if(artista.getEscenario() != null)
+                    if(zonasPorId.get(artista.getEscenario().getId()) instanceof Escenario escenario)
+                        artista.setEscenario(escenario);
+            }
+            else if(persona instanceof Comerciante comerciante)
+            {
+                if(comerciante.getStand() != null)
+                    if(zonasPorId.get(comerciante.getStand().getId()) instanceof Stand stand)
+                        comerciante.setStand(stand);
+            }
+
             if (persona.getZonaActual() != null) {
                 Zona zonaReal = zonasPorId.get(persona.getZonaActual().getId());
                 if (zonaReal != null) {
@@ -163,6 +177,7 @@ public class Controlador {
 
         for(Zona zona : listZonas)
         {
+
             if(zona instanceof Stand stand)
             {
                 Zona zonaReal = zonasPorId.get(stand.getUbicacion().getId());
@@ -171,6 +186,15 @@ public class Controlador {
                 Persona comercianteResponsable = personasPorId.get(stand.getResponsable().getId()); //Se guarda en tipo persona ya que lee de Un Map de personas, y luego se verifica que sea un comerciante mediante InstaceOf
                 if(comercianteResponsable instanceof Comerciante c) stand.setResponsable(c);
                 stands.put(stand.getResponsable().getNombre(), stand);
+            }
+            if(zona instanceof Escenario escenario)
+            {
+                for(Evento evento : escenario.getEventos())
+                {
+                    Persona artistaReal = personasPorId.get(evento.getArtista().toString());
+                    if(artistaReal instanceof Artista artista)
+                    evento.setArtista(artista);
+                }
             }
             zonas.put(zona.getId(), zona);
         }

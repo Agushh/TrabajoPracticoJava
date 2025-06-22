@@ -19,6 +19,14 @@ public class Comerciante extends Persona {
     public Comerciante() {
     }
 
+    public Stand getStand() {
+        return stand;
+    }
+
+    public void setStand(Stand stand) {
+        this.stand = stand;
+    }
+
     @Override
     public boolean puedeAcceder(Zona z) {
         return z.equals(stand) || getZonasPermitidas().contains(z);

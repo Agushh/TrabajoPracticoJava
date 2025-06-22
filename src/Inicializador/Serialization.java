@@ -21,8 +21,8 @@ public class Serialization {
         PersonasLista personasLista = new PersonasLista();
         ZonasLista zonasLista = new ZonasLista();
 
-        Persona p1 = new Artista("Agustin", "0001", new TreeSet<Zona>(), new ArrayList<Acceso>());
-        Persona p2 = new Artista("Alejo", "0002", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Artista p1 = new Artista("Agustin", "0001", new TreeSet<Zona>(), new ArrayList<Acceso>());
+        Artista p2 = new Artista("Alejo", "0002", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Persona p3 = new Asistente("Facundo", "0003", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Persona p4 = new Asistente("Francisco", "0004", new TreeSet<Zona>(), new ArrayList<Acceso>());
         Comerciante p5 = new Comerciante("Martin", "0005", new TreeSet<Zona>(), new ArrayList<Acceso>());
@@ -42,6 +42,13 @@ public class Serialization {
 
 
         Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.AUTORIZADO);
+
+        //añadir Stand a cada comerciante, y Escenario a cada Artista
+        p1.setEscenario((Escenario) z7);
+        p2.setEscenario((Escenario) z8);
+
+        p5.setStand((Stand) z5);
+        p6.setStand((Stand) z6);
 
         p1.addAcceso(acceso);
         p2.addAcceso(acceso);
