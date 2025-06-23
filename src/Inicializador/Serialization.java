@@ -30,14 +30,14 @@ public class Serialization {
         Comerciante c5 = new Comerciante("Marcos", "0009");
         Comerciante c6 = new Comerciante("Matias", "0010");
 
-        Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas", 20);
-        Zona z2 = new ZonaComun("ZC002", "Zona de baños", 11);
-        Zona z3 = new ZonaRestringida("ZR003", "Camarines", 12, 1);
-        Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido", 203, 200);
-        Stand z5 = new Stand("ZS005", "Stand de Comida", 13, 200, z1, c1);
-        Stand z6 = new Stand("ZS006", "Stand de refresto", 1, 200, z2, c2);
-        Escenario z7 = new Escenario("ZE007", "Escenario N1", 27, 100);
-        Escenario z8 = new Escenario("ZE008", "Escenario N2", 0, 200);
+        Zona z1 = new ZonaComun("ZC001", "Zona de patio de comidas");
+        Zona z2 = new ZonaComun("ZC002", "Zona de baños");
+        Zona z3 = new ZonaRestringida("ZR003", "Camarines",  1);
+        Zona z4 = new ZonaRestringida("ZR004", "Sala de sonido",  200);
+        Stand z5 = new Stand("ZS005", "Stand de Comida", 200, z1, c1);
+        Stand z6 = new Stand("ZS006", "Stand de refresto",  200, z2, c2);
+        Escenario z7 = new Escenario("ZE007", "Escenario N1",  100);
+        Escenario z8 = new Escenario("ZE008", "Escenario N2",  200);
 
         Acceso acceso = new Acceso(z1, LocalDateTime.now(), 100, EstadoAcceso.AUTORIZADO);
 

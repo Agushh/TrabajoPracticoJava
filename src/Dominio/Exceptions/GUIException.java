@@ -1,6 +1,8 @@
 package Dominio.Exceptions;
 
-//clase heredada de Exception para excepciones de GUI
+/**
+ * Excepcion padre excepciones de la UI.
+ */
 public class GUIException extends RuntimeException {
     public GUIException(String message) {
         super(message);

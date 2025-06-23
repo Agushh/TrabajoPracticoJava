@@ -19,36 +19,79 @@ import java.util.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * El controlador contiene la lista de personas, zonas, stands y contiene una instancia Singleton del controlador. Permite realizar movimientos y cargar datos.
+ * @see Persona
+ * @see Zona
+ * @see Stand
+ */
 public class Controlador {
 
+    /**
+     * Lista de zonas.
+     */
     private final TreeMap<String, Zona> zonas= new TreeMap<>();
+
+    /**
+     * Lista de personas.
+     */
     private final TreeMap<String, Persona> personas= new TreeMap<>();
+
+    /**
+     * Lista de stands.
+     */
     private final TreeMap<String, Stand> stands = new TreeMap<>();
 
-    //Aplico patron de diseño Singleton (Te permite generar una sola instancia del objeto)
+    /**
+     * Instancia singleton del controlador.
+     */
     private static final Controlador controlador = new Controlador();
 
-    //Constructor privado para la aplicacion de Singleton
+    /**
+     * Constructor privado para poder aplicar singleton.
+     */
     private Controlador(){
     }
 
-    //Get para obtener la unica instancia que existe
+    /**
+     * Retorna la unica instancia del controlador.
+     * @return Instancia del controlador.
+     */
     public static Controlador getControlador() {return controlador;}
 
     //------------------- Getters ------------------
 
+    /**
+     * Retorna la lista de zonas.
+     * @return Lista de zonas.
+     */
     public TreeMap<String, Zona> getZonas() {
         return zonas;
     }
 
+    /**
+     * Retorna la lista de personas.
+     * @return Lista de personas.
+     */
     public TreeMap<String, Persona> getPersonas() {
         return personas;
     }
 
+    /**
+     * Retorna la lista de stands.
+     * @return Lista de stands.
+     */
     public TreeMap<String, Stand> getStands() {
         return stands;
     }
 
+
+    /**
+     * Busca el codigo de una Zona y la retorna.
+     * @param codZona Codigo de una zona.
+     * @return Una zona.
+     * @throws IllegalArgumentException El codigo de la zona no se encontro.
+     */
     @Deprecated
     public Zona getZonas(String codZona) throws IllegalArgumentException {
         Zona z = zonas.get(codZona);
@@ -58,6 +101,12 @@ public class Controlador {
         return z;
     }
 
+    /**
+     * Busca el codigo de una Persona y la retorna.
+     * @param codPersona Codigo de una persona.
+     * @return Una persona.
+     * @throws IllegalArgumentException El codigo de la persona no se encontro.
+     */
     @Deprecated
     public Persona getPersona(String codPersona) throws IllegalArgumentException {
         Persona p = personas.get(codPersona);
@@ -69,6 +118,11 @@ public class Controlador {
 
     //------------------- Adds -----------------------
 
+    /**
+     * Permite agregar una zona a la lista.
+     * @param z Zona a agregar.
+     * @throws IllegalArgumentException No es una zona correcta.
+     */
     @Deprecated
     public void addZona(Zona z) throws IllegalArgumentException {
         try{
@@ -78,6 +132,12 @@ public class Controlador {
         }
     }
 
+
+    /**
+     * Permite agregar una persona a la lista.
+     * @param p Persona a agregar.
+     * @throws IllegalArgumentException No es una persona correcta.
+     */
     @Deprecated
     public void addPersona(Persona p) throws IllegalArgumentException {
         try{
@@ -89,6 +149,15 @@ public class Controlador {
 
     //--------------------- Mover Persona ------------------
 
+    /**
+     * Permite mover a una persona de una zona a otra.
+     * @param persona Persona a mover.
+     * @param zonaDestino Zona destino de la persona.
+     * @throws AccesoDenegadoException La persona no tiene permiso.
+     * @throws ZonaLlenaException La zona esta llena.
+     * @throws ZonaEsLaActualException La persona ya se encuentra en esa zona.
+     * @throws NullPointerException La persona es nula.
+     */
     public static void moverPersona(Persona persona, Zona zonaDestino) throws AccesoDenegadoException, ZonaLlenaException, ZonaEsLaActualException, NullPointerException
     {
         if (persona == null) {
@@ -115,12 +184,18 @@ public class Controlador {
     //--------------------- Mostrar Todas ------------------
     // Metodos para desarollo!!!
 
+    /**
+     * Permite hacer un print de todas las zonas.
+     */
     @Deprecated
     public void mostrarZonas(){
         for(Zona zona : new ArrayList<>(zonas.values()))
             System.out.println(zona.toString());
     }
 
+    /**
+     * Permite hacer un print de todas las personas.
+     */
     @Deprecated
     public void mostrarPersonas(){
         for(Persona persona : new ArrayList<>(personas.values()))
@@ -129,6 +204,11 @@ public class Controlador {
 
     //-------------- Carga Datos De Archivo --------------
 
+    /**
+     * Permite cargar los datos de un archivo datosFestival.xml que se encuentra en la raiz del proyecto. Verificando la correcta composicion de los mismos.
+     * @throws DatosIncorrectosException Los datos tienen errores logicos.
+     * @throws DeserializationException Los datos no tienen la estructura adecuada o estan rotos.
+     */
     public void cargaDeDatos() throws DatosIncorrectosException, DeserializationException {
         DataContainer dataContainer;
 
@@ -282,6 +362,9 @@ public class Controlador {
         if(!ExceptionLog.isEmpty()) throw new DatosIncorrectosException(ExceptionLog.toString());
     }
 
+    /**
+     * Guarda los datos en datosFestival.xml.
+     */
     public void guardarDatos()
     {
         DataContainer dataContainer = new DataContainer(new ArrayList<>(personas.values()), new ArrayList<>(zonas.values()));

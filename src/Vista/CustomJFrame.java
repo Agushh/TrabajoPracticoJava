@@ -20,7 +20,14 @@ import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Extiende de JFrame permite crear una UI.
+ * @see Controlador
+ */
 public class CustomJFrame extends JFrame{
+    /**
+     * Constructor genera UI con Botones.
+     */
     public CustomJFrame()
     {
         Controlador controlador = Controlador.getControlador();
@@ -47,6 +54,12 @@ public class CustomJFrame extends JFrame{
         });
     }
 
+    /**
+     * Agrega un boton a la ui.
+     * @param text Texto del boton.
+     * @param accion Function que se realiza al apretar el boton.
+     * @param contenedor Ventana a la que se le agrega el boton.
+     */
     public void addBotonFrame(String text, ActionListener accion, Container contenedor){ //crea btn de frame
         JButton btn =new JButton(text);
         btn.setPreferredSize(new Dimension(200, 60));
@@ -55,6 +68,13 @@ public class CustomJFrame extends JFrame{
         revalidate();
         repaint();
     }
+
+    /**
+     * Agrega un boton a un panel de la ui.
+     * @param text Texto del boton.
+     * @param accion Function que se realiza al apretar el boton.
+     * @param contenedor Panel al que se le agrega el boton.
+     */
     public  void addBotonPanel(String text, ActionListener accion, Container contenedor){//crea btn de panel
         JButton btn =new JButton(text);
         btn.setPreferredSize(new Dimension(90, 30));
@@ -63,6 +83,11 @@ public class CustomJFrame extends JFrame{
         revalidate();
         repaint();
     }
+
+    /**
+     * Abre el panel para ver elegir una persona.
+     * @param personas Lista de personas del controlador.
+     */
     public void abrirPanelPersonas(TreeMap<String, Persona> personas) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
@@ -79,6 +104,12 @@ public class CustomJFrame extends JFrame{
 
         JOptionPane.showMessageDialog(this, panel, "Panel Personas", JOptionPane.PLAIN_MESSAGE);
     }
+
+    /**
+     * Muestra una persona en pantalla.
+     * @param perAMostrar Persona a imprimir.
+     * @throws NullPointerException Si la persona es nula.
+     */
     void muestraPersonaEnGui(Persona perAMostrar) throws NullPointerException{
         try{
             JPanel panel = new JPanel(new GridLayout(0,1,0,10));
@@ -98,6 +129,12 @@ public class CustomJFrame extends JFrame{
         }
 
     }
+
+    /**
+     * Abre panela para mover una persona.
+     * @param personas Lista de personas del controlador.
+     * @param zonas Lista de zonas del controlador.
+     */
     public void abriPanelMover(TreeMap<String, Persona> personas, TreeMap<String, Zona> zonas){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 150));
@@ -124,6 +161,12 @@ public class CustomJFrame extends JFrame{
         ,panel);
         JOptionPane.showMessageDialog(this, panel, "Panel Mover", JOptionPane.PLAIN_MESSAGE);
     }
+
+    /**
+     * Permite la accion de mover una persona.
+     * @param perAMover Persona elegida a mover.
+     * @param destino Zona a la cual se quiere mover la persona.
+     */
     void accionMover(Persona perAMover , Zona destino){
         try {
             Controlador.moverPersona(perAMover, destino);//muevo la persona
@@ -139,6 +182,10 @@ public class CustomJFrame extends JFrame{
         }
     }
 
+    /**
+     * Genera reporte de zonas por pantalla.
+     * @param zonas Lista de zonas del controlador.
+     */
     private void abriPanelZonas(TreeMap<String, Zona> zonas){
         // Contenedor real para el scroll
         Box box = Box.createVerticalBox();
@@ -199,6 +246,10 @@ public class CustomJFrame extends JFrame{
     }
 
 
+    /**
+     * Genera el reporte de stands por pantalla.
+     * @param stands Lista de stands del controlador.
+     */
     private void abrirPanelStands(TreeMap<String, Stand> stands) {
         Box box = Box.createVerticalBox();
         box.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -255,6 +306,11 @@ public class CustomJFrame extends JFrame{
 
     }
 
+    /**
+     * Genera los reportes de Zonas en .txt.
+     * @param dialog Panel para comentario.
+     * @param zonas Lista de zonas del controlador.
+     */
     private void generarReporteZonasTXT (JDialog dialog, List<Zona> zonas) {
         try {
             int acum = 0;
@@ -284,6 +340,11 @@ public class CustomJFrame extends JFrame{
         }
     }
 
+    /**
+     * Genera los reportes de Stands en .txt.
+     * @param dialog Panel para comentario.
+     * @param stands Lista de stands del controlador.
+     */
     private void generarReporteStandsTXT (JDialog dialog, TreeMap<String, Stand> stands) {
         try {
             FileWriter writer = new FileWriter("Stands.txt");
@@ -306,6 +367,10 @@ public class CustomJFrame extends JFrame{
         }
     }
 
+    /**
+     * Permite cargar datos de archivos en datosFestival.xml
+     * @param controlador Controlador.
+     */
     private void cargarDatosGui(Controlador controlador) {
         JDialog dialog = new JDialog((Frame) null, "Panel Carga Datos", true);
         try{
