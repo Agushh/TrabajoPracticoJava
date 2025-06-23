@@ -19,17 +19,4 @@ public class ZonaComun extends Zona{
      */
     public ZonaComun() {
     }
-
-    /**
-     * Verifica que 2 objetos sean iguales.
-     * @param obj Objeto a comparar.
-     * @return Si son iguales.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof ZonaComun zc){
-            return zc.getId()!=null && getId().equals((zc.getId()));
-        }
-        return  false;
-    }
 }
