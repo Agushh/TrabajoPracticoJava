@@ -7,8 +7,8 @@ public class ZonaComun extends Zona{
 
     /**
      * Constructor.
-     * @param id
-     * @param descripcion
+     * @param id Id de la zona.
+     * @param descripcion Descripcion de la zona.
      */
     public ZonaComun(String id, String descripcion) {
         super(id, descripcion);

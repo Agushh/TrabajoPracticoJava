@@ -30,7 +30,7 @@ public class Stand extends ZonaRestringida{
      * @param descripcion Descripcion del stand.
      * @param capacidadMaxima Capacidad maxima del stand.
      * @param ubicacion Zona en la que se encuentra el stand.
-     * @param responsable Comerciante responsabl del stamd.
+     * @param responsable Comerciante responsable del stand.
      */
     public Stand(String id, String descripcion, int capacidadMaxima, Zona ubicacion, Comerciante responsable) {
         super(id, descripcion, capacidadMaxima);
