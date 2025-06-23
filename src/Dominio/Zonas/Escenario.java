@@ -2,7 +2,7 @@ package Dominio.Zonas;
 
 import Dominio.Personas.Artista;
 import Dominio.Zonas.Datos.Evento;
-import Dominio.Zonas.Interface.Capado;
+import Dominio.Zonas.Interface.Limitado;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -10,7 +10,7 @@ import java.util.*;
  * Escenario es un tipo de Zona la cual tiene capacidad maxima y una lista de Eventos de artistas.
  * @see Evento
  */
-public class Escenario extends Zona implements Capado {
+public class Escenario extends Zona implements Limitado {
     /**
      * Capacidad maxima.
      */

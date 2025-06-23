@@ -6,7 +6,7 @@ import Dominio.Personas.*;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Zonas.Datos.Evento;
 import Dominio.Zonas.Escenario;
-import Dominio.Zonas.Interface.Capado;
+import Dominio.Zonas.Interface.Limitado;
 import Dominio.Zonas.Zona;
 import Dominio.Zonas.Stand;
 import Dominio.Zonas.ZonaRestringida;
@@ -167,7 +167,7 @@ public class Controlador {
             persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
             throw new AccesoDenegadoException();
         }
-        if (zonaDestino instanceof Capado capado && capado.getCapacidad() == 0) {
+        if (zonaDestino instanceof Limitado limitado && limitado.getCapacidad() == 0) {
             persona.addAcceso(new Acceso(zonaDestino, LocalDateTime.now(), 0, EstadoAcceso.DENEGADO));
             throw new ZonaLlenaException();
         }
