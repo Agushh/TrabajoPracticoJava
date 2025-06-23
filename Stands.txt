@@ -1,0 +1,18 @@
+Stands: 
+ 
+Cod:  ZS001 --   Desc:   Stand de Comida
+Concurrencia: 2
+Responsable: Joaquin
+Lista de empleados 
+ * Benjamin  ID:  COM0005
+ * Martina  ID:  COM0002
+ * Tomas  ID:  COM0003
+
+Cod:  ZS002 --   Desc:   Stand de refresco
+Concurrencia: 0
+Responsable: Martina
+Lista de empleados 
+ * Joaquin  ID:  COM0001
+ * Delfina  ID:  COM0004
+ * Julieta  ID:  COM006
+

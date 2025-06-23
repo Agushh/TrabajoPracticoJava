@@ -1,7 +1,6 @@
-import Controlador.Controlador;
-import Vista.CustomJFrame;
+package Main;
 
-import static Inicializador.Serialization.createDatos;
+import Vista.CustomJFrame;
 
 /**
  * Programa el cual permite manejar personas de un festival teniendo un seguimiento de todos los accesos de cada persona y pudiendo generar reportes de zonas, stands y una persona especifica.
@@ -13,7 +12,6 @@ import static Inicializador.Serialization.createDatos;
  */
 public class MainFestival {
     public static void main(String[] args){
-        Controlador controlador = Controlador.getControlador();
         new CustomJFrame();
     }
 }

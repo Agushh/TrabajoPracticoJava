@@ -1,0 +1,58 @@
+Zonas: 
+ 
+Cod:  ZC002 --   Desc:   Espacio Central
+Concurrencia: 3
+
+Cod:  ZC003 --   Desc:   Zona de baños
+Concurrencia: 3
+
+Cod:  ZE004 --   Desc:   Escenario N4
+Concurrencia: 3
+  Eventos: 
+   * Indio Solari-2025-04-06T18:00 
+   * Charly Garcia-2025-03-05T12:30 
+   * Gustavo Cerati-2025-06-11T12:00 
+
+Cod:  ZC001 --   Desc:   Zona de patio de comidas
+Concurrencia: 2
+
+Cod:  ZC004 --   Desc:   Zona de descanso
+Concurrencia: 2
+
+Cod:  ZE002 --   Desc:   Escenario N2
+Concurrencia: 2
+  Eventos: 
+   * Gustavo Cerati-2025-06-30T10:00 
+   * Alberto Spinetta-2025-07-02T12:00 
+   * Fito Paez-2025-02-16T15:30 
+
+Cod:  ZR002 --   Desc:   Sala de sonido
+Concurrencia: 2
+
+Cod:  ZS001 --   Desc:   Stand de Comida
+Concurrencia: 2
+
+Cod:  ZR003 --   Desc:   Backstage
+Concurrencia: 1
+
+Cod:  ZE001 --   Desc:   Escenario N1
+Concurrencia: 0
+  Eventos: 
+   * Andres Calamaro-2025-10-07T22:00 
+   * Fito Paez-2025-11-02T15:30 
+   * Charly Garcia-2025-12-24T20:00 
+
+Cod:  ZE003 --   Desc:   Escenario N3
+Concurrencia: 0
+  Eventos: 
+   * Fito Paez-2025-01-16T15:00 
+   * Indio Solari-2025-02-16T15:00 
+   * Alberto Spinetta-2025-03-16T15:30 
+
+Cod:  ZR001 --   Desc:   Camarines
+Concurrencia: 0
+
+Cod:  ZS002 --   Desc:   Stand de refresco
+Concurrencia: 0
+
+Cantidad de personas en el predio: 20

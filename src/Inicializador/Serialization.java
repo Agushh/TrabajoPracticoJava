@@ -9,9 +9,18 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.File;
 import java.time.LocalDateTime;
 
+/**
+ * Clase Serialization.
+ * Esta clase genero el lote de datos como prueba a modo de fuerza bruta, para luego trabajar sobre ellos.
+ * Esta funcion no se utiliza. Solo se llamo una vez para generar el XML, luego no se volvio a utilizar, y en el codigo no hay uso alguno de esta clase
+ */
 public class Serialization {
-    public static void createDatos(){
+    /**
+     *
+     */
+    @Deprecated
 
+    public static void createDatos(){
         DataContainer dataContainer = new DataContainer();
 
         Artista ar1 = new Artista("Andres Calamaro", "AR0001");

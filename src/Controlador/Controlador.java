@@ -371,13 +371,15 @@ public class Controlador {
 
         // Habilitar el formato bonito (pretty print)
         mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
-
-        try
+        if(!dataContainer.getPersonas().isEmpty() && !dataContainer.getZonas().isEmpty())
         {
-            mapper.writeValue(new File("datosFestival.xml"), dataContainer);
+            try
+            {
+                mapper.writeValue(new File("datosFestival.xml"), dataContainer);
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
