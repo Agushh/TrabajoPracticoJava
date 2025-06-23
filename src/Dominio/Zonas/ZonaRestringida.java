@@ -1,10 +1,10 @@
 package Dominio.Zonas;
-import Dominio.Zonas.Interface.Capado;
+import Dominio.Zonas.Interface.Limitado;
 
 /**
  * Zona restringida es una zona a la cual solo algunas personas tienen acceso y tiene una capacidad maxima.
  */
-public class ZonaRestringida extends Zona implements Capado {
+public class ZonaRestringida extends Zona implements Limitado {
     /**
      * Capacidad maxima de personas.
      */
