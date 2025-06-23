@@ -19,7 +19,7 @@ public class Escenario extends Zona implements Limitado {
     /**
      * Lista de eventos.
      */
-    private List<Evento> eventos = new ArrayList<>(); // todo CONTAINER
+    private List<Evento> eventos = new ArrayList<>();
 
     /**
      * Constructor
@@ -88,13 +88,5 @@ public class Escenario extends Zona implements Limitado {
     @Override
     public String toHTML() {
         return "<html>" + super.toHTML().replace("<html>", "")+ "<br>" + "Capacidad: " + getCapacidad() + "</html>";
-    }
-    /**
-     * Retorna informacion en String.
-     * @return Informacion en String.
-     */
-    @Override
-    public String toString() {
-        return super.toString() + " Capacidad: " + getCapacidad();
     }
 }

@@ -21,7 +21,7 @@ public class Stand extends ZonaRestringida{
     /**
      * Lista de empleados.
      */
-    private List<Comerciante> empleados= new ArrayList<>(); // todo CONTAINER
+    private List<Comerciante> empleados= new ArrayList<>();
 
 
     /**
@@ -95,12 +95,4 @@ public class Stand extends ZonaRestringida{
         return "<html>" + super.toHTML().replace("<html>", "") +"<br>" + "Capacidad: " + getCapacidad()+"<br>" +"Comerciante responsable: "+getResponsable() + "<br>" + "Ubicacion: " + getUbicacion() +"</html>";
     }
 
-    /**
-     * Retorna informacion en String.
-     * @return Informacion en String.
-     */
-    @Override
-    public String toString() {
-        return "Capacidad: " + getCapacidad() + "  Comerciante responsable: "+getResponsable()  + "  Ubicacion: " + getUbicacion();
-    }
 }
