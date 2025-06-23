@@ -229,7 +229,6 @@ public class Controlador {
         ArrayList<Zona> listZonas = dataContainer.getZonas();
         ArrayList<Persona> listPersonas = dataContainer.getPersonas();
 
-
         //Validacion de datos y carga en zonasPorId.
 
         Map<String, Zona> zonasPorId = new HashMap<>();

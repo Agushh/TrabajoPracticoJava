@@ -5,6 +5,7 @@ import java.util.*;
 
 import Controlador.Controlador;
 import Dominio.Exceptions.*;
+import Dominio.Personas.Artista;
 import Dominio.Personas.Comerciante;
 import Dominio.Personas.Datos.Acceso;
 import Dominio.Personas.Persona;
@@ -113,9 +114,14 @@ public class CustomJFrame extends JFrame{
     void muestraPersonaEnGui(Persona perAMostrar) throws NullPointerException{
         try{
             JPanel panel = new JPanel(new GridLayout(0,1,0,10));
-            panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre())); //todo hacer mejor el to string?
+            panel.add(new JLabel("Nombre:  " + perAMostrar.getNombre()));
             panel.add(new JLabel("ID:  " + perAMostrar.getId()+"             Tipo: " + perAMostrar.getClass().getSimpleName()));
             panel.add(new JLabel("Zona actual: "+ perAMostrar.getZonaActual().getDescripcion()));
+            if (perAMostrar instanceof Comerciante) {
+                panel.add(new JLabel("Stand: " + ((Comerciante) perAMostrar).getStand()));
+            }else if (perAMostrar instanceof Artista) {
+                panel.add(new JLabel("Escenario: " +  ((Artista) perAMostrar).getEscenario()));
+            }
             panel.add(new JLabel("Zonas accesibles: "));
             for(Zona zona : perAMostrar.getZonasPermitidas())
                 panel.add(new JLabel( " * " + zona.toString()));

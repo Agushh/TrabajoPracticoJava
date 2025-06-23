@@ -13,7 +13,6 @@ import static Inicializador.Serialization.createDatos;
  */
 public class MainFestival {
     public static void main(String[] args){
-        createDatos(); // todo SACAR DATOS
         Controlador controlador = Controlador.getControlador();
         new CustomJFrame();
     }
